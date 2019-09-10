@@ -69,8 +69,16 @@
                         <!-- account -->
                         <div class="topAccount topPanel__accountWrapper d-none d-md-flex justify-content-end align-items-center">
                             <div class="topAccount__text align-middle mr-md-3 order-2 order-md-1">
+                                @auth
+                                    <a href="{{ url('/home') }}" class="topAccount__link">USER_NAME</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="topAccount__link">Вход</a>
+                                    @if (Route::has('register'))
+                                        <span>|</span>
+                                        <a href="{{ route('register') }}" class="topAccount__link">Регистрация</a>
+                                    @endif
+                                @endauth
                                 {{-- <a href="" class="topAccount__link">Mysablaalhalsdlasdsadasdasd as dasd asdasd asasd</a> --}}
-                                <a href="" class="topAccount__link">Вход</a> <span>|</span> <a href="" class="topAccount__link">Регистрация</a>
                             </div>
                             <em class="topAccount__icon fas fa-user-circle d-block align-middle mr-3 mr-md-0 order-1 order-md-2"></em>
                         </div>
