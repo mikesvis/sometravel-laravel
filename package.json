@@ -1,20 +1,32 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+
+        "front-dev": "npm run front-development",
+        "front-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-front.mix.js",
+        "front-watch": "npm run front-development -- --watch",
+        "front-watch-poll": "npm run front-watch -- --watch-poll",
+        "front-hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-front.mix.js",
+        "front-prod": "npm run front-production",
+        "front-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-front.mix.js",
+
+        "back-dev": "npm run back-development",
+        "back-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-back.mix.js",
+        "back-watch": "npm run back-development -- --watch",
+        "back-watch-poll": "npm run back-watch -- --watch-poll",
+        "back-hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-back.mix.js",
+        "back-prod": "npm run back-production",
+        "back-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack-back.mix.js"
+
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.10.2",
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
+        "laravel-mix-merge-manifest": "^0.1.2",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "2.3.1",

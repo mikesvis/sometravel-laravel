@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-merge-manifest');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/front/js/app.js', 'public/js')
+   .sass('resources/front/sass/app.scss', 'public/css')
+//    .sass('resources/front/sass/other-icons.sass', 'public/front/css')
+   .options({
+      processCssUrls: false
+   })
+   .extract()
+   .mergeManifest();

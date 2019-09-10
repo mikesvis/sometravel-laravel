@@ -12,8 +12,6 @@ npm-debug.log
 yarn-error.log
 
 /_dev
-# /public/js/app.js
-# /public/css/app.css
 /public/css/*
 /public/js/*
 /public/back/css/*
