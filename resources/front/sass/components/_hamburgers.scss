@@ -1,0 +1,21 @@
+$hamburger-layer-color: #000000;
+$hamburger-hover-opacity: 1;
+$hamburger-layer-border-radius : 0px;
+$hamburger-layer-spacing: 8px;
+$hamburger-padding-x: 5px;
+
+$hamburger-types: (spring);
+
+@import "~hamburgers/_sass/hamburgers/hamburgers";
+
+.hamburger {
+    outline: none !important;
+    height: 57px;
+
+    @media (max-width: 359px) {
+
+        &--mobileMenuShown {
+            margin-left: -10px;
+        }
+    }
+}

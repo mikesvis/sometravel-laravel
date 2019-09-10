@@ -1,0 +1,13 @@
+.btn
+    padding-top: $spacer
+    padding-bottom: $spacer
+
+    @include media-breakpoint-down(lg)
+        padding-top: ($spacer * .5)
+        padding-bottom: ($spacer * .5)
+
+    &--rounded
+        border-radius: $border-radius-lg
+
+        @include media-breakpoint-down(lg)
+            border-radius: $border-radius-sm

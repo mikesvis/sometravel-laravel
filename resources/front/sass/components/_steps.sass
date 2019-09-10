@@ -1,0 +1,79 @@
+.stepsToGetVisa
+
+    &__item
+
+        &--nextArrow
+
+            @include media-breakpoint-up(lg)
+
+                &::after
+                    content: ""
+                    vertical-align: middle
+                    height: 2px
+                    background: $primary
+                    margin-left: $spacer
+                    position: absolute
+
+                &::before
+                    content: ""
+                    display: block
+                    width: 12px
+                    height: 12px
+                    border-right: 2px $primary solid
+                    border-bottom: 2px $primary solid
+                    transform: rotateZ(-45deg)
+                    position: absolute
+
+            @include media-breakpoint-up(xxxl)
+
+                &::after
+                    width: 272px
+                    top: 54px
+                    right: -136px
+
+                &::before
+                    top: 49px
+                    right: -136px
+
+            @include media-breakpoint-only(xxl)
+
+                &::after
+                    width: 190px
+                    top: 54px
+                    right: -95px
+
+                &::before
+                    top: 49px
+                    right: -95px
+
+            @include media-breakpoint-only(xl)
+
+                &::after
+                    width: 115px
+                    top: 54px
+                    right: -58px
+
+                &::before
+                    top: 49px
+                    right: -58px
+
+            @include media-breakpoint-only(lg)
+
+                &::after
+                    width: 70px
+                    top: 54px
+                    right: -35px
+
+                &::before
+                    top: 49px
+                    right: -35px
+
+    &__text
+        font-size: 24px
+        line-height: 28px
+        color: $gray-700
+        font-weight: 500
+
+        @include media-breakpoint-down(xl)
+            font-size: 18px
+            line-height: 22px

@@ -1,0 +1,152 @@
+input
+    &[type="text"], &[type="password"], &[type="email"]
+        height: 58px
+        padding-left: 26px
+
+        @include media-breakpoint-down(lg)
+            height: 42px
+            padding-left: $spacer
+
+.textInput
+
+    &--rounded
+        border-radius: $border-radius-lg
+
+        @include media-breakpoint-down(lg)
+            border-radius: $border-radius-sm
+
+    &--borderDark
+        border: 1px $gray-800 solid
+
+    &--borderPrimary
+        border: 1px $primary solid
+
+    &--biggerText
+        font-size: 18px
+
+    &.is-invalid
+        &.rounded-pill
+            background-position: center right calc(0.375em + 0.6rem)
+
+    &.is-valid
+        &.rounded-pill
+            background-position: center right calc(0.375em + 0.7rem)
+
+    &--biggerForMobile
+        height: 58px !important
+
+    &--quantity
+        font-size: 36px
+        font-weight: bold
+        padding-left: 16px !important
+        padding-right: 16px !important
+        background: $white
+
+        @include media-breakpoint-down(lg)
+            font-size: 24px
+
+.form-control:disabled, .form-control[readonly]
+    background-color: $gray-100
+
+.submitButton
+    cursor: pointer
+
+    &--biggerForMobile
+        height: 58px
+
+    &--responsive
+        height: 58px
+
+        @include media-breakpoint-down(lg)
+            height: 42px
+
+.feedbackForm
+
+    &__agreeText
+
+        &--small
+            font-size: 14px
+
+.visaCalcForm
+    &__label
+        line-height: 1.5rem
+
+.radioButtons
+
+    &__label
+        width: 100%
+        font-size: 24px
+        white-space: nowrap
+        cursor: pointer
+        color: $gray-600
+        height: 58px
+        line-height: 24px
+        background: $white
+
+        @include media-breakpoint-down(lg)
+            height: 42px
+            font-size: 22px
+            line-height: 21px
+
+        @include media-breakpoint-down(md)
+            font-size: 18px
+
+    input[type="radio"]:checked + &__label
+        background-color: $primary
+        color: $white
+
+    &__labelSmall
+        width: 100%
+        white-space: nowrap
+        cursor: pointer
+        color: $gray-600
+        background: $white
+
+    input[type="radio"]:checked + &__labelSmall
+        background-color: $primary
+        color: $white
+
+.cabinet-form
+
+    &__name
+        font-size: 18px
+
+.custom-control
+
+    &--big-checks
+        padding-left: 3.5rem
+
+    &-label
+
+        &--big-checks
+            cursor: pointer
+            padding-top: 2px
+            display: flex
+            align-items: center
+            height: 40px
+
+            &::before
+                width: 2.5rem
+                height: 2.5rem
+                left: -3.5rem
+                top: 0px
+                border: 1px $primary solid
+
+            &::after
+                top: 0.25rem
+                left: -3.25rem
+                width: 2rem
+                height: 2rem
+
+        &--pay-radio
+            // top: 0.2rem
+
+.custom-checkbox
+
+    &--big-checks
+        .custom-control-label
+            &::before
+                border-radius: $border-radius-lg
+
+                @include media-breakpoint-down(lg)
+                    border-radius: $border-radius-sm

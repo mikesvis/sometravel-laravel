@@ -1,0 +1,66 @@
+*
+    outline: none !important
+
+body, html
+    min-width: 320px
+
+.pageWrapper
+    @include media-breakpoint-down(sm)
+        padding-top: 71px
+
+.modal-backdrop
+    z-index: 10010
+
+.modal
+    z-index: 10020
+
+.fs18
+    font-size: 18px
+
+.fs16
+    font-size: 16px
+
+.cursor-pointer
+    cursor: pointer
+
+.vpm
+    &__pt
+        padding-top: ($spacer * 3)
+
+    &__pb
+        padding-bottom: ($spacer * 3)
+
+    &__py
+        padding-top: ($spacer * 3)
+        padding-bottom: ($spacer * 3)
+
+    &__mt
+        margin-top: ($spacer * 3)
+
+    &__mb
+        margin-bottom: ($spacer * 3)
+
+    &__my
+        margin-top: ($spacer * 3)
+        margin-bottom: ($spacer * 3)
+
+    @include media-breakpoint-down(lg)
+        &__pt
+            padding-top: ($spacer * 1.5)
+
+        &__pb
+            padding-bottom: ($spacer * 1.5)
+
+        &__py
+            padding-top: ($spacer * 1.5)
+            padding-bottom: ($spacer * 1.5)
+
+        &__mt
+            margin-top: ($spacer * 1.5)
+
+        &__mb
+            margin-bottom: ($spacer * 1.5)
+
+        &__my
+            margin-top: ($spacer * 1.5)
+            margin-bottom: ($spacer * 1.5)

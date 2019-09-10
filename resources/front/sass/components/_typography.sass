@@ -1,0 +1,137 @@
+.heading
+    &__text
+        font-size: 48px
+        line-height: 56px
+
+        @include media-breakpoint-down(xl)
+            font-size: 36px
+            line-height: 40px
+
+        @include media-breakpoint-down(md)
+            font-size: 32px
+            line-height: 36px
+
+    &__listLink
+        display: block
+        font-size: 48px
+        line-height: 56px
+        font-weight: 200
+        color: $primary
+        text-decoration: none
+        position: relative
+        display: flex
+        justify-content: space-between
+        align-items: flex-end
+
+        @include media-breakpoint-down(xl)
+            font-size: 36px
+            line-height: 40px
+
+        @include media-breakpoint-down(md)
+            justify-content: flex-start
+            font-size: 24px
+            line-height: 28px
+            position: relative
+
+        &:hover
+            text-decoration: inherit
+
+        &::after
+            display: inline-block
+            content: ""
+            vertical-align: middle
+            width: 150px
+            height: 2px
+            background: $primary
+            margin-left: $spacer
+            margin-bottom: 22px
+
+            @include media-breakpoint-down(xl)
+                width: 100px
+                margin-bottom: 17px
+
+            @include media-breakpoint-down(md)
+                width: 70px
+                margin-bottom: 12px
+
+        &::before
+            content: ""
+            display: block
+            width: 12px
+            height: 12px
+            border-right: 2px $primary solid
+            border-bottom: 2px $primary solid
+            position: absolute
+            right: 0px
+            transform: rotateZ(-45deg)
+            bottom: 17px
+
+            @include media-breakpoint-down(xl)
+                bottom: 12px
+
+            @include media-breakpoint-down(md)
+                bottom: 7px
+
+.backLink
+    display: block
+    font-size: 24px
+    line-height: 28px
+    color: $primary
+    text-decoration: none
+    position: relative
+    display: flex
+    justify-content: flex-start
+    align-items: flex-end
+
+    &:hover
+        text-decoration: inherit
+
+    &::before
+        display: inline-block
+        content: ""
+        vertical-align: middle
+        width: 150px
+        height: 2px
+        background: $primary
+        margin-right: $spacer
+        margin-bottom: 13px
+
+        @include media-breakpoint-down(xl)
+            width: 100px
+
+        @include media-breakpoint-down(md)
+            width: 70px
+
+    &::after
+        content: ""
+        display: block
+        width: 8px
+        height: 8px
+        border-left: 2px $primary solid
+        border-bottom: 2px $primary solid
+        position: absolute
+        left: 0px
+        transform: rotateZ(45deg)
+        bottom: 10px
+
+
+@include media-breakpoint-down(md)
+
+    h1, .h1
+        font-size: 28px
+
+    h2, .h2
+        font-size: 24px
+
+    h3, .h3
+        font-size: 20px
+
+    h4, .h4
+        font-size: 18px
+
+    h5, .h5
+        font-size: 16px
+
+    h6, .h6
+        font-size: 16px
+

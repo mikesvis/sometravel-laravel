@@ -1,0 +1,19 @@
+.searchModule
+
+    @include media-breakpoint-down(sm)
+        z-index: 9999
+        position: relative
+        margin-top: -66px
+        transition: margin .2s 0s ease-in-out
+        padding-left: 3px
+        padding-right: 3px
+
+        &--shown
+            margin-top: 0px
+
+    &__input
+        // height: 58px
+        // padding-left: 26px
+
+    &__button
+        width: 66px

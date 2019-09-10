@@ -1,0 +1,25 @@
+.error-pages
+
+    &__digits
+        font-size: 288px
+        font-weight: 200
+        line-height: 288px
+
+        @include media-breakpoint-down(sm)
+            font-size: 160px
+            line-height: 160px
+
+        @include media-breakpoint-down(xs)
+            font-size: 100px
+            line-height: 100px
+
+    &__zero-digit-image
+        @include media-breakpoint-down(sm)
+            width: 160px
+
+        @include media-breakpoint-down(xs)
+            width: 100px
+
+    &__separator
+        width: 115px
+        border-top: 1px $black solid

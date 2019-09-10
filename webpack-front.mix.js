@@ -13,7 +13,7 @@ require('laravel-mix-merge-manifest');
  */
 
 mix.js('resources/front/js/app.js', 'public/js')
-   .sass('resources/front/sass/app.scss', 'public/css')
+   .sass('resources/front/sass/app.sass', 'public/css')
 //    .sass('resources/front/sass/other-icons.sass', 'public/front/css')
    .options({
       processCssUrls: false

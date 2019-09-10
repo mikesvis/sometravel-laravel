@@ -1,0 +1,108 @@
+.slider
+    position: relative
+
+    &--splash
+        height: 652px
+        overflow: hidden
+
+        @include media-breakpoint-down(xl)
+            height: 500px
+
+        @include media-breakpoint-down(lg)
+            height: 400px
+
+    &__slide
+        height: 652px
+        background-position: center center
+        background-size: cover
+
+        @include media-breakpoint-down(xl)
+            height: 500px
+
+        @include media-breakpoint-down(lg)
+            height: 400px
+
+.slick-dots
+    position: absolute
+    bottom: 0px
+    width: 100%
+    padding: 0px
+    margin: 0px
+    list-style: none
+    text-align: center
+
+    > li
+        display: inline-block
+        margin: 0px 8px 8px 8px
+
+        > button
+            width: 16px
+            height: 16px
+            border-radius: 16px
+            border: 2px $white solid
+            overflow: hidden
+            text-indent: -100px
+            background: $white
+            box-shadow: 2px 2px 3px #333
+
+        &.slick-active
+            > button
+                background: $primary
+
+.slideContent
+    font-size: 24px
+    line-height: 28px
+
+    @include media-breakpoint-down(xl)
+        font-size: 22px
+        line-height: 26px
+
+    @include media-breakpoint-down(lg)
+        font-size: 18px
+        line-height: 22px
+
+    @include media-breakpoint-down(sm)
+        font-size: 16px
+        line-height: 20px
+
+    &--white
+        color: $white
+
+    &--textShadow
+        text-shadow: 2px 2px 3px #333
+
+    .h3
+        font-size: 64px
+        line-height: 64px
+        font-weight: bold
+
+        @include media-breakpoint-down(xl)
+            font-size: 48px
+            line-height: 52px
+
+        @include media-breakpoint-down(lg)
+            font-size: 36px
+            line-height: 38px
+
+        @include media-breakpoint-down(sm)
+            font-size: 24px
+            line-height: 28px
+
+    .h4
+        font-size: 36px
+        line-height: 42px
+        font-weight: bold
+
+        @include media-breakpoint-down(xl)
+            font-size: 30px
+            line-height: 36px
+
+        @include media-breakpoint-down(lg)
+            font-size: 24px
+            line-height: 28px
+
+        @include media-breakpoint-down(sm)
+            font-size: 18px
+            line-height: 22px
+
+

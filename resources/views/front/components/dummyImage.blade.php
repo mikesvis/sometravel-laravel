@@ -1,0 +1,1 @@
+@php echo 'data:image/svg+xml;base64,'.base64_encode('<svg width="'.$w.'" height="'.$h.'" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="'.$w.'" height="'.$h.'" style="fill:#DEDEDE"/><text x="50%" y="50%" font-size="18" text-anchor="middle" alignment-baseline="middle" font-family="monospace, sans-serif" fill="#555555">'.$w.'&#215;'.$h.'</text></svg>')@endphp

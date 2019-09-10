@@ -1,0 +1,43 @@
+// Variables
+@import 'variables'
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap'
+
+// Fonts
+@import "components/fonts/fonts"
+
+// slider
+@import "~slick-carousel/slick/slick.css"
+
+// compontents
+@import "components/_buttons"
+@import "components/_breadcrumbs"
+@import "components/_cabinet"
+@import "components/_common"
+@import "components/_errors"
+@import "components/_footer"
+@import "components/_forms"
+@import "components/_header"
+@import "components/_listings"
+@import "components/_navigation"
+@import "components/_news"
+@import "components/_search"
+@import "components/_sliders"
+@import "components/_socials"
+@import "components/_steps"
+@import "components/_typography"
+@import "components/_wizard"
+
+// Внимание кто будет верстать дальше!
+// Все кнопки имеют более менее одинаковый вид (разница возможно в ширине - это можно сделать бутстрапом),
+// поэтому должны отпочковываться от бутстраповских (без lg и sm суффиксов!).
+// В классы кнопок нужно добавить btn--rounded (он описан у меня в компоненте _buttons, там же немного перекрываются и btn).
+//
+// По input'ам - аналогично с кнопками, элементы форм должны быть только бутстраповскими, но пришлось их чуть чуть перекрыть (высота, внутр. отступ).
+// У меня в компоненте _forms всё должно быть понятно (пока что только text, если что то другие элементы (radio select и т.д. указывать там!)).
+// Также аналогично классам кнопок нужно добавить &--rounded для скруглений (нужно будет сделать для всех элементов)
+//
+// Таким образом следуя моим указаниям будет достигнуто единство для элементов форм.
+//
+// Пожалуйста, не запорите единство! Приеду, увижу что всё плохо - прибью!

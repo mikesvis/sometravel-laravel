@@ -1,0 +1,88 @@
+$roboto-font-path: '../fonts/roboto' !default;
+
+
+
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$roboto-font-path}/roboto-bold-webfont.eot');
+    src:
+        local('Roboto Bold'),
+        local('Roboto-Bold'),
+        url('#{$roboto-font-path}/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('#{$roboto-font-path}/roboto-bold-webfont.woff2') format('woff2'),
+        url('#{$roboto-font-path}/roboto-bold-webfont.woff') format('woff'),
+        url('#{$roboto-font-path}/roboto-bold-webfont.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$roboto-font-path}/roboto-light-webfont.eot');
+    src:
+         local('Roboto Light'),
+         local('Roboto-Light'),
+         url('#{$roboto-font-path}/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$roboto-font-path}/roboto-light-webfont.woff2') format('woff2'),
+         url('#{$roboto-font-path}/roboto-light-webfont.woff') format('woff'),
+         url('#{$roboto-font-path}/roboto-light-webfont.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$roboto-font-path}/roboto-thin-webfont.eot');
+    src:
+         local('Roboto Thin'),
+         local('Roboto-Thin'),
+         url('#{$roboto-font-path}/roboto-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$roboto-font-path}/roboto-thin-webfont.woff2') format('woff2'),
+         url('#{$roboto-font-path}/roboto-thin-webfont.woff') format('woff'),
+         url('#{$roboto-font-path}/roboto-thin-webfont.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$roboto-font-path}/roboto-medium-webfont.eot');
+    src:
+         local('Roboto Medium'),
+         local('Roboto-Medium'),
+         url('#{$roboto-font-path}/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$roboto-font-path}/roboto-medium-webfont.woff2') format('woff2'),
+         url('#{$roboto-font-path}/roboto-medium-webfont.woff') format('woff'),
+         url('#{$roboto-font-path}/roboto-medium-webfont.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$roboto-font-path}/roboto-regular-webfont.eot');
+    src:
+         local('Roboto Regular'),
+         local('Roboto-Regular'),
+         url('#{$roboto-font-path}/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$roboto-font-path}/roboto-regular-webfont.woff2') format('woff2'),
+         url('#{$roboto-font-path}/roboto-regular-webfont.woff') format('woff'),
+         url('#{$roboto-font-path}/roboto-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
