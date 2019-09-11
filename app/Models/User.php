@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Polymorph relation to other user entities
+     *
+     * @return relation
+     */
+    public function userable()
+    {
+        return $this->morphTo();
+    }
 }

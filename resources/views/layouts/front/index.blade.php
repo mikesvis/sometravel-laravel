@@ -28,13 +28,15 @@
         @include('front.components.mobile-wrapper')
 
         <div class="pageWrapper vpm"> {{-- vpm = vertical paddings margins: vpm__pt, vpm__pb, vpm__py, vpm__mt, vpm__mb, vpm__my --}}
-            <div class="pageWrapper__innerHolder">
+            <div class="pageWrapper__innerHolder d-flex flex-column mh-100vh">
 
                 <!-- header -->
                 @include('front.components.header')
                 <!-- /header -->
 
-                @yield('content')
+                <main class="flex-grow-1">
+                    @yield('content')
+                </main>
 
                 <!-- footer -->
                 @include('front.components.footer')

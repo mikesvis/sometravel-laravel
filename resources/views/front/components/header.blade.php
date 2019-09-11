@@ -1,4 +1,4 @@
-<div class="header pb-md-4 pb-xl-5">
+<header class="header pb-md-4 pb-xl-5">
 
     <div class="topPanel header__topPanelWrapper">
         <div class="container">
@@ -70,7 +70,12 @@
                         <div class="topAccount topPanel__accountWrapper d-none d-md-flex justify-content-end align-items-center">
                             <div class="topAccount__text align-middle mr-md-3 order-2 order-md-1">
                                 @auth
-                                    <a href="{{ url('/home') }}" class="topAccount__link">USER_NAME</a>
+                                    <a href="{{ url(Auth::user()->userable->cabinet_link) }}" class="topAccount__link">{{ Auth::user()->name }}</a>
+                                    <span>|</span>
+                                    <a href="{{ route('logout') }}" class="topAccount__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 @else
                                     <a href="{{ route('login') }}" class="topAccount__link">Вход</a>
                                     @if (Route::has('register'))
@@ -134,4 +139,4 @@
         </div>
     </div>
 
-</div>
+</header>

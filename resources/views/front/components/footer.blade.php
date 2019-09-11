@@ -1,4 +1,4 @@
-<div class="footer py-4 py-md-4 py-xxl-5 border-top">
+<footer class="footer py-4 py-md-4 py-xxl-5 border-top">
     <div class="container">
 
         <div class="row align-items-center justify-content-between">
@@ -40,4 +40,4 @@
             </div>
         </div>
     </div>
-</div>
+</footer>
