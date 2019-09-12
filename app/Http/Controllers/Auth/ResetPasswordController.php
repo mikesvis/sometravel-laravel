@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -49,8 +50,25 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
+
+        $breadcrumbs = [
+            self::BREADCRUMBS_HOME,
+            [
+                'name' => __('Reset Password'),
+                'url' => null
+            ]
+        ];
+
         return view('front.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
+            ['token' => $token, 'email' => $request->email, 'breadcrumbs' => $breadcrumbs]
         );
+    }
+
+    /**
+     * Redirect authenticated user to any of admin / cabinet, depending on model
+     */
+    public function redirectTo()
+    {
+        return auth()->user()->userable->cabinet_link;
     }
 }

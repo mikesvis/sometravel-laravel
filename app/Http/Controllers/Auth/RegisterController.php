@@ -79,4 +79,12 @@ class RegisterController extends Controller
     {
         return view('front.auth.register');
     }
+
+    /**
+     * Redirect authenticated user to any of admin / cabinet, depending on model
+     */
+    public function redirectTo()
+    {
+        return auth()->user()->userable->cabinet_link;
+    }
 }
