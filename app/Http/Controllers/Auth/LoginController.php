@@ -27,7 +27,7 @@ class LoginController extends BaseController
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -66,31 +66,33 @@ class LoginController extends BaseController
      */
     protected function validateLogin(Request $request)
     {
-
-        // $validator = Validator::make($request->all(), [
-        //     'password' => 'required|string',
-        // ]);
-
-        // $validator->sometimes('emailOrPhone', 'required|string|email', function ($input) {
-        //     return filter_var($input->emailOrPhone, FILTER_VALIDATE_EMAIL);
-        // });
-
-        // $validator->sometimes('emailOrPhone', 'required|min:100', function ($input) {
-        //     return $input->emailOrPhone == 'foo';
-        // });
-
-        // dd($validator);
-
-        // $validator->validate();
-
-        // Validator::make($request->all(), [
-        //     'emailOrPhone' => 'required|string|mailorphone',
-        //     'body' => 'required',
-        // ])->validate();
-
         $request->validate([
-            'emailOrPhone' => 'required|string|mailorphone',
+            'email' => 'required|string|mailorphone',
             'password' => 'required|string',
         ]);
     }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $number = \App\Helpers\PhoneHelper::standartizeNumber($request->get('email'));
+        if($number != null && is_numeric($number)){
+            return ['phone'=>$number, 'password'=>$request->get('password')];
+        }
+        return $request->only($this->username(), 'password');
+    }
+
+    /**
+     * Redirect authenticated user to any of admin / cabinet, depending on model
+     */
+    public function redirectTo()
+    {
+        return auth()->user()->userable->cabinet_link;
+    }
+
 }

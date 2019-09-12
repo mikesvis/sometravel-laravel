@@ -52,4 +52,12 @@ class VerificationController extends Controller
                         ? redirect($this->redirectPath())
                         : view('front.auth.verify');
     }
+
+    /**
+     * Redirect authenticated user to any of admin / cabinet, depending on model
+     */
+    public function redirectTo()
+    {
+        return auth()->user()->userable->cabinet_link;
+    }
 }

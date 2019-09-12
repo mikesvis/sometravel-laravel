@@ -16,13 +16,13 @@ class PhoneHelper
     {
         $number = trim(preg_replace('/\D/', '', $number));
 
-        // if(mb_strlen($number) == 11){
-        //     if(mb_substr($number, 0, 1) == '7')
-        //     return $number;
-        // }
+        if(mb_strlen($number) == 11){
+            $number[0] = '7';
+            return $number;
+        }
 
-        // if(mb_strlen($number) == 10)
-        //     return '7'.$number;
+        if(mb_strlen($number) == 10)
+            return '7'.$number;
 
         return null;
     }

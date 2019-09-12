@@ -15,7 +15,13 @@ Route::get('/', 'SiteController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
+
+    Route::get('/', 'DashboardController@index')->name('admin.dashboard');
+
+});
+
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'verstka'], function(){
 

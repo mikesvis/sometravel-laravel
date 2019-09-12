@@ -140,6 +140,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email' => [
+            'mailorphone' => 'Должно быть email адресом или номером телефона',
+        ],
     ],
 
     /*

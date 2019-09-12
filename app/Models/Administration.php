@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administration extends Model implements UserInterface
 {
-    public $cabinet_link = '/admin/dashboard';
+    public $cabinet_link = '/admin/';
     /**
      * Relation to user
      *

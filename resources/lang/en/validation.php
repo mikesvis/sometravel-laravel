@@ -117,6 +117,8 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'mailorphoe' => 'The :attribute must be either an email address or a phone number',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -132,7 +134,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'emailOrPhone' => [
+            'mailorphone' => 'Must be either an email address or a phone number',
+        ],
     ],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -145,6 +152,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => []
 
 ];
