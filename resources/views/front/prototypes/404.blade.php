@@ -1,5 +1,7 @@
 @extends('layouts.front.index')
 
+@section('title', '404')
+
 @section('content')
 
 <div class="container">

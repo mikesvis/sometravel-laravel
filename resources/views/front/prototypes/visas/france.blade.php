@@ -1,5 +1,7 @@
 @extends('layouts.front.index')
 
+@section('title', 'Виза во Францию')
+
 @section('content')
 
     @include('front.components.breadcrumbs')

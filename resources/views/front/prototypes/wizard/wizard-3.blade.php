@@ -1,5 +1,7 @@
 @extends('layouts.front.index')
 
+@section('title', 'Визард - 3')
+
 @section('content')
 
 @include('front.components.breadcrumbs')
