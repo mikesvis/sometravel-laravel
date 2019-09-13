@@ -30,8 +30,6 @@
                                 'aTemplate' => '<a href="tel:!PHONE_NUMBER!" class="d-lg-none text-decoration-none">!PHONE_NUMBER_HUMAN!</a>',
                                 'spanTemplate'=> '<span class="d-none d-lg-inline-block text-primary">!PHONE_NUMBER_HUMAN!1</span>'
                             ])
-                            {{-- <a href="tel:88000000000" class="d-lg-none text-decoration-none">8 (800) 000-00-00</a> --}}
-                            {{-- <span class="d-none d-lg-inline-block text-primary">8 (800) 000-00-00</span> --}}
                         </div>
                     </div>
 

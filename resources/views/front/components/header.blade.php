@@ -57,11 +57,12 @@
                         <!-- phone -->
                         <div class="topPhone topPanel__phoneWrapper mr-2 mr-md-0">
                             <div class="topPhone__item">
-                                <span class="topPhone__text d-none d-lg-block"><em class="topPhone__icon fas fa-mobile-alt mr-2"><!-- icon --></em> 8 (800) 000-00-00</span>
-                                <a class="topPhone__text d-lg-none" href="tel:88000000000">
-                                    <em class="topPhone__icon fas fa-mobile-alt mr-md-2"><!-- icon --></em>
-                                    <span class="d-none d-md-inline-block"> 8 (800) 000-00-00</span>
-                                </a>
+                                    @include('front.components.main-phone', [
+                                        'aTemplate' => '<a class="topPhone__text d-lg-none" href="tel:!PHONE_NUMBER!"><em class="topPhone__icon fas fa-mobile-alt mr-md-2"><!-- icon --></em><span class="d-none d-md-inline-block"> !PHONE_NUMBER_HUMAN!</span></a>',
+                                        'spanTemplate'=> '<span class="topPhone__text d-none d-lg-block"><em class="topPhone__icon fas fa-mobile-alt mr-2"><!-- icon --></em> !PHONE_NUMBER_HUMAN!1</span>'
+                                    ])
+
+
                             </div>
                         </div>
                         <!-- /phone -->
