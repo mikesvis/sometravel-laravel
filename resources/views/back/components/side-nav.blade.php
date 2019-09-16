@@ -14,7 +14,7 @@
                 <img src="/back/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <span class="d-block text-white">{{ Auth::user()->name }}</span>
             </div>
         </div>
 
@@ -22,7 +22,23 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-images"></i>
+                        <p>
+                            Галереи
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.files') }}" class="nav-link @if (Route::is('admin.files') || Route::is('admin.files.**')) active @endif">
+                        <i class="nav-icon fas fa-save"></i>
+                        <p>
+                            Файловый менеджер
+                        </p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
@@ -53,7 +69,7 @@
                             <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

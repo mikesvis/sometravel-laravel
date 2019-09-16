@@ -66,10 +66,11 @@
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-
     <script src="{{ mix('/back/js/manifest.js') }}"></script>
     <script src="{{ mix('/back/js/vendor.js') }}"></script>
     <script src="{{ mix('/back/js/app.js') }}"></script>
+
+    @yield('footer-scripts')
 
 </body>
 </html>

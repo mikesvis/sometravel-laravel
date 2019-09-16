@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
     Route::get('/', 'DashboardController@index')->name('admin.dashboard');
 
+    Route::get('/files', 'FilesController@index')->name('admin.files');
+
 });
 
 // Route::get('/home', 'HomeController@index')->name('home');
