@@ -17,9 +17,14 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
 
+    // dashboard
     Route::get('/', 'DashboardController@index')->name('admin.dashboard');
 
+    // file manager
     Route::get('/files', 'FilesController@index')->name('admin.files');
+
+    // gallery
+    Route::resource('gallery', 'GalleryController', ['as'=>'admin'])->except('show');
 
 });
 

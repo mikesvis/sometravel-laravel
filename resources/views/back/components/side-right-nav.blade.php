@@ -1,4 +1,4 @@
-<aside class="control-sidebar control-sidebar-dark">
+{{-- <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
         <h5>Аккаунт</h5>
@@ -12,4 +12,4 @@
             </li>
         </ul>
     </div>
-</aside>
+</aside> --}}
