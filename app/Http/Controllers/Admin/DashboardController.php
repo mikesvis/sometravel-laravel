@@ -7,6 +7,7 @@ class DashboardController extends AdminBaseController
 {
     public function index()
     {
+        // $head
         return view('back.dashboard');
     }
 }
