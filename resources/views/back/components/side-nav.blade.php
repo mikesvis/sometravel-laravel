@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.files') }}" class="nav-link @if (Route::is('admin.files') || Route::is('admin.files.**')) active @endif">
+                    <a href="{{ route('admin.files') }}" class="nav-link @if (Route::is('admin.files') || Route::is('admin.files.*')) active @endif">
                         <i class="nav-icon fas fa-save"></i>
                         <p>
                             Файловый менеджер

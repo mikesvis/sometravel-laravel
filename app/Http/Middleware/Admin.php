@@ -16,7 +16,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->userable instanceof Administration){
+        if(isset(auth()->user()->userable) && auth()->user()->userable instanceof Administration){
             return $next($request);
         }
         abort(403);
