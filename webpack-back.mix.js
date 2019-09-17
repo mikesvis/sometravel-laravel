@@ -14,7 +14,7 @@ require('laravel-mix-merge-manifest');
 
 mix.js('resources/back/js/app.js', 'public/back/js')
    .sass('resources/back/sass/app.sass', 'public/back/css')
-//    .sass('resources/front/sass/other-icons.sass', 'public/front/css')
+   .js('resources/back/js/tiny/tiny.js', 'public/back/js')
    .options({
       processCssUrls: false
    })

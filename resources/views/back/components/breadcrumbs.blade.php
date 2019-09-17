@@ -1,6 +1,6 @@
 @isset($breadcrumbs)
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
+    <div class="col-12 col-lg-auto">
+        <ol class="breadcrumb">
             @foreach ($breadcrumbs as $item)
                 @if ($item['url'] != null)
                     <li class="breadcrumb-item"><a href="{{ $item['url'] }}">{{ $item['name'] }}</a></li>

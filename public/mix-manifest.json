@@ -6,5 +6,9 @@
     "/back/js/app.js": "/back/js/app.js",
     "/back/css/app.css": "/back/css/app.css",
     "/back/js/manifest.js": "/back/js/manifest.js",
-    "/back/js/vendor.js": "/back/js/vendor.js"
+    "/back/js/vendor.js": "/back/js/vendor.js",
+    "/admin/js/manifest.js": "/admin/js/manifest.js",
+    "/admin/js/tiny.js": "/admin/js/tiny.js",
+    "/admin/js/vendor.js": "/admin/js/vendor.js",
+    "/back/js/tiny.js": "/back/js/tiny.js"
 }

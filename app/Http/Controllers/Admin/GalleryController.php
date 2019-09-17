@@ -13,9 +13,16 @@ class GalleryController extends AdminBaseController
      *
      * @return \Illuminate\Http\Response
      */
+
+    const NAME = 'Галереи';
+
     public function index()
     {
-        //
+
+        $galleries = [];
+        $breadcrumbs = $this->setBreadcrumbs([['name' => self::NAME, 'url' => null]])->breadcrumbs;
+
+        return view('back.gallery.index', compact('galleries', 'breadcrumbs'));
     }
 
     /**
@@ -25,7 +32,14 @@ class GalleryController extends AdminBaseController
      */
     public function create()
     {
-        //
+        $breadcrumbs = $this->setBreadcrumbs(
+            [
+                ['name' => self::NAME, 'url' => route('admin.gallery.index')],
+                ['name' => 'Новая галерея', 'url' => null]
+            ]
+        )->breadcrumbs;
+
+        return view('back.gallery.create', compact('breadcrumbs'));
     }
 
     /**

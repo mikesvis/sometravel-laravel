@@ -19,6 +19,7 @@ class CreateGalleriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('parent_id')->nullable()->default(1);
             $table->string('title');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('ordering')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();

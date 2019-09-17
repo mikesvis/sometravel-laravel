@@ -23,19 +23,15 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.gallery.index') }}" class="nav-link  @if (Route::is('admin.gallery.*')) active @endif">
                         <i class="nav-icon fas fa-images"></i>
-                        <p>
-                            Галереи
-                        </p>
+                        <p>Галереи</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.files') }}" class="nav-link @if (Route::is('admin.files') || Route::is('admin.files.*')) active @endif">
                         <i class="nav-icon fas fa-save"></i>
-                        <p>
-                            Файловый менеджер
-                        </p>
+                        <p>Файловый менеджер</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item has-treeview menu-open">

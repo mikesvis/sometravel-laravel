@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseAdminModel;
 
-class Gallery extends Model
+class Gallery extends BaseAdminModel
 {
     /**
      * The attributes that are mass assignable.
@@ -26,4 +26,6 @@ class Gallery extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+
 }

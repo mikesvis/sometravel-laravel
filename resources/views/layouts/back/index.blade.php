@@ -8,7 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <!-- Google Font: Source Sans Pro -->
+    {{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> --}}
+
+    <title>@yield('header')</title>
 
     <link rel="stylesheet" href="{{ mix('/back/css/app.css') }}">
 
@@ -29,7 +32,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col">
                             <h1 class="m-0 text-dark">@yield('header')</h1>
                         </div><!-- /.col -->
                         @include('back.components.breadcrumbs', compact('breadcrumbs'))
@@ -54,14 +57,8 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        {{-- @include('back.components.side-right-nav') --}}
-        <!-- /.control-sidebar -->
-
         <!-- Main Footer -->
-        <footer class="main-footer">
-            &nbsp;
-        </footer>
+        <footer class="main-footer">&nbsp;</footer>
     </div>
     <!-- ./wrapper -->
 
