@@ -17,25 +17,25 @@ class CreateGalleriesTable extends Migration
         Schema::create('galleries', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('parent_id')->nullable()->default(1);
             $table->string('title');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('ordering')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('galleries')->onDelete('cascade');
+            $table->nestedSet();
+            // $table->foreign('parent_id')->references('id')->on('galleries')->onDelete('cascade');
 
         });
 
-        // Adding top level gallery
-        $attributes = [
-            'parent_id' => null,
-            'title' => 'Главный уровень',
-            'ordering' => 0,
-            'status' => 1,
-        ];
-        (new Gallery)->create($attributes);
+        // // Adding top level gallery
+        // $attributes = [
+        //     'parent_id' => null,
+        //     'title' => 'Главный уровень',
+        //     'ordering' => 0,
+        //     'status' => 1,
+        // ];
+        // (new Gallery)->create($attributes);
 
     }
 
@@ -46,6 +46,6 @@ class CreateGalleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galleries');
+        $table->dropNestedSet();
     }
 }

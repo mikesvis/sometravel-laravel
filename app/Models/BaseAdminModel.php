@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseAdminModel extends Model
@@ -14,7 +15,7 @@ class BaseAdminModel extends Model
     {
 
         if(!empty($value))
-            return $value->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
+            return Carbon::parse($value)->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
 
         return $value;
 
@@ -24,7 +25,7 @@ class BaseAdminModel extends Model
     {
 
         if(!empty($value))
-            return $value->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
+            return Carbon::parse($value)->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
 
         return $value;
 

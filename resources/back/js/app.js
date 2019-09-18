@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 
+
 /* window.Vue = require('vue'); */
 
 /**
@@ -33,3 +34,6 @@ require('./bootstrap');
 
 // Noty
 require('./components/noty');
+
+// Tooltip
+require('./components/tooltip');

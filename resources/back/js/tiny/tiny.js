@@ -125,6 +125,8 @@ tinymce.init({
     relative_urls : false,
     document_base_url : "/",
     min_height: 500,
+    valid_elements : '*[*]',
+    extend_valid_elements: '*[*]',
     file_picker_callback (callback, value, meta) {
         let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
         let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight

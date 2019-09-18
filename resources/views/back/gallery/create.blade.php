@@ -40,13 +40,13 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-xl-2" for="parent_id">Родитель <span class="text-danger">*</span></label>
                         <div class="col-lg-9 col-xl-10">
+                            @if (count($categoriesList))
                             <select class="form-control" name="parent_id" id="parent_id" autofocus>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                @foreach ($categoriesList as $category)
+                                    <option value="{{ $category->id }}">{{ $category->id_title }}</option>
+                                @endforeach
                             </select>
+                            @endif
                         </div>
                     </div>
 

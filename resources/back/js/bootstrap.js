@@ -5,14 +5,16 @@
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
+window.Popper = require('popper.js').default;
+window.$ = window.jQuery = require('jquery');
 
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+import 'bootstrap';
 
-    require('bootstrap');
-    require('admin-lte/build/js/AdminLTE');
-} catch (e) {}
+import 'bootstrap/js/dist/util';
+import 'bootstrap/js/dist/tooltip';
+
+require('admin-lte/build/js/AdminLTE');
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

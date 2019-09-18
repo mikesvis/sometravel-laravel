@@ -14,34 +14,50 @@
             </a>
         </div>
         <div class="flex-grow-1">
-            {{-- @include('admin.components.pagination', ['items'=>$paginator]) --}}
+            @include('back.components.pagination', ['items'=>$paginator])
         </div>
-        {{-- @include('admin.components.pagination', ['items'=>$paginator]) --}}
     </div>
     <!-- /.card-header -->
 
-    <div class="card-body p-0">
-        <table class="table">
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover table-bordered">
             <thead>
                 <tr>
                     <th style="width: 10px">id</th>
                     <th style="width: 10px">pid</th>
                     <th>Название</th>
-                    <th>Изображения</th>
-                    <th>Порядок</th>
-                    <th style="width: 40px">Изменена</th>
+                    <th style="width: 100px" class="text-center">
+                        <em class="far fa-image fa-lg" data-toggle="tooltip" data-placement="top" data-boundary="viewport" title="Изображения"></em>
+                    </th>
+                    <th style="width: 100px" class="text-center">
+                        <em class="fas fa-sort-numeric-down" data-toggle="tooltip" data-placement="top" data-boundary="viewport" title="Порядок"></em>
+                    </th>
+                    <th style="width: 160px" class="text-center">Изменена</th>
                     <th style="width: 40px">&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($galleries as $gallery)
+                @forelse ($paginator as $gallery)
                 <tr>
-                    <td>{{ $gallery->id }}</td>
-                    <td>{{ $gallery->pid > 1 ? $gallery->pid : null }}</td>
-                    <td>{{ $gallery->title }}</td>
-                    <td>TODO image_count</td>
+                    <td class="text-center">{{ $gallery->id }}</td>
+                    <td class="text-center">{{ $gallery->parent_id > 1 ? $gallery->parent_id : ' - ' }}</td>
+                    <td>
+                        @php
+                            $modelIterator = $gallery;
+                        @endphp
+                        @while ($modelIterator->parentRecursive != null )
+                            @if ($modelIterator->parent_id > 1)
+                                <span class="ml-4"></span>
+                            @endif
+                            @php
+                                $modelIterator = $modelIterator->parentRecursive;
+                            @endphp
+                        @endwhile
+                        {{ $gallery->title }}
+                    </td>
+                    <td class="text-center">XXX</td>
                     <td>@for ($i = 0; $i < $gallery->level; $i++)&bull;@endfor{{ 1 }}</td>
-                    <td>{{ $gallery->updated_at }}</td>
+                    <td class="text-center">{{ $gallery->updated_at }}</td>
                     <td>Удалить</td>
                 </tr>
                 @empty
@@ -61,7 +77,7 @@
             </a>
         </div>
         <div class="flex-grow-1">
-            {{-- @include('admin.components.pagination', ['items'=>$paginator]) --}}
+            @include('back.components.pagination', ['items'=>$paginator])
         </div>
     </div>
 

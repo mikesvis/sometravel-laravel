@@ -17,6 +17,9 @@
 
 </head>
 <body class="hold-transition sidebar-mini">
+
+    @include('back.components.flash')
+
     <div class="wrapper">
 
         <!-- Navbar -->

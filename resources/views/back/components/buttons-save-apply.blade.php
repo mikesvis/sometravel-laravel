@@ -1,7 +1,8 @@
 @if ($isNew)
     <div class="form-group row mb-0">
         <div class="col-12">
-            <button type="submit" class="btn btn-success"><em class="fas fa-check mr-1"></em> Создать</button>
+            <button type="submit" class="btn btn-success"><em class="fas fa-check mr-1"></em> Создать и выйти</button>
+            <button type="submit" class="btn btn-success" name="apply"><i class="fas fa-check mr-1"></i> Создать</button>
         </div>
     </div>
 @else
