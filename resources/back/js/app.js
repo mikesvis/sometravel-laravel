@@ -31,3 +31,5 @@ require('./bootstrap');
     el: '#app',
 }); */
 
+// Noty
+require('./components/noty');
