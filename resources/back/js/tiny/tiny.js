@@ -1,4 +1,5 @@
 import tinymce from 'tinymce';
+
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/advlist';
@@ -9,7 +10,7 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/visualblocks';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/preview';
-// import 'tinymce/themes/silver/theme';
+
 require('./langs/ru.js');
 
 var defaultToolbar = [
@@ -127,7 +128,6 @@ tinymce.init({
     file_picker_callback (callback, value, meta) {
         let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
         let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
-
         tinymce.activeEditor.windowManager.openUrl({
             url : '/file-manager/tinymce5',
             title : 'Laravel File manager',
@@ -138,8 +138,6 @@ tinymce.init({
             }
         })
     },
-    // file_browser_callback: function(field_name, url, type, win) {
-    // },
     toolbar: defaultToolbar,
     menubar: defaultMenubar,
     menu: defaultMenus
