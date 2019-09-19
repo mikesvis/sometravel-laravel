@@ -1,1 +1,1 @@
-{{ $items->onEachSide(3)->links() }}
+{{ $items->onEachSide(1)->links() }}

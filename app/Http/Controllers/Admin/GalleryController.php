@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Repositories\Gallery\GalleryRepository;
 use App\Http\Requests\Gallery\GalleryCreateRequest;
+use App\Http\Requests\Gallery\GalleryUpdateRequest;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
 class GalleryController extends AdminBaseController
@@ -59,9 +60,7 @@ class GalleryController extends AdminBaseController
             ]
         )->breadcrumbs;
 
-        $categoriesList = $this->galleryRepository->getForSelect();
-
-        return view('back.gallery.create', compact('categoriesList', 'breadcrumbs'));
+        return view('back.gallery.create', compact('breadcrumbs'));
     }
 
     /**
@@ -96,24 +95,46 @@ class GalleryController extends AdminBaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gallery $gallery)
+    public function edit($id, $tabToGo = 'primary')
     {
-        //
+        $breadcrumbs = $this->setBreadcrumbs(
+            [
+                ['name' => self::NAME, 'url' => route('admin.gallery.index')],
+                ['name' => 'Редактирование галереи', 'url' => null]
+            ]
+        )->breadcrumbs;
+
+        $gallery = $this->galleryRepository->getForEditById($id);
+
+        if(empty($gallery))
+            abort(404);
+
+
+        return view('back.gallery.edit', compact('gallery', 'breadcrumbs', 'tabToGo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gallery  $gallery
+     * @param  App\Http\Requests\Gallery\GalleryUpdateRequest  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(GalleryUpdateRequest $request, $id)
     {
-        //
+        $gallery = $this->galleryRepository->getForEditById($id);
+
+        $gallery->update($request->all());
+
+        Flash::add('Галерея обновлена.');
+
+        if($request->has('apply'))
+            return redirect(route('admin.gallery.edit', $gallery->id))->withInput($request->only('tabToGo'));
+
+        return redirect(route('admin.gallery.index'));
     }
 
     /**
@@ -124,6 +145,8 @@ class GalleryController extends AdminBaseController
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        $gallery->delete();
+        Flash::add('Галерея удалена.', 'error');
+        return redirect(route('admin.gallery.index'));
     }
 }

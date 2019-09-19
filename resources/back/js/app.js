@@ -37,3 +37,9 @@ require('./components/noty');
 
 // Tooltip
 require('./components/tooltip');
+
+// Sweetalert 2
+require('./components/sweetalert');
+
+// Tabs
+require('./components/tabs');
