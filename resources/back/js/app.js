@@ -38,8 +38,14 @@ require('./components/noty');
 // Tooltip
 require('./components/tooltip');
 
+// Popover
+require('./components/popover');
+
 // Sweetalert 2
 require('./components/sweetalert');
 
 // Tabs
 require('./components/tabs');
+
+// Tabs
+require('./components/uploader-workaround');

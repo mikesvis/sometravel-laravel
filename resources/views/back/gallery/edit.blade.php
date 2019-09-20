@@ -6,7 +6,7 @@
 
 {{-- @include('back.components.errors') --}}
 
-<form method="POST" action="{{ route('admin.gallery.update', $gallery->id) }}">
+<form method="POST" action="{{ route('admin.gallery.update', $gallery->id) }}" id="mainForm">
 
     @csrf
     @method('patch')
@@ -111,7 +111,7 @@
 
                 {{-- images --}}
                 <div class="tab-pane {{ (($tabToGo == '#images') ? "active show":"") }}" id="images" role="tabpanel" aria-labelledby="images">
-                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                    @include('back.image.index', ['model'=>$gallery, 'images'=>$gallery->images])
                 </div>
                 {{-- /images --}}
 
@@ -122,9 +122,26 @@
         </div>
     </div>
 
-
-
 </form>
+
+{{-- image upload form --}}
+<form action="{{ route('admin.image.upload', [class_basename($gallery), $gallery->id]) }}" method="POST" enctype="multipart/form-data" id="imageUploadForm" class="p-0 m-0">
+    @csrf
+    <button type="submit" class="btn btn-success d-none" id="formTrigger">
+        Это из-за того что нельзя делать вложенные формы
+    </button>
+</form>
+{{-- /image upload form --}}
+
+{{-- image delete form  --}}
+<form action="" method="post" id="deleteNestedForm" class="p-0 m-0">
+    @method('delete')
+    @csrf
+    <button type="submit" class="btn btn-outline-danger d-none" id="deleteNestedFormSubmit">
+        Это из-за того что нельзя делать вложенные формы
+    </button>
+</form>
+{{-- /image delete form  --}}
 
 @endsection
 

@@ -127,6 +127,8 @@ class GalleryController extends AdminBaseController
     {
         $gallery = $this->galleryRepository->getForEditById($id);
 
+        dd($request->all());
+
         $gallery->update($request->all());
 
         Flash::add('Галерея обновлена.');

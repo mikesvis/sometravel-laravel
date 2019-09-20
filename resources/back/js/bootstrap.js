@@ -13,7 +13,14 @@ import 'bootstrap';
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/tooltip';
 
+// var rawToolbar = {
+//     replace: function(){
+
+//     }
+// }
+
 require('admin-lte/build/js/AdminLTE');
+
 
 
 /**

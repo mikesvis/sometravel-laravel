@@ -26,11 +26,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // gallery
     Route::resource('gallery', 'GalleryController', ['as'=>'admin'])->except('show');
     Route::get('gallery/{gallery}/edit/{tabToGo}', 'GalleryController@edit', ['as'=>'admin'])->name('admin.gallery.edit.tabToGo');
-    Route::post('gallery/{gallery}/image-upload', 'GalleryController@imageUploadPost')->name('admin.gallery.image-upload');
+    // Route::post('gallery/{gallery}/image-upload', 'GalleryController@imageUploadPost')->name('admin.gallery.image-upload');
 
-    // images upload
-    // Route::get('image-upload', 'ImageUploadController@imageUpload')->name('image.upload');
-    Route::post('image-upload/{type}/{mid}', 'ImageUploadController@imageUploadPost')->name('admin.image.upload.post');
+    // images
+    Route::post('image/{model}/{modelId}', 'ImageController@upload', ['as'=>'admin'])->name('admin.image.upload');
+    Route::get('image/{image}/edit', 'ImageController@edit', ['as'=>'admin'])->name('admin.image.edit');
+    Route::delete('image/{image}/{model}/{modelId}', 'ImageController@destroy', ['as'=>'admin'])->name('admin.image.destroy');
+    // Route::resource('image', 'ImageController', ['as'=>'admin'])->except(['index', 'create', 'show']);
 
 });
 

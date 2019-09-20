@@ -6,7 +6,7 @@ $(function(){
 
     $(".delete").removeAttr("disabled");
 
-    $(".delete").click(function(e){
+    $(".delete").on('click', function(e){
 
         e.preventDefault();
 
@@ -22,8 +22,11 @@ $(function(){
             confirmButtonText: 'Да, удалить!',
             cancelButtonText: 'Отмена',
         }).then((result) => {
-            console.log()
             if(result.value){
+                if($(this).data("delete") == 'nested'){
+                    $("#deleteNestedForm").attr("action", $(this).data("action"));
+                    deleteForm = $("#deleteNestedForm");
+                }
                 deleteForm.submit();
             }
         });
