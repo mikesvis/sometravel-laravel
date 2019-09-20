@@ -6,6 +6,14 @@ use App\Models\BaseAdminModel;
 
 class Image extends BaseAdminModel
 {
+
+    const IMAGE_MAX_UPLOAD_DIMENSIONS = [
+        'width' => 4096,
+        'height' => 2160
+    ];
+
+    const ALLOWED_MIMES = 'jpeg,png,jpg,gif';
+
     /**
      * The attributes that are mass assignable.
      *

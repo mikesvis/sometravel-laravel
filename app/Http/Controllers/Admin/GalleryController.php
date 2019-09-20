@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Flash;
 use App\Models\Gallery;
-use Illuminate\Http\Request;
 use App\Repositories\Gallery\GalleryRepository;
 use App\Http\Requests\Gallery\GalleryCreateRequest;
 use App\Http\Requests\Gallery\GalleryUpdateRequest;
@@ -126,8 +125,6 @@ class GalleryController extends AdminBaseController
     public function update(GalleryUpdateRequest $request, $id)
     {
         $gallery = $this->galleryRepository->getForEditById($id);
-
-        dd($request->all());
 
         $gallery->update($request->all());
 

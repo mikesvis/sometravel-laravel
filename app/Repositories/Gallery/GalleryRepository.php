@@ -24,7 +24,7 @@ class GalleryRepository extends CoreRepository
     public function getForEditById($id)
     {
         $result = $this->startConditions()
-            // ->with('game')
+            ->with('images')
             ->find($id);
         return $result;
     }
