@@ -23,24 +23,27 @@
     @forelse ($gallery->images as $image)
     <div class="col-12 col-sm-6 col-md-auto mb-4">
         <div class="border rounded">
-            <a href="#" class="d-block p-1">
+            <a href="{{ $image->path }}" class="d-block p-1 fancybox">
                 <img src="/timthumb.php?src={{ $image->path }}&w=200&h=200" class="d-block w-100">
             </a>
             <div class="px-1 pb-1">
-                <div class="row justify-content-between">
+                <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
-                        <a href="{{ route('admin.image.edit', 101) }}" class="btn btn-outline-success">
+                        <a href="{{ route('admin.image.edit', $image->id) }}" class="btn btn-outline-success">
                             <em class="fas fa-pencil-alt"></em>
                         </a>
+                    </div>
+                    <div class="col text-center">
+                        <span class="badge badge-secondary" title="порядок">{{ $image->ordering }}</span>
                     </div>
                     <div class="col-auto">
                             <span
                             class="btn btn-outline-danger delete"
                             title="Удалить"
-                            data-element_name="Изображение ID: XXX"
+                            data-element_name="Изображение ID: {{ $image->id }}"
                             disabled
                             data-delete="nested"
-                            data-action="{{ route('admin.image.destroy', [rand(0, 100), class_basename($model), $model->id]) }}"
+                            data-action="{{ route('admin.image.destroy', [$image->id, class_basename($model), $model->id]) }}"
                             ><i class="far fa-trash-alt"></i></span>
                     </div>
                 </div>

@@ -47,5 +47,8 @@ require('./components/sweetalert');
 // Tabs
 require('./components/tabs');
 
-// Tabs
+// Uploader
 require('./components/uploader-workaround');
+
+// fancybox
+require('./components/fancybox');
