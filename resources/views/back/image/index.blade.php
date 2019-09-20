@@ -23,7 +23,7 @@
     @forelse ($gallery->images as $image)
     <div class="col-12 col-sm-6 col-md-auto mb-4">
         <div class="border rounded">
-            <a href="#" class="d-block p-1 fancybox">
+            <a href="{{ $image->path }}" class="d-block p-1 fancybox">
                 <img src="/timthumb.php?src={{ $image->path }}&w=198&h=198" class="d-block w-100">
             </a>
             <div class="px-1 pb-1">
