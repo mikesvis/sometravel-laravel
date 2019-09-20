@@ -26,6 +26,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // gallery
     Route::resource('gallery', 'GalleryController', ['as'=>'admin'])->except('show');
     Route::get('gallery/{gallery}/edit/{tabToGo}', 'GalleryController@edit', ['as'=>'admin'])->name('admin.gallery.edit.tabToGo');
+    Route::post('gallery/{gallery}/image-upload', 'GalleryController@imageUploadPost')->name('admin.gallery.image-upload');
+
+    // images upload
+    // Route::get('image-upload', 'ImageUploadController@imageUpload')->name('image.upload');
+    Route::post('image-upload/{type}/{mid}', 'ImageUploadController@imageUploadPost')->name('admin.image.upload.post');
 
 });
 

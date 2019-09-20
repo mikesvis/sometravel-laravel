@@ -27,4 +27,12 @@ class Gallery extends BaseAdminModel
         'status' => 'boolean',
     ];
 
+    /**
+     * Get all of the post's comments.
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imagable');
+    }
+
 }

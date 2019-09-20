@@ -45,7 +45,7 @@
                     <td>{{ $gallery->notes }}</td>
                     <td class="text-center py-0 vertical-align-middle">
                         <a href="{{ route('admin.gallery.edit.tabToGo', [$gallery->id, 'images']) }}" class="d-inline-flex align-items-center justify-content-center btn btn-outline-primary btn-sm">
-                            <span class="d-block mr-1">0</span>
+                            <span class="d-block mr-1">{{ $gallery->images_count }}</span>
                             <span class="d-block"><em class="far fa-image"></em></span>
                             {{-- [ X ]<em class="far fa-image"></em> --}}
                         </a>

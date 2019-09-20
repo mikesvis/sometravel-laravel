@@ -46,7 +46,7 @@ class GalleryRepository extends CoreRepository
 
         $result = $this->startConditions()
             ->select($columns)
-            // ->withCount('images')
+            ->withCount('images')
             ->orderBy('title')
             ->paginate($perPage);
 
