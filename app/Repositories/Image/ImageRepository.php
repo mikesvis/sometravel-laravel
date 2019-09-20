@@ -36,7 +36,7 @@ class ImageRepository extends CoreRepository
      */
     public function polymorphModel($modelName, $id)
     {
-        $polymorphModel = app('App\Models\\'.$modelName)->find($id);
+        $polymorphModel = app('App\Models\\'.$modelName)->withCount('images')->find($id);
 
         return $polymorphModel;
     }

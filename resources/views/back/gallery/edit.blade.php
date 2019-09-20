@@ -125,19 +125,19 @@
 </form>
 
 {{-- image upload form --}}
-<form action="{{ route('admin.image.upload', [class_basename($gallery), $gallery->id]) }}" method="POST" enctype="multipart/form-data" id="imageUploadForm" class="p-0 m-0">
+<form action="{{ route('admin.image.upload', [class_basename($gallery), $gallery->id]) }}" method="POST" enctype="multipart/form-data" id="imageUploadForm" class="p-0 m-0 d-none">
     @csrf
-    <button type="submit" class="btn btn-success d-none" id="formTrigger">
+    <button type="submit" class="btn btn-success" id="formTrigger">
         Это из-за того что нельзя делать вложенные формы
     </button>
 </form>
 {{-- /image upload form --}}
 
 {{-- image delete form  --}}
-<form action="" method="post" id="deleteNestedForm" class="p-0 m-0">
+<form action="" method="post" id="deleteNestedForm" class="p-0 m-0 d-none">
     @method('delete')
     @csrf
-    <button type="submit" class="btn btn-outline-danger d-none" id="deleteNestedFormSubmit">
+    <button type="submit" class="btn btn-outline-danger" id="deleteNestedFormSubmit">
         Это из-за того что нельзя делать вложенные формы
     </button>
 </form>

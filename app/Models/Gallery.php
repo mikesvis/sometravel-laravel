@@ -32,7 +32,7 @@ class Gallery extends BaseAdminModel
      */
     public function images()
     {
-        return $this->morphMany(Image::class, 'imagable');
+        return $this->morphMany(Image::class, 'imagable')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
 }

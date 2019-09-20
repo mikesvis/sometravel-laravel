@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Flash;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -61,7 +60,8 @@ class ImageController extends AdminBaseController
         }
 
         $polymorphModel->images()->create([
-            'path' => $imageUrl
+            'path' => $imageUrl,
+            'ordering' => 50
         ]);
 
         Flash::add('Изображение добавлено');
@@ -100,7 +100,19 @@ class ImageController extends AdminBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+    // SET @counter = 0;
+
+    // UPDATE
+    // my_table
+    // SET MoneyOrder = @counter := @counter + 1
+    // ORDER BY Money;
+
+    // SET @counter = 0;
+
+    // UPDATE
+    // my_table
+    // SET QuantityOrder = @counter := @counter + 1
+    // ORDER BY Quantity;
     }
 
     /**
@@ -111,6 +123,7 @@ class ImageController extends AdminBaseController
      */
     public function destroy($id)
     {
+        // !!!!!!!!!!!!!! UNLINK IMAGE!!!
         //
     }
 }
