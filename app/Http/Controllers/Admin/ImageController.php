@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Image\ImageRepository;
 use App\Http\Requests\Image\ImageCreateRequest;
+use App\Http\Requests\Image\ImageUpdateRequest;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
 class ImageController extends AdminBaseController
@@ -113,21 +114,20 @@ class ImageController extends AdminBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ImageUpdateRequest $request, $id)
     {
-    // SET @counter = 0;
+        $image = $this->imageRepository->getForEditById($id);
 
-    // UPDATE
-    // my_table
-    // SET MoneyOrder = @counter := @counter + 1
-    // ORDER BY Money;
+        $image->update($request->all());
 
-    // SET @counter = 0;
+        Flash::add('Изображение обновлено.');
 
-    // UPDATE
-    // my_table
-    // SET QuantityOrder = @counter := @counter + 1
-    // ORDER BY Quantity;
+        if($request->has('apply'))
+            return redirect(route('admin.image.edit', $image->id));
+
+        $polymorphModel = $image->imagable;
+
+        return redirect(route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$polymorphModel->id, 'images']));
     }
 
     /**
