@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::post('image/{model}/{modelId}', 'ImageController@upload', ['as'=>'admin'])->name('admin.image.upload');
     Route::get('image/{image}/edit', 'ImageController@edit', ['as'=>'admin'])->name('admin.image.edit');
     Route::delete('image/{image}/{model}/{modelId}', 'ImageController@destroy', ['as'=>'admin'])->name('admin.image.destroy');
+    Route::patch('image/{image}', 'ImageController@update', ['as'=>'admin'])->name('admin.image.update');
     // Route::resource('image', 'ImageController', ['as'=>'admin'])->except(['index', 'create', 'show']);
 
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\Flash;
 use App\Models\Gallery;
 use App\Repositories\Gallery\GalleryRepository;
+use App\Events\Image\PolymorphModelDeletedEvent;
 use App\Http\Requests\Gallery\GalleryCreateRequest;
 use App\Http\Requests\Gallery\GalleryUpdateRequest;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
@@ -145,7 +146,10 @@ class GalleryController extends AdminBaseController
     public function destroy(Gallery $gallery)
     {
         $gallery->delete();
-        Flash::add('Галерея удалена.', 'error');
+
+        event(new PolymorphModelDeletedEvent($gallery));
+
+        Flash::add('Галерея и её изображения удалены.', 'error');
         return redirect(route('admin.gallery.index'));
     }
 }

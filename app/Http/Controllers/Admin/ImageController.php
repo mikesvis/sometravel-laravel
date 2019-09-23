@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 class ImageController extends AdminBaseController
 {
 
-    const NAME = 'Галереи';
+    const NAME = 'Изображения';
 
     /**
      * @var ImageRepository
@@ -88,7 +88,22 @@ class ImageController extends AdminBaseController
      */
     public function edit($id)
     {
-        //
+
+        $image = $this->imageRepository->getForEditById($id);
+
+        if(empty($image))
+            abort(404);
+
+        $polymorphModel = $image->imagable;
+
+        $breadcrumbs = $this->setBreadcrumbs(
+            [
+                ['name' => self::NAME, 'url' => route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$polymorphModel->id, 'images'])],
+                ['name' => 'Редактирование изображения', 'url' => null]
+            ]
+        )->breadcrumbs;
+
+        return view('back.image.edit', compact('image', 'polymorphModel', 'breadcrumbs'));
     }
 
     /**
@@ -121,9 +136,23 @@ class ImageController extends AdminBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $model, $modelId)
     {
-        // !!!!!!!!!!!!!! UNLINK IMAGE!!!
-        //
+
+        $polymorphModel = $this->imageRepository->polymorphModel($model, $modelId);
+
+        if(empty($polymorphModel)){
+            Flash::add('Такой родительской модели не существует. Изображение не удалено', 'error');
+            return redirect(route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$modelId, 'images']));
+        }
+
+        $image = $this->imageRepository->getForEditById($id);
+
+        // image is unlinked in Image model event
+        $this->imageRepository->getForEditById($id)->delete();
+
+        Flash::add('Изображение удалено.', 'error');
+        return redirect(route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$modelId, 'images']));
+
     }
 }

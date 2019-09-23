@@ -47,4 +47,16 @@ class Image extends BaseAdminModel
     {
         return $this->morphTo();
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($image){
+            $basePath = public_path().$image->path;
+            if(file_exists($basePath)){
+                unlink($basePath);
+            }
+        });
+    }
 }
