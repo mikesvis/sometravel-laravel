@@ -24,9 +24,9 @@ class ImageUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=> ['string'],
-            'alt'=> ['string'],
-            'link_to'=> ['string'],
+            'title'=> ['string', 'nullable'],
+            'alt'=> ['string', 'nullable'],
+            'link_to'=> ['string', 'nullable'],
             'ordering' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
         ];

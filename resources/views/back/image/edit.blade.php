@@ -37,7 +37,6 @@
                                     value="{{ old('title', $image->title) }}"
                                     class="form-control @error('title')is-invalid @enderror"
                                     id="title"
-                                    required
                                     >
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -54,7 +53,6 @@
                                     value="{{ old('alt', $image->alt) }}"
                                     class="form-control @error('alt')is-invalid @enderror"
                                     id="alt"
-                                    required
                                     >
                                     @error('alt')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -71,7 +69,6 @@
                                     value="{{ old('link_to', $image->link_to) }}"
                                     class="form-control @error('link_to')is-invalid @enderror"
                                     id="link_to"
-                                    required
                                     >
                                     @error('link_to')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>

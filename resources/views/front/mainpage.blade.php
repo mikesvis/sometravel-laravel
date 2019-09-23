@@ -1,50 +1,10 @@
 @extends('layouts.front.index')
 
 @section('content')
-<!-- slider -->
-<div class="slider slider--splash">
-    <ul class="list-unstyled">
-        <li class="slider__slide" style="background-image:url(/images/specimen/slide-01.jpg)">
-            <div class="container h-100">
-                <div class="row align-items-center h-100">
-                    <div class="col-12">
-                        <div class="slideContent slideContent--white slideContent--textShadow">
-                            <div class="h3 text-white mb-4"><strong>Быстрое оформление визы и документов</strong></div>
-                            <p class="text-white"><strong>Все страны и направления — начните путешествие вместе с нами</strong></p>
-                            <div class="d-flex align-items-center mb-5 mt-4 mt-lg-5">
-                                <div class="align-self-start d-none d-sm-block mr-4"><img src="/images/specimen/france-flag.png" alt=""></div>
-                                <div class="text-white">
-                                    <div class="h4">ФРАНЦИЯ</div>
-                                    <p class="mb-0">Только документы от 2200 ₽<br />Под ключ от 8100 ₽<br />Оформление: 10 дней</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="slider__slide" style="background-image:url(/images/specimen/slide-01.jpg)">
-            <div class="container h-100">
-                <div class="row align-items-center h-100">
-                    <div class="col-12">
-                        <div class="slideContent slideContent--white slideContent--textShadow">
-                            <div class="h3 text-white mb-4"><strong>Быстрое оформление визы и документов</strong></div>
-                            <p class="text-white"><strong>Все страны и направления — начните путешествие вместе с нами</strong></p>
-                            <div class="d-flex align-items-center mb-5 mt-4 mt-lg-5">
-                                <div class="align-self-start d-none d-sm-block mr-4"><img src="/images/specimen/france-flag.png" alt=""></div>
-                                <div class="text-white">
-                                    <div class="h4">ФРАНЦИЯ</div>
-                                    <p class="mb-0">Только документы от 2200 ₽<br />Под ключ от 8100 ₽<br />Оформление: 10 дней</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-<!-- /slider -->
+
+    <!-- slider -->
+    @include('front.components.sliders.main-slider', compact('sliders'))
+    <!-- /slider -->
 
 <!-- popular directions -->
 <div class="travelDirections vpm__pt">

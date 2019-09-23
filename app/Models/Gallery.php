@@ -35,4 +35,13 @@ class Gallery extends BaseAdminModel
         return $this->morphMany(Image::class, 'imagable')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
+    /**
+     * Get all of the post's comments.
+     */
+    public function enabledImages()
+    {
+        return $this->images()->where('status', 1);
+    }
+
+
 }
