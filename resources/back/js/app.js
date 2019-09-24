@@ -52,3 +52,6 @@ require('./components/uploader-workaround');
 
 // fancybox
 require('./components/fancybox');
+
+// date time pickers
+require('./components/datetimepickers');

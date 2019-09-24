@@ -1,6 +1,6 @@
 @extends('layouts.back.index')
 
-@section('header', 'Галереи')
+@section('header', 'Новости')
 
 @section('content')
 
@@ -9,8 +9,8 @@
     <div class="card-header">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.gallery.create') }}" class="btn btn-outline-success">
-                    <em class="fas fa-plus mr-1"></em> Добавить галерею
+                <a href="{{ route('admin.news.create') }}" class="btn btn-outline-success">
+                    <em class="fas fa-plus mr-1"></em> Добавить новость
                 </a>
             </div>
             <div class="col-auto">
@@ -26,7 +26,7 @@
                 <tr>
                     <th style="width: 40px">id</th>
                     <th style="30%">Название</th>
-                    <th>Заметки</th>
+                    {{-- <th>Заметки</th> --}}
                     <th style="width: 100px" class="text-center">
                         <em class="far fa-image fa-lg" data-toggle="tooltip" data-placement="auto" title="Изображения"></em>
                     </th>
@@ -36,38 +36,38 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($paginator as $gallery)
+                @forelse ($paginator as $items)
                 <tr>
-                    <td class="text-center">{{ $gallery->id }}</td>
+                    <td class="text-center">{{ $item->id }}</td>
                     <td>
-                        <a href="{{ route('admin.gallery.edit', $gallery->id) }}">{{ $gallery->title }}</a>
+                        <a href="{{ route('admin.news.edit', $item->id) }}">{{ $item->title }}</a>
                     </td>
-                    <td>{{ $gallery->notes }}</td>
+                    {{-- <td>{{ $item->notes }}</td> --}}
                     <td class="text-center py-0 vertical-align-middle">
-                        <a href="{{ route('admin.gallery.edit.tabToGo', [$gallery->id, 'images']) }}" class="d-inline-flex align-items-center justify-content-center btn btn-outline-primary btn-sm">
-                            <span class="d-block mr-1">{{ $gallery->images_count }}</span>
+                        <a href="{{ route('admin.news.edit.tabToGo', [$item->id, 'images']) }}" class="d-inline-flex align-items-center justify-content-center btn btn-outline-primary btn-sm">
+                            <span class="d-block mr-1">{{ $item->images_count }}</span>
                             <span class="d-block"><em class="far fa-image"></em></span>
                         </a>
                     </td>
-                    <td class="text-center">{{ $gallery->updated_at }}</td>
+                    <td class="text-center">{{ $item->updated_at }}</td>
                     <td class="text-center">
-                        @if ((bool)$gallery->status)
+                        @if ((bool)$item->status)
                         <em class="far fa-check-circle text-success"></em>
                         @else
                         <em class="far fa-times-circle text-danger"></em>
                         @endif
                     </td>
                     <td class="py-0 vertical-align-middle">
-                        <form action="{{ route('admin.gallery.destroy', $gallery->id) }}" method="post">
+                        <form action="{{ route('admin.news.destroy', $item->id) }}" method="post">
                             @method('delete')
                             @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-sm delete" data-trigger="hover" data-popup="tooltip" data-placement="left" title="Удалить" data-element_name="{{ $gallery->title }}" disabled><i class="far fa-trash-alt"></i></button>
+                            <button type="submit" class="btn btn-outline-danger btn-sm delete" data-trigger="hover" data-popup="tooltip" data-placement="left" title="Удалить" data-element_name="{{ $item->title }}" disabled><i class="far fa-trash-alt"></i></button>
                         </form>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center">Галерей пока нет</td>
+                    <td colspan="6" class="text-center">Новостей пока нет</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -78,8 +78,8 @@
     <div class="card-footer border-top">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.gallery.create') }}" class="btn btn-outline-success">
-                    <em class="fas fa-plus mr-1"></em> Добавить галерею
+                <a href="{{ route('admin.news.create') }}" class="btn btn-outline-success">
+                    <em class="fas fa-plus mr-1"></em> Добавить новость
                 </a>
             </div>
             <div class="col-auto">

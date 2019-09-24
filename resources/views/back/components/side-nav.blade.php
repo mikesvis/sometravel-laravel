@@ -23,6 +23,12 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
+                    <a href="{{ route('admin.news.index') }}" class="nav-link  @if (Route::is('admin.news.*')) active @endif">
+                        <i class="nav-icon far fa-newspaper"></i>
+                        <p>Новости</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.gallery.index') }}" class="nav-link  @if (Route::is('admin.gallery.*')) active @endif">
                         <i class="nav-icon fas fa-images"></i>
                         <p>Галереи</p>

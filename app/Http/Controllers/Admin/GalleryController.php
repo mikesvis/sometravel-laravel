@@ -43,6 +43,7 @@ class GalleryController extends AdminBaseController
         $breadcrumbs = $this->setBreadcrumbs([['name' => self::NAME, 'url' => null]])->breadcrumbs;
 
         return view('back.gallery.index', compact('paginator', 'breadcrumbs'));
+
     }
 
 

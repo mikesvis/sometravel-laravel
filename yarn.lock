@@ -3630,6 +3630,11 @@ flag-icon-css@^3.3.0:
   resolved "https://registry.yarnpkg.com/flag-icon-css/-/flag-icon-css-3.3.0.tgz#7772461e4480d3d86da5962f02120a2825688433"
   integrity sha512-u5lCGVExrJJRykNGd//ZrBU5Bkt0LTZJFSuG+Az/pwcHgzDeFwomwFbsgVtI1aJd6ysyHsx+5UGrA+nhSGd4yw==
 
+flatpickr@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.2.tgz#50e1b4fc84fbf67c5b0919ba3ddc330221f126da"
+  integrity sha512-bRfBPyxohUQWgCTg6jPALUO1t/x+sRJ/S/RVti/NzYvHqGRpCAesKSWKLzOuLmpu+vGHfXBld4SXvOCLFgYb+g==
+
 flot@^3.2.9:
   version "3.2.9"
   resolved "https://registry.yarnpkg.com/flot/-/flot-3.2.9.tgz#94c1beb81991fa721536d719e9abff5dd5c4430c"
@@ -5323,6 +5328,11 @@ moment-timezone@^0.5.11:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
+momentjs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/momentjs/-/momentjs-2.0.0.tgz#73df904b4fa418f6e3c605e831cef6ed5518ebd4"
+  integrity sha1-c9+QS0+kGPbjxgXoMc727VUY69Q=
 
 move-concurrently@^1.0.1:
   version "1.0.1"

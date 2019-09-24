@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
         Validator::extend('mailorphone', function ($attribute, $value, $parameters, $validator) {
 
             if(filter_var($value, FILTER_VALIDATE_EMAIL))
@@ -37,5 +39,9 @@ class AppServiceProvider extends ServiceProvider
             return false;
 
         });
+
+        setlocale(LC_TIME, 'ru_RU.UTF-8');
+        Carbon::setLocale(config('app.locale'));
+
     }
 }
