@@ -48,12 +48,12 @@ class ImageController extends AdminBaseController
 
         $imageName = substr(sha1(time().uniqid()), 0, 20).'.'.request()->image->getClientOriginalExtension();
         $subDir = substr($imageName, 0, 2);
-        $rootDiskDir = 'img';
+        $rootDiskDir = 'visuals';
         $storagePath = strtolower(class_basename($polymorphModel)).'/'.$subDir.'/'.$imageName;
         $imageUrl = '/'.$rootDiskDir.'/'.$storagePath;
         $image = $request->file('image');
 
-        $result = Storage::disk('img')->put($storagePath, File::get($image));
+        $result = Storage::disk('visuals')->put($storagePath, File::get($image));
 
         if($result == false){
             Flash::add('Ошибка добавления изображения', 'error');
