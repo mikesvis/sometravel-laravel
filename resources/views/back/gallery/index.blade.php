@@ -9,7 +9,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.gallery.create') }}" class="btn btn-outline-success">
+                <a href="{{ route('admin.gallery.create') }}" class="btn btn-success">
                     <em class="fas fa-plus mr-1"></em> Добавить галерею
                 </a>
             </div>
@@ -25,7 +25,7 @@
             <thead>
                 <tr>
                     <th style="width: 40px">id</th>
-                    <th style="30%">Название</th>
+                    <th style="width: 25%">Название</th>
                     <th>Заметки</th>
                     <th style="width: 100px" class="text-center">
                         <em class="far fa-image fa-lg" data-toggle="tooltip" data-placement="auto" title="Изображения"></em>
@@ -78,7 +78,7 @@
     <div class="card-footer border-top">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.gallery.create') }}" class="btn btn-outline-success">
+                <a href="{{ route('admin.gallery.create') }}" class="btn btn-success">
                     <em class="fas fa-plus mr-1"></em> Добавить галерею
                 </a>
             </div>

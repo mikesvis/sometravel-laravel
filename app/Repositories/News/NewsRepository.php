@@ -36,6 +36,7 @@ class NewsRepository extends CoreRepository
     public function getAllWithPagination($perPage = null)
     {
         $columns = [
+            'id',
             'country',
             'title',
             'slug',
@@ -43,6 +44,7 @@ class NewsRepository extends CoreRepository
             'date',
             'ordering',
             'status',
+            'updated_at'
         ];
 
         $result = $this->startConditions()

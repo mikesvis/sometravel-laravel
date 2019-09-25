@@ -20,7 +20,7 @@
 </div>
 
 <div class="row">
-    @forelse ($gallery->images as $image)
+    @forelse ($model->images as $image)
     <div class="col-12 col-sm-6 col-md-auto mb-4">
         <div class="border rounded">
             <a href="{{ $image->path }}" class="d-block p-1 fancybox opacit" @if ((bool)$image->status == false) style="opacity: .5" @endif>

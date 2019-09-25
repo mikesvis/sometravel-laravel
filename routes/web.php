@@ -15,6 +15,16 @@ Route::get('/', 'SiteController@index');
 
 Auth::routes();
 
+// front routes
+Route::group(['namespace' => 'Front'], function(){
+
+    // news
+    Route::get('/novosti', 'NewsController@index')->name('front.news.index');
+    Route::get('/novosti/{news}', 'NewsController@show')->name('front.news.show');
+
+});
+
+// back routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
 
     // dashboard
@@ -35,7 +45,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::patch('image/{image}', 'ImageController@update', ['as'=>'admin'])->name('admin.image.update');
 
     // news
-    Route::resource('news', 'NewsController', ['as'=>'admin'])->except('show');
+    Route::resource('news', 'NewsController', ['as'=>'admin']);
+    Route::get('news/{news}/edit/{tabToGo}', 'NewsController@edit', ['as'=>'admin'])->name('admin.news.edit.tabToGo');
 });
 
 // Route::view('/test-middle', 'test')->middleware('auth');

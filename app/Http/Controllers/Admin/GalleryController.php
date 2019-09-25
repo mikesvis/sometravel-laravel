@@ -46,7 +46,6 @@ class GalleryController extends AdminBaseController
 
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -80,17 +79,6 @@ class GalleryController extends AdminBaseController
             return redirect(route('admin.gallery.edit', $gallery->id));
 
         return redirect(route('admin.gallery.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Gallery  $gallery
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gallery $gallery)
-    {
-        //
     }
 
     /**

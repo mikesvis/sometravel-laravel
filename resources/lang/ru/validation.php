@@ -195,5 +195,7 @@ return [
         'status'                => 'Статус',
         'ordering'              => 'Порядок',
         'parent_id'             => 'Родитель',
+        'slug'                  => 'Url код',
+        'date'                  => 'Дата',
     ],
 ];

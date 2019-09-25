@@ -1,6 +1,6 @@
 @extends('layouts.back.index')
 
-@section('header', 'Редактирование галереи '.$gallery->title)
+@section('header', 'Редактирование галереи "'.$gallery->title.'"')
 
 @section('content')
 

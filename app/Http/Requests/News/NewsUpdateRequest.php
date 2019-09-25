@@ -4,7 +4,7 @@ namespace App\Http\Requests\News;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsCreateRequest extends FormRequest
+class NewsUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class NewsCreateRequest extends FormRequest
         return [
             'country' => ['required', 'string', 'min:3'],
             'title' => ['required', 'string', 'min:3'],
-            'slug' => ['string', 'nullable'],
+            'slug' => ['sometimes', 'nullable', 'unique:news,slug,'.$this->route('news')],
             'excerpt' => ['required', 'min:5'],
             'date' => ['required', 'date_format:"Y-m-d H:i:s"'],
             'ordering' => ['required', 'integer', 'min:0'],
