@@ -9,6 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
+    <meta name="keywords" content="@yield('keywords')" />
+	<meta name="description" content="@yield('description')" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">

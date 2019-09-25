@@ -108,10 +108,26 @@ class News extends BaseAdminModel
     }
 
     /**
-     * Get all of the post's comments.
+     * Get all model's images
      */
     public function images()
     {
         return $this->morphMany(Image::class, 'imagable')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
+    }
+
+    /**
+     * Get all model's enabled images
+     */
+    public function enabledImages()
+    {
+        return $this->images()->where('status', 1);
+    }
+
+    /**
+     * Get all model's enabled images
+     */
+    public function firstEnabledImage()
+    {
+        return $this->morphOne(Image::class, 'imagable')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 abstract class BaseController extends Controller
 {
 
-    const ITEMS_PER_PAGE = 20;
+    const ITEMS_PER_PAGE = 12;
 
     public $breadcrumbs;
 
@@ -15,8 +15,8 @@ abstract class BaseController extends Controller
     {
         $this->breadcrumbs = [
             [
-                'name' => 'Администрирование',
-                'url' => route('admin.dashboard')
+                'name' => 'Главная',
+                'url' => '/'
             ]
         ];
     }

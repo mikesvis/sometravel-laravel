@@ -29,7 +29,7 @@ class NewsRepository extends CoreRepository
         return $result;
     }
     /**
-     * Get all Galleryies with paginator
+     * Get all models with paginator
      * @param  int|mixed|null $perPage
      * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator
      */
@@ -50,6 +50,32 @@ class NewsRepository extends CoreRepository
         $result = $this->startConditions()
             ->select($columns)
             ->withCount('images')
+            ->orderBy('date', 'DESC')
+            ->paginate($perPage);
+
+        return $result;
+
+    }
+
+    /**
+     * Get all models with paginator
+     * @param  int|mixed|null $perPage
+     * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator
+     */
+    public function getAllWithImagesAndPagination($perPage = null)
+    {
+        $columns = [
+            'id',
+            'country',
+            'title',
+            'slug',
+            'excerpt',
+            'date',
+        ];
+
+        $result = $this->startConditions()
+            ->select($columns)
+            ->with('firstEnabledImage')
             ->orderBy('date', 'DESC')
             ->paginate($perPage);
 
