@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'SiteController@index');
+Route::get('/', 'SiteController@index')->name('front.index');
 
 Auth::routes();
 
@@ -36,7 +36,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // gallery
     Route::resource('gallery', 'GalleryController', ['as'=>'admin'])->except('show');
     Route::get('gallery/{gallery}/edit/{tabToGo}', 'GalleryController@edit', ['as'=>'admin'])->name('admin.gallery.edit.tabToGo');
-    // Route::post('gallery/{gallery}/image-upload', 'GalleryController@imageUploadPost')->name('admin.gallery.image-upload');
 
     // images
     Route::post('image/{model}/{modelId}', 'ImageController@upload', ['as'=>'admin'])->name('admin.image.upload');
@@ -47,6 +46,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // news
     Route::resource('news', 'NewsController', ['as'=>'admin']);
     Route::get('news/{news}/edit/{tabToGo}', 'NewsController@edit', ['as'=>'admin'])->name('admin.news.edit.tabToGo');
+
+    // reviews
+    Route::resource('review', 'ReviewController', ['as'=>'admin']);
+    Route::get('review/{review}/edit/{tabToGo}', 'ReviewController@edit', ['as'=>'admin'])->name('admin.review.edit.tabToGo');
 });
 
 // Route::view('/test-middle', 'test')->middleware('auth');

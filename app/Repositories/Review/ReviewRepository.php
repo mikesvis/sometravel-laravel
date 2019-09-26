@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Repositories\Gallery;
+namespace App\Repositories\Review;
 
-use App\Models\Gallery as Model;
-use Illuminate\Support\Facades\DB;
+use App\Models\Review as Model;
 use App\Repositories\CoreRepository;
 
-class GalleryRepository extends CoreRepository
+class ReviewRepository extends CoreRepository
 {
     /**
      * @return string
@@ -28,8 +27,9 @@ class GalleryRepository extends CoreRepository
             ->find($id);
         return $result;
     }
+
     /**
-     * Get all Galleryies with paginator
+     * Get all models with paginator
      * @param  int|mixed|null $perPage
      * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator
      */
@@ -37,17 +37,18 @@ class GalleryRepository extends CoreRepository
     {
         $columns = [
             'id',
-            'title',
-            'notes',
+            'name',
+            'content',
+            'date',
+            'ordering',
             'status',
-            'created_at',
             'updated_at'
         ];
 
         $result = $this->startConditions()
             ->select($columns)
             ->withCount('images')
-            ->orderBy('title')
+            ->orderBy('date', 'DESC')
             ->paginate($perPage);
 
         return $result;
@@ -55,18 +56,29 @@ class GalleryRepository extends CoreRepository
     }
 
     /**
-     * Gets model with images for public
-     *
-     * @param int $id gallery id
-     * @return \App\Models\Gallery
+     * Get all models with paginator
+     * @param  int $limit How many models to get
+     * @return \Illuminate\Support\Collection
      */
-    public function getForViewById($id)
+    public function getRandomWithFirstImageForModule($limit = 3)
     {
+        $columns = [
+            'id',
+            'country',
+            'title',
+            'slug',
+            'excerpt',
+            'date',
+        ];
 
         $result = $this->startConditions()
+            ->select($columns)
             ->where('status', 1)
-            ->with('enabledImages')
-            ->find($id);
+            ->with('firstEnabledImage')
+            ->orderBy('date', 'DESC')
+            ->take($limit)
+            ->get();
+
         return $result;
 
     }

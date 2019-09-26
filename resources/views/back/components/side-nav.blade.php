@@ -35,6 +35,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.review.index') }}" class="nav-link  @if (Route::is('admin.review.*')) active @endif">
+                        <i class="nav-icon far fa-newspaper"></i>
+                        <p>Отзывы</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.files') }}" class="nav-link @if (Route::is('admin.files') || Route::is('admin.files.*')) active @endif">
                         <i class="nav-icon fas fa-save"></i>
                         <p>Файловый менеджер</p>
