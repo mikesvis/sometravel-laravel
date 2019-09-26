@@ -19,22 +19,6 @@
         </div>
     </div>
     <!-- /.card-header -->
-    {{--
-id	bigint(20) unsigned Автоматическое приращение
-country	varchar(191)
-title	varchar(191)
-slug	varchar(191)
-excerpt	text
-content	text NULL
-date	timestamp [CURRENT_TIMESTAMP]
-ordering	int(10) unsigned [0]
-status	tinyint(1) [1]
-seo_name	varchar(191) NULL
-seo_keywords	varchar(191) NULL
-seo_description	text NULL
-created_at	timestamp NULL
-updated_at
-    --}}
     <div class="card-body table-responsive p-0">
         <table class="table table-hover layout-fixed">
             <thead>

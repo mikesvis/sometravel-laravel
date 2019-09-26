@@ -2,19 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
+use App\Repositories\News\NewsRepository;
+use App\Repositories\Gallery\GalleryRepository;
 
 class SiteController extends BaseController
 {
+
+    /**
+     * @var GalleryRepository
+     */
+    private $galleryRepository;
+
+    /**
+     * @var NewsRepository
+     */
+    private $newsRepository;
+
+
+    /**
+     * Class constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->galleryRepository = app(GalleryRepository::class);
+        $this->newsRepository = app(NewsRepository::class);
+    }
+
     public function index()
     {
 
-        $sliders = [
-            'mainSplash' => Gallery::where('id', 1)->where('status', 1)->with('enabledImages')->first()
+        $data = [];
+
+        $data['sliders'] = [
+            'mainSplash' => $this->galleryRepository->getForViewById($galleryId = 1)
         ];
 
-        return view('front.mainpage', compact('sliders'));
+        $data['news'] = $this->newsRepository->getWithFirstImageForModule($limit = 3);
+
+        return view('front.mainpage', compact('data'));
     }
 }

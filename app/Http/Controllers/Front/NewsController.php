@@ -34,8 +34,7 @@ class NewsController extends FrontBaseController
      */
     public function index()
     {
-
-        $paginator = $this->newsRepository->getAllWithImagesAndPagination(self::ITEMS_PER_PAGE);
+        $paginator = $this->newsRepository->getWithFirstImageAndPagination(self::ITEMS_PER_PAGE);
 
         $breadcrumbs = $this->setBreadcrumbs([['name' => self::NAME, 'url' => null]])->breadcrumbs;
 
@@ -45,13 +44,25 @@ class NewsController extends FrontBaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\News  $news
+     * @param  string $slug Model slug
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show($slug)
     {
-        //
-        dd(__METHOD__);
-        // dd($news);
+
+        $news = $this->newsRepository->getForViewBySlug($slug);
+
+        if(empty($news))
+            abort(404);
+
+        $otherNews = $this->newsRepository->getWithFirstImageForModule(4, $news->id);
+
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME, 'url' => route('front.news.index')],
+            ['name' => $news->title, 'url' => null],
+        ])->breadcrumbs;
+
+        return view('front.news.show', compact('news', 'otherNews', 'breadcrumbs'));
+
     }
 }

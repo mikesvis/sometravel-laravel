@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\News;
 use App\Helpers\Flash;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Repositories\News\NewsRepository;
 use App\Http\Requests\News\NewsCreateRequest;
 use App\Http\Requests\News\NewsUpdateRequest;
@@ -112,7 +110,7 @@ class NewsController extends AdminBaseController
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\News\NewsUpdateRequest  $request
-     * @param  \App\Models\News  $news
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(NewsUpdateRequest $request, $id)
@@ -121,7 +119,7 @@ class NewsController extends AdminBaseController
 
         $news->update($request->all());
 
-        Flash::add('Новость обновлена.');
+        Flash::add('Новость обновлена');
 
         if($request->has('apply'))
             return redirect(route('admin.news.edit', $news->id))->withInput($request->only('tabToGo'));

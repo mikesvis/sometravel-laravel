@@ -26,9 +26,6 @@
         </div>
     </div>
 
-
-    {{-- @include('front.components.listings.directions') --}}
-
     @include('front.components.listings.news')
 
     @include('front.components.forms.visa-question',

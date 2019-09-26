@@ -31,4 +31,28 @@ class BaseAdminModel extends Model
 
     }
 
+    public function getSiteSeoTitleAttribute()
+    {
+        if(!empty($this->seo_title))
+            return $this->seo_title;
+
+        return $this->title;
+    }
+
+    public function getSiteSeoKeywordsAttribute()
+    {
+        if(!empty($this->seo_keywords))
+            return $this->seo_keywords;
+
+        return $this->siteSeoTitle;
+    }
+
+    public function getSiteSeoDescriptionAttribute()
+    {
+        if(!empty($this->seo_description))
+            return $this->seo_description;
+
+        return $this->siteSeoTitle;
+    }
+
 }

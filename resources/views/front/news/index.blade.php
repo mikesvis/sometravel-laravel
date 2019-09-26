@@ -17,15 +17,15 @@
             <div class="row listing">
 
                 @forelse ($paginator as $item)
-                <!-- listing item -->
                 <div class="col-12 col-md-6 col-xxl-4 col-xxxl-3 mb-4 mb-lg-5">
                     <div class="listingCard listing__item panelRounded panelShadow d-flex flex-column h-100">
                         <!-- image -->
-                        {{-- ['w' => 855, 'h'=>320] --}}
                         <div class="listingVisual listingCard__vusialHolder">
                             @isset($item->firstEnabledImage)
-                            @include()
-                            <a href="{{ route('front.news.show', $item->slug) }}" class="listingVisual__link d-block"><img src="@include('front.components.dummyImage', ['w' => 855, 'h'=>320])" class="listingVisual__image d-block w-100" alt=""></a>
+                            <a href="{{ route('front.news.show', $item->slug) }}" class="listingVisual__link d-block">
+                                {{-- ['w' => 855, 'h'=>320] --}}
+                                <img src="/timthumb.php?src={{ $item->firstEnabledImage->path }}&w=855&h=320&zc=1" class="listingVisual__image d-block w-100" alt="{{ ($item->firstEnabledImage->alt != '') ? $item->firstEnabledImage->alt : $item->firstEnabledImage->title }}">
+                            </a>
                             @endisset
                         </div>
                         <!-- /image -->
@@ -41,7 +41,6 @@
                         <!-- /text -->
                     </div>
                 </div>
-                <!-- listing item -->
                 @empty
                 <div class="col-12 mb-4 mb-lg-5 text-center">Новостей пока нет</div>
                 @endforelse
