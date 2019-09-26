@@ -11,13 +11,15 @@
             <div class="col-12 col-md-12 col-xxl-7 order-md-3 order-xxl-2 mt-0 mt-md-4 mt-xxl-0">
                 <div class="footer__menuWrapper">
                     <ul class="footerMenu d-block d-md-flex justify-content-between mx-xl-0 mx-xxl-5">
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">Главная</a></li>
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">Услуги</a></li>
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">Новости</a></li>
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">Купить франшизу</a></li>
-                        {{-- <li class="footerMenu__item my-2"><a href="" class="footerMenu__link footerMenu__link--active">Купить франшизу</a></li> --}}
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">О нас</a></li>
-                        <li class="footerMenu__item my-2"><a href="" class="footerMenu__link">Контакты</a></li>
+                        @foreach ( app('App\Helpers\MenuHelper')->getItems() as $item)
+                        <li class="footerMenu__item my-2">
+                            @if ($item['current'])
+                            <span class="footerMenu__link footerMenu__link--active">{{ $item['name'] }}</span>
+                            @else
+                            <a href="{{ $item['url'] }}" class="footerMenu__link @if ($item['active']) footerMenu__link--active @endif">{{ $item['name'] }}</a>
+                            @endif
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

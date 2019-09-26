@@ -21,14 +21,15 @@
                 <div class="d-none col-xl d-xl-block col-xxl-5 col-xxxl-6">
                     <div class="topPanel__menuWrapper">
                         <ul class="topMenu p-0 m-0 pr-xxxl-5">
-                            <li class="topMenu__item"><a href="" class="topMenu__link">Главная</a></li>
-                            <li class="topMenu__item"><span class="topMenu__link">Услуги</span></li>
-                            {{-- <li class="topMenu__item"><span class="topMenu__link topMenu__link--active">Услуги</span></li> --}}
-                            <li class="topMenu__item"><a href="" class="topMenu__link">Новости</a></li>
-                            <li class="topMenu__item"><a href="" class="topMenu__link">Купить франшизу</a></li>
-                            {{-- <li class="topMenu__item"><a href="" class="topMenu__link topMenu__link--active">Купить франшизу</a></li> --}}
-                            <li class="topMenu__item"><a href="" class="topMenu__link">О нас</a></li>
-                            <li class="topMenu__item"><a href="" class="topMenu__link">Контакты</a></li>
+                            @foreach ( app('App\Helpers\MenuHelper')->getItems() as $item)
+                                <li class="topMenu__item">
+                                    @if ($item['current'])
+                                        <span class="topMenu__link topMenu__link--active">{{ $item['name'] }}</span>
+                                    @else
+                                        <a href="{{ $item['url'] }}" class="topMenu__link @if ($item['active']) topMenu__link--active @endif">{{ $item['name'] }}</a>
+                                    @endif
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
