@@ -101,7 +101,7 @@ class ReviewController extends AdminBaseController
         if(empty($review))
             abort(404);
 
-        $timezone = News::TIMEZONE;
+        $timezone = Review::TIMEZONE;
 
         return view('back.review.edit', compact('review', 'timezone', 'breadcrumbs', 'tabToGo'));
     }

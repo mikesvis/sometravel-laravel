@@ -13,7 +13,7 @@ class ReviewUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class ReviewUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required', 'string', 'min:3'],
+            'date' => ['required', 'date_format:"Y-m-d H:i:s"'],
+            'ordering' => ['required', 'integer', 'min:0'],
+            'status' => ['required', 'boolean'],
         ];
     }
 }
