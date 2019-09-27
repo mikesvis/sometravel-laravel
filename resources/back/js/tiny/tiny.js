@@ -10,6 +10,7 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/visualblocks';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/preview';
+import 'tinymce/plugins/importcss';
 
 require('./langs/ru.js');
 
@@ -121,12 +122,13 @@ var defaultMenus = {
 tinymce.init({
     selector: '.is-tiny',
     language: 'ru',
-    plugins: ['code', 'image', 'link', 'anchor', 'advlist', 'lists', 'fullscreen', 'visualblocks', 'table', 'preview'],
+    plugins: ['code', 'image', 'link', 'anchor', 'advlist', 'lists', 'fullscreen', 'visualblocks', 'table', 'preview', 'importcss'],
     relative_urls : false,
     document_base_url : "/",
     min_height: 500,
     valid_elements : '*[*]',
     extend_valid_elements: '*[*]',
+    content_css: "/css/app.css",
     file_picker_callback (callback, value, meta) {
         let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
         let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight

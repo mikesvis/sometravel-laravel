@@ -1,4 +1,4 @@
- import flatpickr from "flatpickr";
+import flatpickr from "flatpickr";
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 
 $(function(){

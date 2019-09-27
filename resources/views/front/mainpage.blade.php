@@ -1,5 +1,9 @@
 @extends('layouts.front.index')
 
+@section('title', 'Виза Интеграл')
+@section('keywords', 'Виза Интеграл')
+@section('description', 'Виза Интеграл')
+
 @section('content')
 
 <!-- slider -->
@@ -248,79 +252,7 @@
 <!-- /no time to explain -->
 
 <!-- reviews -->
-<div class="container vpm__mb vpm__py">
-    <!-- block heading -->
-    <div class="heading row vpm__my">
-        <div class="col-12">
-            <div class="heading__text text-center"><span class="text-primary">Отзывы</span> наших клиентов</div>
-        </div>
-    </div>
-    <!-- block heading -->
-
-    <!-- listing -->
-    <div class="listing row">
-
-        <!-- listing item -->
-        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-sm-5">
-            <div class="listingCard listing__item panelRounded panelShadow d-flex flex-column h-100">
-                <!-- image -->
-                <div class="listingVisual listingCard__vusialHolder">
-                    <a href="" class="listingVisual__link listingVisual__link--maskGradient d-block"><img src="@include('front.components.dummyImage', ['w' => 855, 'h'=>552])" class="listingVisual__image d-block w-100" alt=""></a>
-                </div>
-                <!-- /image -->
-                <!-- text -->
-                <div class="listingText listingCard__textHolder px-4 pt-3 pb-5 flex-grow-1">
-                    <div class="listingText__heading">Виталий Алексеевич</div>
-                    <div class="listingText__date mt-2 mb-3">12.10.2019</div>
-                    <div class="listingText__description flex-grow-1">Сегодня я хочу выразить Вам свою благодарность за отменную работу! Я много что повидал(-а) в своей жизни, но такой чёткой, слаженной и качественной работы не видел(-а) давно. В наше время очень мало людей, которые готовы с полной ответственностью подойти к своей работе, ничего не откладывать и выполнить её на уровне. </div>
-                </div>
-                <!-- /text -->
-            </div>
-        </div>
-        <!-- listing item -->
-
-        <!-- listing item -->
-        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-sm-5">
-            <div class="listingCard listing__item panelRounded panelShadow d-flex flex-column h-100">
-                <!-- image -->
-                <div class="listingVisual listingCard__vusialHolder">
-                    <a href="" class="listingVisual__link listingVisual__link--maskGradient d-block"><img src="@include('front.components.dummyImage', ['w' => 855, 'h'=>552])" class="listingVisual__image d-block w-100" alt=""></a>
-                </div>
-                <!-- /image -->
-                <!-- text -->
-                <div class="listingText listingCard__textHolder px-4 pt-3 pb-5 flex-grow-1">
-                    <div class="listingText__heading">Андрей Витальевич</div>
-                    <div class="listingText__date mt-2 mb-3">12.10.2019</div>
-                    <div class="listingText__description flex-grow-1">Сегодня я хочу выразить Вам свою благодарность за отменную работу! Я много что повидал(-а) в своей жизни, но такой чёткой, слаженной и качественной работы не видел(-а) давно. В наше время очень мало людей, которые готовы с полной ответственностью подойти к своей работе, ничего не откладывать и выполнить её на уровне. </div>
-                </div>
-                <!-- /text -->
-            </div>
-        </div>
-        <!-- listing item -->
-
-        <!-- listing item -->
-        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-sm-5 d-none d-xxl-block">
-            <div class="listingCard listing__item panelRounded panelShadow d-flex flex-column h-100">
-                <!-- image -->
-                <div class="listingVisual listingCard__vusialHolder">
-                    <a href="" class="listingVisual__link listingVisual__link--maskGradient d-block"><img src="@include('front.components.dummyImage', ['w' => 855, 'h'=>552])" class="listingVisual__image d-block w-100" alt=""></a>
-                </div>
-                <!-- /image -->
-                <!-- text -->
-                <div class="listingText listingCard__textHolder px-4 pt-3 pb-5 flex-grow-1">
-                    <div class="listingText__heading">Оксана Антоновна</div>
-                    <div class="listingText__date mt-2 mb-3">12.10.2019</div>
-                    <div class="listingText__description flex-grow-1">Сегодня я хочу выразить Вам свою благодарность за отменную работу! Я много что повидал(-а) в своей жизни, но такой чёткой, слаженной и качественной работы не видел(-а) давно. В наше время очень мало людей, которые готовы с полной ответственностью подойти к своей работе, ничего не откладывать и выполнить её на уровне. </div>
-                </div>
-                <!-- /text -->
-            </div>
-        </div>
-        <!-- listing item -->
-
-    </div>
-    <!-- listing -->
-
-</div>
+@include('front.review.module', ['reviews'=>$data['reviews']])
 <!-- /reviews -->
 
 <!-- news -->

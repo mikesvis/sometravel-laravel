@@ -64,10 +64,8 @@ class ReviewRepository extends CoreRepository
     {
         $columns = [
             'id',
-            'country',
-            'title',
-            'slug',
-            'excerpt',
+            'name',
+            'content',
             'date',
         ];
 
@@ -75,8 +73,8 @@ class ReviewRepository extends CoreRepository
             ->select($columns)
             ->where('status', 1)
             ->with('firstEnabledImage')
-            ->orderBy('date', 'DESC')
             ->take($limit)
+            ->orderByRaw('RAND()')
             ->get();
 
         return $result;
