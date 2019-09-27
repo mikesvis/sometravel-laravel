@@ -22,6 +22,9 @@ Route::group(['namespace' => 'Front'], function(){
     Route::get('/novosti', 'NewsController@index')->name('front.news.index');
     Route::get('/novosti/{news}', 'NewsController@show')->name('front.news.show');
 
+    // pages
+    Route::get('/{page}', 'PageController@show')->name('front.page.show');
+
 });
 
 // back routes
@@ -50,6 +53,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // reviews
     Route::resource('review', 'ReviewController', ['as'=>'admin']);
     Route::get('review/{review}/edit/{tabToGo}', 'ReviewController@edit', ['as'=>'admin'])->name('admin.review.edit.tabToGo');
+
+    // pages
+    Route::resource('page', 'PageController', ['as'=>'admin']);
+    Route::get('page/{page}/edit/{tabToGo}', 'PageController@edit', ['as'=>'admin'])->name('admin.page.edit.tabToGo');
 });
 
 // Route::view('/test-middle', 'test')->middleware('auth');

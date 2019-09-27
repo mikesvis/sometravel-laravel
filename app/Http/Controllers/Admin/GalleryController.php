@@ -101,7 +101,6 @@ class GalleryController extends AdminBaseController
         if(empty($gallery))
             abort(404);
 
-
         return view('back.gallery.edit', compact('gallery', 'breadcrumbs', 'tabToGo'));
     }
 

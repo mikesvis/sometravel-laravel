@@ -29,6 +29,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.page.index') }}" class="nav-link  @if (Route::is('admin.page.*')) active @endif">
+                        <i class="nav-icon far fa-file-alt"></i>
+                        <p>Страницы</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.gallery.index') }}" class="nav-link  @if (Route::is('admin.gallery.*')) active @endif">
                         <i class="nav-icon fas fa-images"></i>
                         <p>Галереи</p>
