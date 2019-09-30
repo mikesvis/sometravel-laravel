@@ -9,6 +9,7 @@ class MenuHelper
 
     public function getItems()
     {
+
         $result = [
             [
                 'name' => 'Главная',
@@ -24,20 +25,20 @@ class MenuHelper
             ],
             [
                 'name' => 'Купить франшизу',
-                'url' => '/',
-                'current' => false,
+                'url' => route('front.page.show', 'kupit-franshizu'),
+                'current' => (Route::is('front.page.show') && request('page') == 'kupit-franshizu'),
                 'active' => false,
             ],
             [
                 'name' => 'О нас',
-                'url' => '/',
-                'current' => false,
+                'url' => route('front.page.show', 'o-nas'),
+                'current' => (Route::is('front.page.show') && request('page') == 'o-nas'),
                 'active' => false,
             ],
             [
                 'name' => 'Контакты',
-                'url' => '/',
-                'current' => false,
+                'url' => route('front.page.show', 'kontakty'),
+                'current' => (Route::is('front.page.show') && request('page') == 'kontakty'),
                 'active' => false,
             ],
         ];

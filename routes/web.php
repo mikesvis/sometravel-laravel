@@ -15,18 +15,6 @@ Route::get('/', 'SiteController@index')->name('front.index');
 
 Auth::routes();
 
-// front routes
-Route::group(['namespace' => 'Front'], function(){
-
-    // news
-    Route::get('/novosti', 'NewsController@index')->name('front.news.index');
-    Route::get('/novosti/{news}', 'NewsController@show')->name('front.news.show');
-
-    // pages
-    Route::get('/{page}', 'PageController@show')->name('front.page.show');
-
-});
-
 // back routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
 
@@ -57,6 +45,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // pages
     Route::resource('page', 'PageController', ['as'=>'admin']);
     Route::get('page/{page}/edit/{tabToGo}', 'PageController@edit', ['as'=>'admin'])->name('admin.page.edit.tabToGo');
+
+    // visa & categories
+    Route::namespace('Visa')->group(function () {
+        Route::resource('visa', 'VisaController', ['as'=>'admin']);
+        Route::get('visa/{visa}/edit/{tabToGo}', 'VisaController@edit', ['as'=>'admin'])->name('admin.visa.edit.tabToGo');
+        Route::resource('category', 'CategoryController', ['as'=>'admin']);
+        Route::get('category/{category}/edit/{tabToGo}', 'CategoryController@edit', ['as'=>'admin'])->name('admin.category.edit.tabToGo');
+    });
+});
+
+// front routes
+Route::group(['namespace' => 'Front'], function(){
+
+    // news
+    Route::get('/novosti', 'NewsController@index')->name('front.news.index');
+    Route::get('/novosti/{news}', 'NewsController@show')->name('front.news.show');
+
+    // pages
+    Route::get('/{page}', 'PageController@show')->name('front.page.show');
+
 });
 
 // Route::view('/test-middle', 'test')->middleware('auth');
