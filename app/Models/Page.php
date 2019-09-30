@@ -52,12 +52,15 @@ class Page extends BaseAdminModel
      */
     public function setSlugAttribute($value)
     {
+        $this->attributes['slug'] = $value;
+
         if(empty($value)){
             $this->attributes['slug'] = Str::slug($this->attributes['title'], '-');
-            $uniqueSlugsCount = Page::where('slug', $this->attributes['slug'])->where('id', '<>', $this->id)->count();
-            if($uniqueSlugsCount != 0)
-                $this->attributes['slug'] .= '-'.($uniqueSlugsCount+1);
         }
+
+        $uniqueSlugsCount = Page::where('slug', $this->attributes['slug'])->where('id', '<>', $this->id)->count();
+        if($uniqueSlugsCount != 0)
+            $this->attributes['slug'] .= '-'.($uniqueSlugsCount+1);
     }
 
     /**
