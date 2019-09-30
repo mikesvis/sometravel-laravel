@@ -28,6 +28,29 @@
                         <p>Новости</p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview @if (Route::is('admin.visa.*') || Route::is('admin.category.*')) menu-open @endif">
+                    <a href="{{ route('admin.visa.index') }}" class="nav-link active">
+                        <i class="nav-icon fas fa-plane"></i>
+                        <p>
+                            Визы
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.visa.index') }}" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Страны</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.category.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Категории</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.page.index') }}" class="nav-link  @if (Route::is('admin.page.*')) active @endif">
                         <i class="nav-icon far fa-file-alt"></i>

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Page;
+namespace App\Repositories\Visa;
 
-use App\Models\Page as Model;
+use App\Models\Visa\Category as Model;
 use App\Repositories\CoreRepository;
 
-class PageRepository extends CoreRepository
+class CategoryRepository extends CoreRepository
 {
     /**
      * @return string
@@ -23,7 +23,6 @@ class PageRepository extends CoreRepository
     public function getForEditById($id)
     {
         $result = $this->startConditions()
-            ->with('images')
             ->find($id);
         return $result;
     }
@@ -37,9 +36,9 @@ class PageRepository extends CoreRepository
     {
         $columns = [
             'id',
-            'title',
-            'menuname',
-            'slug',
+            // 'title',
+            // 'menuname',
+            // 'slug',
             'ordering',
             'status',
             'updated_at'
@@ -47,12 +46,12 @@ class PageRepository extends CoreRepository
 
         $result = $this->startConditions()
             ->select($columns)
-            ->withCount('images')
             ->orderBy('ordering', 'asc')
             ->orderBy('id', 'asc')
             ->paginate($perPage);
 
         return $result;
+
     }
 
     /**
@@ -65,7 +64,6 @@ class PageRepository extends CoreRepository
         $result = $this->startConditions()
             ->where('status', 1)
             ->where('slug', $slug)
-            ->with('firstEnabledImage')
             ->first();
 
         return $result;
