@@ -15,18 +15,23 @@ class CreateVisasTable extends Migration
     {
         Schema::create('visas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->unique();
-            $table->string('title_to');
-            $table->string('menuname')->nullable();
-            $table->string('slug')->unique();
-            $table->text('content')->nullable();
-            $table->text('documents_text')->nullable();
-            $table->unsignedInteger('base_price')->default(0);
-            $table->unsignedInteger('ordering')->default(0);
-            $table->boolean('status')->default(1);
-            $table->string('seo_name')->nullable();
-            $table->string('seo_keywords')->nullable();
-            $table->text('seo_description')->nullable();
+            $table->string('title')->unique(); // заголовок "Франция"
+            $table->string('title_to'); // заголовок с склонением например "во Францию"
+            $table->string('menuname')->nullable(); // название пункта меню
+            $table->string('slug')->unique(); // url код
+            $table->text('content')->nullable(); // описательный текст
+            $table->text('documents_text')->nullable(); // текст напротив документов
+            $table->unsignedInteger('base_price')->default(0); // базовая цена за одного человека
+            $table->unsignedTinyInteger('application_type')->default(1); // тип подачи: 0 - Только личная, 1 - Личная и без присутствия
+            $table->unsignedInteger('application_absence_price')->nullable(); // надбавка для цены при типе подачи "без присутствия"
+            $table->unsignedTinyInteger('delivery_type')->default(1); // тип доставки: 0 - Только самовывоз, 1 - Доставка курьером и самовывоз
+            $table->unsignedInteger('delivery_price')->nullable();  // цена доставки при типе доставки "Доставка курьером"
+            $table->boolean('is_insurable')->default(1); // в "Дополнительные сервисы" есть пункт страховка при оформлении
+            $table->unsignedInteger('ordering')->default(0); // порядок
+            $table->boolean('status')->default(0); // статус
+            $table->string('seo_name')->nullable(); // seo name
+            $table->string('seo_keywords')->nullable(); // seo keywords
+            $table->text('seo_description')->nullable(); // seo description
             $table->timestamps();
         });
     }
