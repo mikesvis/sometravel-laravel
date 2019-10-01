@@ -48,8 +48,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
     // visa & categories
     Route::namespace('Visa')->group(function () {
+        // visa
         Route::resource('visa', 'VisaController', ['as'=>'admin']);
         Route::get('visa/{visa}/edit/{tabToGo}', 'VisaController@edit', ['as'=>'admin'])->name('admin.visa.edit.tabToGo');
+
+        // category
         Route::resource('category', 'CategoryController', ['as'=>'admin']);
         Route::get('category/{category}/edit/{tabToGo}', 'CategoryController@edit', ['as'=>'admin'])->name('admin.category.edit.tabToGo');
     });

@@ -1,6 +1,6 @@
 @extends('layouts.back.index')
 
-@section('header', 'Страницы')
+@section('header', 'Категории')
 
 @section('content')
 
@@ -9,8 +9,8 @@
     <div class="card-header">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.page.create') }}" class="btn btn-success">
-                    <em class="fas fa-plus mr-1"></em> Добавить страницу
+                <a href="{{ route('admin.category.create') }}" class="btn btn-success">
+                    <em class="fas fa-plus mr-1"></em> Добавить категорию
                 </a>
             </div>
             <div class="col-auto">
@@ -25,7 +25,6 @@
                 <tr>
                     <th>Заголовок</th>
                     <th style="width: 25%">Пункт меню</th>
-                    <th style="width: 100px" class="text-center"><em class="far fa-image fa-lg" title="Изображения"></em></th>
                     <th style="width: 80px" class="text-center"><em class="fas fa-sort-numeric-down fa-lg" title="Порядок"></em></th>
                     <th style="width: 80px" class="text-center"><em class="far fa-eye fa-lg" title="Статус"></em></th>
                     <th style="width: 80px" class="text-center"><em class="fas fa-desktop fa-lg" title="Посмотреть на сайте"></em></th>
@@ -36,14 +35,8 @@
             <tbody>
                 @forelse ($paginator as $item)
                 <tr>
-                    <td class="ellipsis"><a href="{{ route('admin.page.edit', $item) }}">{{ $item->title }}</a></td>
+                    <td class="ellipsis"><a href="{{ route('admin.category.edit', $item) }}">{{ $item->title }}</a></td>
                     <td>{{ $item->menuname != '' ? $item->menuname : $item->title }}</td>
-                    <td class="text-center py-0 vertical-align-middle">
-                        <a href="{{ route('admin.page.edit.tabToGo', [$item->id, 'images']) }}" class="d-inline-flex align-items-center justify-content-center btn btn-outline-primary btn-sm">
-                            <span class="d-block mr-1">{{ $item->images_count }}</span>
-                            <span class="d-block"><em class="far fa-image"></em></span>
-                        </a>
-                    </td>
                     <td class="text-center">{{ $item->ordering }}</td>
                     <td class="text-center">
                         @if ((bool)$item->status)
@@ -53,13 +46,13 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        @if ((bool)$item->status)
-                            <a href="{{ route('front.page.show', $item->slug) }}" title="Посмотреть на сайте" target="_blank"><em class="fas fa-external-link-alt"></em></a>
-                        @endif
+                        {{-- @if ((bool)$item->status)
+                            <a href="{{ route('front.category.show', $item->slug) }}" title="Посмотреть на сайте" target="_blank"><em class="fas fa-external-link-alt"></em></a>
+                        @endif --}}
                     </td>
                     <td class="text-center">{{ $item->updated_at }}</td>
                     <td class="py-0 vertical-align-middle">
-                        <form action="{{ route('admin.page.destroy', $item) }}" method="post">
+                        <form action="{{ route('admin.category.destroy', $item) }}" method="post">
                             @method('delete')
                             @csrf
                             <button type="submit" class="btn btn-outline-danger btn-sm delete" data-trigger="hover" data-popup="tooltip" data-placement="left" title="Удалить" data-element_name="{{ $item->title }}" disabled><i class="far fa-trash-alt"></i></button>
@@ -68,7 +61,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center">Страниц пока нет</td>
+                    <td colspan="7" class="text-center">Категорий пока нет</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -79,8 +72,8 @@
     <div class="card-footer border-top">
         <div class="row">
             <div class="col">
-                <a href="{{ route('admin.page.create') }}" class="btn btn-success">
-                    <em class="fas fa-plus mr-1"></em> Добавить страницу
+                <a href="{{ route('admin.category.create') }}" class="btn btn-success">
+                    <em class="fas fa-plus mr-1"></em> Добавить категорию
                 </a>
             </div>
             <div class="col-auto">

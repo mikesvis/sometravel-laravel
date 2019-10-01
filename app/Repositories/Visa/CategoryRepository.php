@@ -7,6 +7,7 @@ use App\Repositories\CoreRepository;
 
 class CategoryRepository extends CoreRepository
 {
+
     /**
      * @return string
      */
@@ -36,9 +37,9 @@ class CategoryRepository extends CoreRepository
     {
         $columns = [
             'id',
-            // 'title',
-            // 'menuname',
-            // 'slug',
+            'title',
+            'menuname',
+            'slug',
             'ordering',
             'status',
             'updated_at'
@@ -51,7 +52,6 @@ class CategoryRepository extends CoreRepository
             ->paginate($perPage);
 
         return $result;
-
     }
 
     /**
