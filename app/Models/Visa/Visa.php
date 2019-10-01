@@ -16,9 +16,17 @@ class Visa extends BaseAdminModel
      */
     protected $fillable = [
         'title',
+        'title_to',
         'menuname',
         'slug',
         'content',
+        'documents_text',
+        'base_price',
+        'application_type',
+        'application_absence_price',
+        'delivery_type',
+        'delivery_price',
+        'is_insurable',
         'ordering',
         'status',
         'seo_name',
@@ -33,6 +41,7 @@ class Visa extends BaseAdminModel
      */
     protected $casts = [
         'status' => 'boolean',
+        'is_insurable' => 'boolean',
     ];
 
     /**

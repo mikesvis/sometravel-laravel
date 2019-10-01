@@ -142,4 +142,5 @@ class PageController extends AdminBaseController
         Flash::add('Страница и её изображения удалены.', 'error');
         return redirect(route('admin.page.index'));
     }
+
 }
