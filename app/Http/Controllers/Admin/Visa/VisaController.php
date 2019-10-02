@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Visa;
 
-use App\Models\Visa\Visa;
 use App\Helpers\Flash;
+use App\Models\Visa\Visa;
 use App\Repositories\Visa\VisaRepository;
+use App\Repositories\Image\ImageRepository;
 use App\Http\Requests\Visa\VisaCreateRequest;
 use App\Http\Requests\Visa\VisaUpdateRequest;
+use App\Repositories\Visa\CategoryRepository;
 use App\Events\Image\PolymorphModelDeletedEvent;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
@@ -21,12 +23,24 @@ class VisaController extends AdminBaseController
     private $visaRepository;
 
     /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
+     * @var ImageRepository
+     */
+    private $imageRepository;
+
+    /**
      * Class constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->visaRepository = app(VisaRepository::class);
+        $this->categoryRepository = app(CategoryRepository::class);
+        $this->imageRepository = app(ImageRepository::class);
     }
 
     /**
@@ -61,10 +75,14 @@ class VisaController extends AdminBaseController
             ]
         )->breadcrumbs;
 
+        $categoriesList = $this->categoryRepository->getForSelect();
+
+        $documentsList = $this->imageRepository->getDocumentsForSelect();
+
         $tabToGo = 'primary';
         $timezone = Visa::TIMEZONE;
 
-        return view('back.visa.visa.create', compact('breadcrumbs', 'tabToGo', 'timezone'));
+        return view('back.visa.visa.create', compact('categoriesList', 'documentsList', 'breadcrumbs', 'tabToGo', 'timezone'));
     }
 
     /**
@@ -76,6 +94,9 @@ class VisaController extends AdminBaseController
     public function store(VisaCreateRequest $request)
     {
         $visa = Visa::create($request->all());
+
+        $visa->categories()->sync($request->input('categories'));
+        $visa->documents()->sync($request->input('documents'));
 
         Flash::add('Страна добавлена');
 

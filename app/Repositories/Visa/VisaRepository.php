@@ -37,9 +37,10 @@ class VisaRepository extends CoreRepository
     {
         $columns = [
             'id',
-            // 'title',
-            // 'menuname',
-            // 'slug',
+            'title',
+            'menuname',
+            'slug',
+            'base_price',
             'ordering',
             'status',
             'updated_at'
@@ -48,6 +49,7 @@ class VisaRepository extends CoreRepository
         $result = $this->startConditions()
             ->select($columns)
             ->withCount('images')
+            ->with('categories')
             ->orderBy('ordering', 'asc')
             ->orderBy('id', 'asc')
             ->paginate($perPage);

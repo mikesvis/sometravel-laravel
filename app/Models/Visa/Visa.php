@@ -4,6 +4,7 @@ namespace App\Models\Visa;
 
 use App\Models\Image;
 use Illuminate\Support\Str;
+use App\Models\Visa\Category;
 use App\Models\BaseAdminModel;
 
 class Visa extends BaseAdminModel
@@ -45,6 +46,51 @@ class Visa extends BaseAdminModel
         'status' => 'boolean',
         'is_insurable' => 'boolean',
     ];
+
+    public static function tabsErrors($errors = [])
+    {
+        $result = [
+            'primary' => false,
+            'baseParams' => false,
+            'moreParams' => false,
+            'images' => false,
+            'seo' => false,
+        ];
+
+        if($errors->any() == false)
+            return $result;
+
+        $result['primary'] = (bool)count(array_intersect($errors->keys(),
+            [
+                'title',
+                'title_to',
+                'menuname',
+                'slug',
+                'content',
+                'documents_text',
+                'categories',
+                'documents',
+                'ordering',
+                'status'
+            ]
+        ));
+
+        $result['baseParams'] = (bool)count(array_intersect($errors->keys(),
+            [
+                'base_price',
+                'application_type',
+                'application_absence_price',
+                'acceptance_type',
+                'acceptance_price',
+                'delivery_type',
+                'delivery_price',
+                'is_insurable',
+            ]
+        ));
+
+        return $result;
+
+    }
 
     /**
      * Get different route model binding depending for admin & front
@@ -97,6 +143,22 @@ class Visa extends BaseAdminModel
     public function firstEnabledImage()
     {
         return $this->morphOne(Image::class, 'imagable')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
+    }
+
+    /**
+     * The categories that belong to the visa.
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * The documents that belong to the visa.
+     */
+    public function documents()
+    {
+        return $this->belongsToMany(Image::class);
     }
 
 }

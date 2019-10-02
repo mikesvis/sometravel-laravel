@@ -55,3 +55,6 @@ require('./components/fancybox');
 
 // date time pickers
 require('./components/datetimepickers');
+
+// Select2
+require('./components/select2.js');

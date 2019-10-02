@@ -7,6 +7,9 @@ use App\Repositories\CoreRepository;
 
 class ImageRepository extends CoreRepository
 {
+
+    const DOCUMENTS_GALLERY_ID = 2;
+
     /**
      * @return string
      */
@@ -39,6 +42,27 @@ class ImageRepository extends CoreRepository
         $polymorphModel = app('App\Models\\'.$modelName)->withCount('images')->find($id);
 
         return $polymorphModel;
+    }
+
+    /**
+     * Get models for select
+     *
+     * @return void
+     */
+    public function getDocumentsForSelect()
+    {
+        $columns = ['id', 'title'];
+        $result = $this
+            ->startConditions()
+            ->where('status', 1)
+            ->where('imagable_type', 'App\Models\Gallery')
+            ->where('imagable_id', self::DOCUMENTS_GALLERY_ID)
+            ->orderBy('ordering', 'asc')
+            ->orderBy('id', 'asc')
+            ->select($columns)
+            ->toBase()
+            ->get();
+        return $result;
     }
 
 }

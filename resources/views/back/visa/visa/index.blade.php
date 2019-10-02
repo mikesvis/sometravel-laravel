@@ -37,29 +37,34 @@
             <tbody>
                 @forelse ($paginator as $item)
                 <tr>
-                    <td class="ellipsis"><a href="{{ route('admin.visa.edit', $item) }}">{{ $item->title }}</a></td>
-                    <td>{{ $item->menuname != '' ? $item->menuname : $item->title }}</td>
-                    <td class="text-center">{{ $item->base_price }}</td>
+                    <td class="ellipsis vertical-align-middle">
+                        <a href="{{ route('admin.visa.edit', $item) }}" class="d-block">{{ $item->title }}</a>
+                        @foreach ($item->categories as $category)
+                            <span class="badge border">{{ $category->title }}</span>
+                        @endforeach
+                    </td>
+                    <td class="vertical-align-middle">{{ $item->menuname != '' ? $item->menuname : $item->title }}</td>
+                    <td class="text-center vertical-align-middle">{{ $item->base_price }}</td>
                     <td class="text-center py-0 vertical-align-middle">
                         <a href="{{ route('admin.visa.edit.tabToGo', [$item->id, 'images']) }}" class="d-inline-flex align-items-center justify-content-center btn btn-outline-primary btn-sm">
                             <span class="d-block mr-1">{{ $item->images_count }}</span>
                             <span class="d-block"><em class="far fa-image"></em></span>
                         </a>
                     </td>
-                    <td class="text-center">{{ $item->ordering }}</td>
-                    <td class="text-center">
+                    <td class="text-center vertical-align-middle">{{ $item->ordering }}</td>
+                    <td class="text-center vertical-align-middle">
                         @if ((bool)$item->status)
                         <em class="far fa-check-circle text-success" title="Включена"></em>
                         @else
                         <em class="far fa-times-circle text-danger" title="Выключена"></em>
                         @endif
                     </td>
-                    <td class="text-center">
-                        @if ((bool)$item->status)
+                    <td class="text-center vertical-align-middle">
+                        {{-- @if ((bool)$item->status)
                             <a href="{{ route('front.visa.show', $item->slug) }}" title="Посмотреть на сайте" target="_blank"><em class="fas fa-external-link-alt"></em></a>
-                        @endif
+                        @endif --}}
                     </td>
-                    <td class="text-center">{{ $item->updated_at }}</td>
+                    <td class="text-center vertical-align-middle">{{ $item->updated_at }}</td>
                     <td class="py-0 vertical-align-middle">
                         <form action="{{ route('admin.visa.destroy', $item) }}" method="post">
                             @method('delete')

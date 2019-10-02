@@ -9,9 +9,9 @@
 <form method="POST" action="{{ route('admin.visa.store') }}">
 
     @csrf
-
     @php
         $tabToGo = (old('tabToGo') != null) ? old('tabToGo') : '#'.$tabToGo;
+        $tabsErrors = App\Models\Visa\Visa::tabsErrors($errors);
     @endphp
 
     <input type="hidden" name="tabToGo" value="{{ $tabToGo }}">
@@ -22,15 +22,15 @@
             <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
 
                 <li class="nav-item">
-                    <a class="nav-link {{ (($tabToGo == '#primary') ? "active":"") }}" data-toggle="pill" href="#primary" role="tab" aria-controls="primary" aria-selected="{{ (($tabToGo == '#primary') ? "true":"false") }}">
+                <a class="nav-link {{ (($tabToGo == '#primary') ? "active":"") }} {{ $tabsErrors['primary'] ? 'text-danger' : '' }}" data-toggle="pill" href="#primary" role="tab" aria-controls="primary" aria-selected="{{ (($tabToGo == '#primary') ? "true":"false") }}">
                         <em class="fas fa-home"></em>
-                        <span class="d-none d-md-inline-block">Основное</span>
+                        <span class="d-none d-md-inline-block @error('title', 'title_to') text-danger @enderror">Основное</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link {{ (($tabToGo == '#params') ? "active":"") }}" data-toggle="pill" href="#params" role="tab" aria-controls="params" aria-selected="{{ (($tabToGo == '#params') ? "true":"false") }}">
+                        <a class="nav-link {{ (($tabToGo == '#baseParams') ? "active":"") }} {{ $tabsErrors['baseParams'] ? 'text-danger' : '' }}" data-toggle="pill" href="#baseParams" role="tab" aria-controls="baseParams" aria-selected="{{ (($tabToGo == '#baseParams') ? "true":"false") }}">
                             <em class="fas fa-project-diagram"></em>
-                            <span class="d-none d-md-inline-block">Параметры</span>
+                            <span class="d-none d-md-inline-block">Базовые параметры</span>
                         </a>
                     </li>
                 <li class="nav-item">
@@ -65,21 +65,21 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-3 col-xl-2" for="title">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="title_to">
                             Заголовок с склонением <span class="text-danger">*</span>
                             <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="Будет использоваться в тексте. Например: Получение визы {во Францию}">?</span>
                         </label>
                         <div class="col-lg-9 col-xl-10">
                             <input
                             type="text"
-                            name="title"
-                            value="{{ old('title') }}"
-                            class="form-control @error('title')is-invalid @enderror"
-                            id="title"
+                            name="title_to"
+                            value="{{ old('title_to') }}"
+                            class="form-control @error('title_to')is-invalid @enderror"
+                            id="title_to"
                             placeholder="Например: во Францию"
                             required
                             >
-                            @error('title')
+                            @error('title_to')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
@@ -117,8 +117,21 @@
                         </div>
                     </div>
 
-                    <p>Categories</p>
-                    <p>Documents</p>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2">Категории</label>
+                        <div class="col-lg-9 col-xl-10">
+                            <select name="categories[]" class="select2 {{ $errors->has('categories') ? 'is-invalid':'' }}" data-placeholder="Выберите категорию" data-tags-input="true" data-allow-clear="true" data-fouc multiple>
+                                    @forelse ($categoriesList as $category)
+                                    <option value="{{ $category->id }}" {{ (in_array($category->id, old('categories',[])) ? "selected":"") }}>{{ $category->title }}</option>
+                                    @empty
+                                    <option value="">Категорий пока нет</option>
+                                    @endforelse
+                                </select>
+                            @error('categories')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-xl-2">Содержимое страницы</label>
@@ -150,22 +163,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-3 col-xl-2" for="ordering">Базовая цена <span class="text-danger">*</span></label>
-                        <div class="col-lg-9 col-xl-2">
-                            <input
-                            type="number"
-                            name="ordering"
-                            value="{{ old('ordering', 0) }}"
-                            class="form-control @error('ordering')is-invalid @enderror"
-                            id="ordering"
-                            required
-                            min="0"
-                            step="1"
-                            >
-                            @error('ordering')
+                        <label class="col-form-label col-lg-3 col-xl-2">Документы</label>
+                        <div class="col-lg-9 col-xl-10">
+                            <select name="documents[]" class="select2 {{ $errors->has('documents') ? 'is-invalid':'' }}" data-placeholder="Выберите документы" data-tags-input="true" data-allow-clear="true" data-fouc multiple>
+                                    @forelse ($documentsList as $document)
+                                    <option value="{{ $document->id }}" {{ (in_array($document->id, old('documents',[])) ? "selected":"") }}>{{ $document->title }}</option>
+                                    @empty
+                                    <option value="">Документов пока нет</option>
+                                    @endforelse
+                                </select>
+                            @error('categories')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
-                            <span class="text-small text-muted d-block">Цена визы для 1-го человека</span>
                         </div>
                     </div>
 
@@ -209,8 +218,28 @@
                 </div>
                 {{-- /primary --}}
 
-                {{-- params --}}
-                <div class="tab-pane {{ (($tabToGo == '#params') ? "active show":"") }}" id="params" role="tabpanel" aria-labelledby="params">
+                {{-- baseParams --}}
+                <div class="tab-pane {{ (($tabToGo == '#baseParams') ? "active show":"") }}" id="baseParams" role="tabpanel" aria-labelledby="baseParams">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="base_price">Базовая цена <span class="text-danger">*</span></label>
+                        <div class="col-lg-9 col-xl-2">
+                            <input
+                            type="number"
+                            name="base_price"
+                            value="{{ old('base_price', 0) }}"
+                            class="form-control @error('base_price')is-invalid @enderror"
+                            id="base_price"
+                            required
+                            min="0"
+                            step="1"
+                            >
+                            @error('base_price')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                            <span class="text-small text-muted d-block">Цена визы для 1-го человека</span>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-xl-2">Тип подачи</label>

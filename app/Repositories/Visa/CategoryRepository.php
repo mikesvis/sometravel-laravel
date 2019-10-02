@@ -29,6 +29,22 @@ class CategoryRepository extends CoreRepository
     }
 
     /**
+     * Get models for select
+     *
+     * @return void
+     */
+    public function getForSelect()
+    {
+        $columns = ['id', 'title'];
+        $result = $this
+            ->startConditions()
+            ->select($columns)
+            ->toBase()
+            ->get();
+        return $result;
+    }
+
+    /**
      * Get all models with paginator
      * @param  int|mixed|null $perPage
      * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator

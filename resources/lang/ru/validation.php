@@ -192,10 +192,21 @@ return [
         'time'                  => 'Время',
         'available'             => 'Доступно',
         'size'                  => 'Размер',
+
         'status'                => 'Статус',
         'ordering'              => 'Порядок',
         'parent_id'             => 'Родитель',
         'slug'                  => 'Url код',
-        'date'                  => 'Дата',
+
+        'title'            => 'Заголовок',
+        'title_to'            => 'Заголовок c склонением',
+        'base_price'            => 'Базовая цена',
+        'application_type'      => 'Тип подачи',
+        'application_absence_price' => 'Надбавка за без присутствия',
+        'acceptance_type'       => 'Тип забора документов',
+        'acceptance_price'      => 'Надбавка за забор курьером',
+        'delivery_type'         => 'Тип доставки документов',
+        'delivery_price'        => 'Надбавка за доставку курьером',
+        'is_insurable'          => 'Страховка',
     ],
 ];
