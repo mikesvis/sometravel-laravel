@@ -126,9 +126,13 @@ class VisaController extends AdminBaseController
         if(empty($visa))
             abort(404);
 
+        $categoriesList = $this->categoryRepository->getForSelect();
+
+        $documentsList = $this->imageRepository->getDocumentsForSelect();
+
         $timezone = Visa::TIMEZONE;
 
-        return view('back.visa.visa.edit', compact('visa', 'timezone', 'breadcrumbs', 'tabToGo'));
+        return view('back.visa.visa.edit', compact('visa', 'categoriesList', 'documentsList', 'timezone', 'breadcrumbs', 'tabToGo'));
     }
 
     /**
