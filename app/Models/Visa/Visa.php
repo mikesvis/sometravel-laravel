@@ -24,6 +24,8 @@ class Visa extends BaseAdminModel
         'base_price',
         'application_type',
         'application_absence_price',
+        'acceptance_type',
+        'acceptance_price',
         'delivery_type',
         'delivery_price',
         'is_insurable',

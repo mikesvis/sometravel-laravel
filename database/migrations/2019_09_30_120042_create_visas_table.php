@@ -24,6 +24,8 @@ class CreateVisasTable extends Migration
             $table->unsignedInteger('base_price')->default(0); // базовая цена за одного человека
             $table->unsignedTinyInteger('application_type')->default(1); // тип подачи: 0 - Только личная, 1 - Личная и без присутствия
             $table->unsignedInteger('application_absence_price')->nullable(); // надбавка для цены при типе подачи "без присутствия"
+            $table->unsignedTinyInteger('acceptance_type')->default(1); // тип предоставления док-тов: 0 - Только самостоятельно, 1 - Забор курьером или сам
+            $table->unsignedInteger('acceptance_price')->nullable();  // цена забора при типе предоставления "Забор курьером"
             $table->unsignedTinyInteger('delivery_type')->default(1); // тип доставки: 0 - Только самовывоз, 1 - Доставка курьером и самовывоз
             $table->unsignedInteger('delivery_price')->nullable();  // цена доставки при типе доставки "Доставка курьером"
             $table->boolean('is_insurable')->default(1); // в "Дополнительные сервисы" есть пункт страховка при оформлении

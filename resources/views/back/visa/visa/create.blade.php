@@ -28,6 +28,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                        <a class="nav-link {{ (($tabToGo == '#params') ? "active":"") }}" data-toggle="pill" href="#params" role="tab" aria-controls="params" aria-selected="{{ (($tabToGo == '#params') ? "true":"false") }}">
+                            <em class="fas fa-project-diagram"></em>
+                            <span class="d-none d-md-inline-block">Параметры</span>
+                        </a>
+                    </li>
+                <li class="nav-item">
                     <a class="nav-link {{ (($tabToGo == '#seo') ? "active":"") }}" data-toggle="pill" href="#seo" role="tab" aria-controls="seo" aria-selected="{{ (($tabToGo == '#seo') ? "true":"false") }}">
                         <em class="fas fa-globe"></em>
                         <span class="d-none d-md-inline-block">Seo</span>
@@ -59,7 +65,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-3 col-xl-2" for="title">Заголовок с склонением <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-3 col-xl-2" for="title">
+                            Заголовок с склонением <span class="text-danger">*</span>
+                            <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="Будет использоваться в тексте. Например: Получение визы {во Францию}">?</span>
+                        </label>
                         <div class="col-lg-9 col-xl-10">
                             <input
                             type="text"
@@ -73,7 +82,6 @@
                             @error('title')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
-                            <span class="text-small text-muted d-block">Будет использоваться в тексте. Например: Получение визы {во Францию}</span>
                         </div>
                     </div>
 
@@ -109,11 +117,6 @@
                         </div>
                     </div>
 
-                    <p>application_type</p>
-                    <p>application_absence_price</p>
-                    <p>delivery_type</p>
-                    <p>delivery_price</p>
-                    <p>is_insurable</p>
                     <p>Categories</p>
                     <p>Documents</p>
 
@@ -205,6 +208,161 @@
 
                 </div>
                 {{-- /primary --}}
+
+                {{-- params --}}
+                <div class="tab-pane {{ (($tabToGo == '#params') ? "active show":"") }}" id="params" role="tabpanel" aria-labelledby="params">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2">Тип подачи</label>
+                        <div class="col-lg-9 col-xl-10">
+                            @foreach (App\Helpers\VisaHelper::getApplicationTypeNamesForAdmin() as $key => $element)
+                                <div class="custom-control custom-radio">
+                                    <input
+                                    type="radio"
+                                    name="application_type"
+                                    value="{{ $key }}"
+                                    class="custom-control-input"
+                                    id="application_type_{{ $key }}"
+                                    {{ ($key == old('application_type', 1) ? "checked":"") }}
+                                    >
+                                    <label class="custom-control-label" for="application_type_{{ $key }}">{{ $element }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="application_absence_price">
+                            Надбавка за "Без присутствия"
+                            <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="Надбавка к цене если выбран тип подачи без присутствия">?</span>
+                        </label>
+                        <div class="col-12 col-lg-2">
+                            <input
+                            type="number"
+                            name="application_absence_price"
+                            value="{{ old('application_absence_price') }}"
+                            class="form-control @error('application_absence_price')is-invalid @enderror"
+                            id="application_absence_price"
+                            min="0"
+                            step="1"
+                            >
+                            @error('application_absence_price')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2">Забор документов</label>
+                        <div class="col-lg-9 col-xl-10">
+                            @foreach (App\Helpers\VisaHelper::getAcceptanceTypeNamesForAdmin() as $key => $element)
+                                <div class="custom-control custom-radio">
+                                    <input
+                                    type="radio"
+                                    name="acceptance_type"
+                                    value="{{ $key }}"
+                                    class="custom-control-input"
+                                    id="acceptance_type_{{ $key }}"
+                                    {{ ($key == old('acceptance_type', 1) ? "checked":"") }}
+                                    >
+                                    <label class="custom-control-label" for="acceptance_type_{{ $key }}">{{ $element }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="acceptance_price">
+                            Надбавка за "Забор курьером"
+                            <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="Надбавка к цене если выбран забор документов курьером">?</span>
+                        </label>
+                        <div class="col-12 col-lg-2">
+                            <input
+                            type="number"
+                            name="acceptance_price"
+                            value="{{ old('acceptance_price') }}"
+                            class="form-control @error('acceptance_price')is-invalid @enderror"
+                            id="acceptance_price"
+                            min="0"
+                            step="1"
+                            >
+                            @error('acceptance_price')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2">Доставка документов</label>
+                        <div class="col-lg-9 col-xl-10">
+                            @foreach (App\Helpers\VisaHelper::getDeliveryTypeNamesForAdmin() as $key => $element)
+                                <div class="custom-control custom-radio">
+                                    <input
+                                    type="radio"
+                                    name="delivery_type"
+                                    value="{{ $key }}"
+                                    class="custom-control-input"
+                                    id="delivery_type_{{ $key }}"
+                                    {{ ($key == old('delivery_type', 1) ? "checked":"") }}
+                                    >
+                                    <label class="custom-control-label" for="delivery_type_{{ $key }}">{{ $element }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="delivery_price">
+                            Надбавка за "Доставка курьером"
+                            <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="Надбавка к цене если выбрана доставка документов курьером">?</span>
+                        </label>
+                        <div class="col-12 col-lg-2">
+                            <input
+                            type="number"
+                            name="delivery_price"
+                            value="{{ old('delivery_price') }}"
+                            class="form-control @error('delivery_price')is-invalid @enderror"
+                            id="delivery_price"
+                            min="0"
+                            step="1"
+                            >
+                            @error('delivery_price')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group row align-items-center">
+                        <label class="col-form-label col-lg-2 user-select-none" for="is_insurable">
+                            Страховка
+                            <span class="badge badge-light border" data-toggle="tooltip" data-placement="auto" title="В разделе &laquo;Дополнительные сервисы&raquo; есть пункт страховка">?</span>
+                        </label>
+                        <div class="col-lg-9 col-xl-10">
+                            <div class="custom-control custom-checkbox">
+                                <input type="hidden" name="is_insurable" value="0">
+                                <input
+                                type="checkbox"
+                                name="is_insurable"
+                                value="1"
+                                class="custom-control-input"
+                                id="is_insurable"
+                                @if ((bool)old('is_insurable', true)) checked @endif
+                                >
+                                <label class="custom-control-label d-block" for="is_insurable"></label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-9 col-xl-10 offset-lg-3 offset-xl-2 mt-0"><span class="text-small text-muted d-block"></span></div>
+                    </div>
+
+                </div>
+                {{-- params --}}
 
                 {{-- seo --}}
                 <div class="tab-pane {{ (($tabToGo == '#seo') ? "active show":"") }}" id="seo" role="tabpanel" aria-labelledby="seo">
