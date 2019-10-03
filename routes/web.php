@@ -55,6 +55,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         // category
         Route::resource('category', 'CategoryController', ['as'=>'admin']);
         Route::get('category/{category}/edit/{tabToGo}', 'CategoryController@edit', ['as'=>'admin'])->name('admin.category.edit.tabToGo');
+
+        // parameter
+        Route::get('parameter/create/{visa}', 'ParameterController@create', ['as'=>'admin'])->name('admin.parameter.create');
+        Route::post('parameter', 'ParameterController@store', ['as'=>'admin'])->name('admin.parameter.store');
+        Route::delete('parameter/{parameter}', 'ParameterController@destroy', ['as'=>'admin'])->name('admin.parameter.destroy');
+
+        // value
+        Route::get('value/create/{value}', 'ValueController@create', ['as'=>'admin'])->name('admin.value.create');
+        Route::post('value', 'ValueController@store', ['as'=>'admin'])->name('admin.value.store');
+        Route::delete('value/{value}', 'ValueController@destroy', ['as'=>'admin'])->name('admin.value.destroy');
+
+        // Route::resource('parameter', 'ParameterController', ['as'=>'admin'])->except(['show', 'index']);
     });
 });
 

@@ -409,7 +409,7 @@
 
                 {{-- moreParams --}}
                 <div class="tab-pane {{ (($tabToGo == '#moreParams') ? "active show":"") }}" id="moreParams" role="tabpanel" aria-labelledby="moreParams">
-                    moreParams
+                    @include('back.visa.parameter.index', ['visa'=>$visa])
                 </div>
                 {{-- moreParams --}}
 

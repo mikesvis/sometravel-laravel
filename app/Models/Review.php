@@ -30,7 +30,7 @@ class Review extends BaseAdminModel
     ];
 
     /**
-     * Converting date attribute to timezone when getting
+     * Converting no title from name
      *
      * @param mixed $value
      * @return mixed $value

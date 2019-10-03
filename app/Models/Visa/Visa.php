@@ -6,6 +6,7 @@ use App\Models\Image;
 use Illuminate\Support\Str;
 use App\Models\Visa\Category;
 use App\Models\BaseAdminModel;
+use App\Models\Visa\Parameter;
 
 class Visa extends BaseAdminModel
 {
@@ -159,6 +160,11 @@ class Visa extends BaseAdminModel
     public function documents()
     {
         return $this->belongsToMany(Image::class);
+    }
+
+    public function parameters()
+    {
+        return $this->hasMany(Parameter::class)->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
 }

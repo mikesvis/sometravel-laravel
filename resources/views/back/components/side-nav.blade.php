@@ -28,8 +28,8 @@
                         <p>Новости</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview @if (Route::is('admin.visa.*') || Route::is('admin.category.*')) menu-open @endif">
-                    <a href="{{ route('admin.visa.index') }}" class="nav-link @if (Route::is('admin.visa.*') || Route::is('admin.category.*')) active @endif">
+                <li class="nav-item has-treeview @if (Route::is('admin.visa.*') || Route::is('admin.category.*') || Route::is('admin.parameter.*') || Route::is('admin.value.*')) menu-open @endif">
+                    <a href="{{ route('admin.visa.index') }}" class="nav-link @if (Route::is('admin.visa.*') || Route::is('admin.category.*') || Route::is('admin.parameter.*') || Route::is('admin.value.*')) active @endif">
                         <i class="nav-icon fas fa-plane"></i>
                         <p>
                             Визы
@@ -38,7 +38,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.visa.index') }}" class="nav-link @if (Route::is('admin.visa.*')) active @endif">
+                            <a href="{{ route('admin.visa.index') }}" class="nav-link @if (Route::is('admin.visa.*') || Route::is('admin.parameter.*') || Route::is('admin.value.*')) active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Страны</p>
                             </a>
