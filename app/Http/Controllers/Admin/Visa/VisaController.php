@@ -148,6 +148,9 @@ class VisaController extends AdminBaseController
 
         $visa->update($request->all());
 
+        $visa->categories()->sync($request->input('categories'));
+        $visa->documents()->sync($request->input('documents'));
+
         Flash::add('Страна обновлена');
 
         if($request->has('apply'))
