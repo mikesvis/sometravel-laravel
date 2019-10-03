@@ -105,20 +105,10 @@
             </tr>
             @endforeach
         @endif
-        {{-- <tr>
-            <td class="py-0 vertical-align-middle" {{ $item->values > 1 ? 'rowspan=""' }}>
-                <div class="d-flex justify-content-end align-items-center">
-                    <div>Значения</div>
-                    <div>
-                        <a href="{{ route('admin.parameter.create', $visa) }}" title="Добавить значение" class="btn btn-outline-success btn-sm ml-2"><em class="fas fa-plus"></em></a>
-                    </div>
-                </div>
-            </td>
-            <td colspan="10">1</td>
-        </tr> --}}
+
         @empty
         <tr>
-            <td colspan="9" class="text-center">Параметров пока нет</td>
+            <td colspan="11" class="text-center">Параметров пока нет</td>
         </tr>
         @endforelse
     </tbody>
