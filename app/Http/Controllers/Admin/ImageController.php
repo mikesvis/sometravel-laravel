@@ -99,7 +99,7 @@ class ImageController extends AdminBaseController
 
         $breadcrumbs = $this->setBreadcrumbs(
             [
-                ['name' => self::NAME, 'url' => route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$polymorphModel->id, 'images'])],
+                ['name' => $polymorphModel->title.' : '.self::NAME, 'url' => route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$polymorphModel->id, 'images'])],
                 ['name' => 'Редактирование изображения', 'url' => null]
             ]
         )->breadcrumbs;

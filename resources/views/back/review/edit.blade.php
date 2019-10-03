@@ -153,7 +153,7 @@
 </form>
 
 {{-- image upload form --}}
-<form action="{{ route('admin.image.upload', [class_basename($review), $review->id]) }}" method="POST" enctype="multipart/form-data" id="imageUploadForm" class="p-0 m-0 d-none">
+<form action="{{ route('admin.image.upload', [get_class($review), $review->id]) }}" method="POST" enctype="multipart/form-data" id="imageUploadForm" class="p-0 m-0 d-none">
     @csrf
     <button type="submit" class="btn btn-success" id="formTrigger">
         Это из-за того что нельзя делать вложенные формы

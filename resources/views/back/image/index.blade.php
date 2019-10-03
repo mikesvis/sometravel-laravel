@@ -43,7 +43,7 @@
                             data-element_name="Изображение ID: {{ $image->id }}"
                             disabled
                             data-delete="nested"
-                            data-action="{{ route('admin.image.destroy', [$image->id, class_basename($model), $model->id]) }}"
+                            data-action="{{ route('admin.image.destroy', [$image->id, get_class($model), $model->id]) }}"
                             ><i class="far fa-trash-alt"></i></span>
                     </div>
                 </div>

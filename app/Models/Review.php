@@ -35,6 +35,17 @@ class Review extends BaseAdminModel
      * @param mixed $value
      * @return mixed $value
      */
+    public function getTitleAttribute($value)
+    {
+        return $this->name;
+    }
+
+    /**
+     * Converting date attribute to timezone when getting
+     *
+     * @param mixed $value
+     * @return mixed $value
+     */
     public function getDateAttribute($value)
     {
         if(!empty($value))
