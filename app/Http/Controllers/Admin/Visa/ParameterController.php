@@ -71,52 +71,44 @@ class ParameterController extends AdminBaseController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id, $tabToGo = 'primary')
-    // {
-    //     $breadcrumbs = $this->setBreadcrumbs(
-    //         [
-    //             ['name' => self::NAME, 'url' => route('admin.visa.index')],
-    //             ['name' => 'Редактирование страны', 'url' => null]
-    //         ]
-    //     )->breadcrumbs;
+    public function edit($id, $tabToGo = 'primary')
+    {
+        $parameter = $this->parameterRepository->getForEditById($id);
 
-    //     $visa = $this->visaRepository->getForEditById($id);
+        if(empty($parameter))
+            abort(404);
 
-    //     if(empty($visa))
-    //         abort(404);
+        $breadcrumbs = $this->setBreadcrumbs(
+            [
+                ['name' => 'Страны', 'url' => route('admin.visa.index')],
+                ['name' => $parameter->visa->title, 'url' => route('admin.visa.edit.tabToGo', [$parameter->visa, 'moreParams'])],
+                ['name' => 'Редактирование параметра', 'url' => null]
+            ]
+        )->breadcrumbs;
 
-    //     $categoriesList = $this->categoryRepository->getForSelect();
-
-    //     $documentsList = $this->imageRepository->getDocumentsForSelect();
-
-    //     $timezone = Visa::TIMEZONE;
-
-    //     return view('back.visa.visa.edit', compact('visa', 'categoriesList', 'documentsList', 'timezone', 'breadcrumbs', 'tabToGo'));
-    // }
+        return view('back.visa.parameter.edit', compact('parameter', 'breadcrumbs', 'tabToGo'));
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Visa\VisaUpdateRequest  $request
+     * @param  \App\Http\Requests\Visa\ParameterUpdateRequest  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(VisaUpdateRequest $request, $id)
-    // {
-    //     $visa = $this->visaRepository->getForEditById($id);
+    public function update(ParameterUpdateRequest $request, $id)
+    {
+        $parameter = $this->parameterRepository->getForEditById($id);
 
-    //     $visa->update($request->all());
+        $parameter->update($request->all());
 
-    //     $visa->categories()->sync($request->input('categories'));
-    //     $visa->documents()->sync($request->input('documents'));
+        Flash::add('Параметр обновлен');
 
-    //     Flash::add('Страна обновлена');
+        if($request->has('apply'))
+            return redirect(route('admin.parameter.edit', $parameter->id))->withInput($request->only('tabToGo'));
 
-    //     if($request->has('apply'))
-    //         return redirect(route('admin.visa.edit', $visa->id))->withInput($request->only('tabToGo'));
-
-    //     return redirect(route('admin.visa.index'));
-    // }
+        return redirect(route('admin.visa.edit.tabToGo', [$parameter->visa->id, 'moreParams']));
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -124,14 +116,13 @@ class ParameterController extends AdminBaseController
      * @param  \App\Models\Visa\Visa  $visa
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Visa $visa)
-    // {
-    //     $visa->delete();
+    public function destroy(Parameter $parameter)
+    {
+        $parameter->delete();
 
-    //     event(new PolymorphModelDeletedEvent($visa));
+        Flash::add('Параметр удалён', 'error');
 
-    //     Flash::add('Страна и её изображения удалены.', 'error');
-    //     return redirect(route('admin.visa.index'));
-    // }
+        return redirect(route('admin.visa.edit.tabToGo', [$parameter->visa->id, 'moreParams']));
+    }
 
 }

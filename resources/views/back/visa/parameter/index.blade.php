@@ -30,7 +30,7 @@
     <tbody>
         @forelse ($visa->parameters as $item)
         <tr>
-            <td class="ellipsis"><a href="{{ route('admin.page.edit', $item) }}">{{ $item->title }}</a></td>
+            <td class="ellipsis"><a href="{{ route('admin.parameter.edit', $item) }}">{{ $item->title }}</a></td>
             <td class="ellipsis">{{ $item->calculator_title }}</td>
             <td class="text-center">
                 @if ((bool)$item->is_on_calculator_page)
