@@ -179,7 +179,3 @@
 </form>
 
 @endsection
-
-@section('footer-scripts')
-    <script src="{{ mix('/back/js/tiny.js') }}"></script>
-@endsection

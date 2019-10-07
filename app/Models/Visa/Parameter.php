@@ -46,7 +46,7 @@ class Parameter extends BaseAdminModel
 
     public function values()
     {
-        return $this->hasMany(Value::class);
+        return $this->hasMany(Value::class)->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
 }

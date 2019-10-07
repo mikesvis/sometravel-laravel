@@ -94,14 +94,35 @@
                         </div>
                     </td>
                 @endif
-                <td colspan="2">calc_name</td>
-                <td colspan="2">order_name</td>
-                <td>is_default</td>
-                <td>price</td>
-                <td>status</td>
-                <td>ordering</td>
-                <td>changed</td>
-                <td>del</td>
+                <td colspan="2" class="ellipsis"><a href="{{ route('admin.value.edit', $value) }}">{{ $value->calculator_title }}</a></td>
+                <td colspan="2" class="ellipsis"><a href="{{ route('admin.value.edit', $value) }}">{{ $value->title }}</a></td>
+                <td class="text-center">
+                    @if ((bool)$value->is_default)
+                    <em class="far fa-check-circle text-success" title="Выбран по умолчанию"></em>
+                    @else
+                    &nbsp;
+                    @endif
+                </td>
+                <td class="text-right"><nobr>+ {{ $value->price }}</nobr></td>
+                <td class="text-center">
+                    @if ((bool)$value->status)
+                    <em class="far fa-check-circle text-success" title="Выбрано по умолчанию"></em>
+                    @else
+                    &nbsp;
+                    @endif
+                </td>
+                <td class="text-center">{{ $value->ordering }}</td>
+                <td class="text-center">{{ $value->updated_at }}</td>
+                <td class="py-0 vertical-align-middle">
+                    <span
+                    class="btn btn-outline-danger btn-sm delete cursor-pointer"
+                    title="Удалить"
+                    data-element_name="{{ $value->title }}"
+                    disabled
+                    data-delete="nested"
+                    data-action="{{ route('admin.value.destroy', $value) }}"
+                    ><i class="far fa-trash-alt"></i></span>
+                </td>
             </tr>
             @endforeach
         @endif
