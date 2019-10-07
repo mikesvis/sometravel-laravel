@@ -148,6 +148,22 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-form-label col-lg-3 col-xl-2" for="excerpt">Анонс</label>
+                        <div class="col-lg-9 col-xl-10">
+                            <textarea
+                            name="excerpt"
+                            rows="3"
+                            class="form-control @error('excerpt')is-invalid @enderror"
+                            id="excerpt"
+                            required
+                            >{{ old('excerpt', $visa->excerpt) }}</textarea>
+                            @error('excerpt')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-3 col-xl-2">Содержимое страницы</label>
                         <div class="col-lg-9 col-xl-10">
                             <textarea
@@ -189,6 +205,24 @@
                             @error('categories')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row align-items-center">
+                        <label class="col-form-label col-lg-2 user-select-none" for="is_popular">Популярное (на главной) <span class="text-danger">*</span></label>
+                        <div class="col-lg-9 col-xl-10">
+                            <div class="custom-control custom-checkbox">
+                                <input type="hidden" name="is_popular" value="0">
+                                <input
+                                type="checkbox"
+                                name="is_popular"
+                                value="1"
+                                class="custom-control-input"
+                                id="is_popular"
+                                @if ((bool)old('is_popular', $visa->is_popular)) checked @endif
+                                >
+                                <label class="custom-control-label d-block" for="is_popular"></label>
+                            </div>
                         </div>
                     </div>
 

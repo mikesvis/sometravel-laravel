@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Models\News;
 use App\Repositories\News\NewsRepository;
+use App\Repositories\Visa\VisaRepository;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
 class NewsController extends FrontBaseController
@@ -19,12 +20,18 @@ class NewsController extends FrontBaseController
     private $newsRepository;
 
     /**
+     * @var VisaRepository
+     */
+    private $visaRepository;
+
+    /**
      * Class constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->newsRepository = app(NewsRepository::class);
+        $this->visaRepository = app(VisaRepository::class);
     }
 
     /**
@@ -38,7 +45,9 @@ class NewsController extends FrontBaseController
 
         $breadcrumbs = $this->setBreadcrumbs([['name' => self::NAME, 'url' => null]])->breadcrumbs;
 
-        return view('front.news.index', compact('paginator', 'breadcrumbs'));
+        $otherVisas = $this->visaRepository->getWithFirstImageForModule(4);
+
+        return view('front.news.index', compact('paginator', 'otherVisas', 'breadcrumbs'));
     }
 
     /**

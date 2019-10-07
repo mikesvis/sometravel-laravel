@@ -62,6 +62,6 @@
 ]
 )
 
-@include('front.components.listings.directions')
+@include('front.visa.module.other', ['items' => $otherVisas])
 
 @endsection

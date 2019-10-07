@@ -19,6 +19,7 @@ class CreateVisasTable extends Migration
             $table->string('title_to'); // заголовок с склонением например "во Францию"
             $table->string('menuname')->nullable(); // название пункта меню
             $table->string('slug')->unique(); // url код
+            $table->text('excerpt')->nullable();
             $table->text('content')->nullable(); // описательный текст
             $table->text('documents_text')->nullable(); // текст напротив документов
             $table->unsignedInteger('base_price')->default(0); // базовая цена за одного человека
@@ -29,6 +30,7 @@ class CreateVisasTable extends Migration
             $table->unsignedTinyInteger('delivery_type')->default(1); // тип доставки: 0 - Только самовывоз, 1 - Доставка курьером и самовывоз
             $table->unsignedInteger('delivery_price')->nullable();  // цена доставки при типе доставки "Доставка курьером"
             $table->boolean('is_insurable')->default(1); // в "Дополнительные сервисы" есть пункт страховка при оформлении
+            $table->boolean('is_popular')->default(0); // популярное направление
             $table->unsignedInteger('ordering')->default(0); // порядок
             $table->boolean('status')->default(0); // статус
             $table->string('seo_name')->nullable(); // seo name

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Repositories\News\NewsRepository;
+use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Gallery\GalleryRepository;
 
@@ -26,6 +27,11 @@ class SiteController extends BaseController
      */
     private $reviewRepository;
 
+    /**
+     * @var VisaRepository
+     */
+    private $visaRepository;
+
 
     /**
      * Class constructor.
@@ -36,6 +42,7 @@ class SiteController extends BaseController
         $this->galleryRepository = app(GalleryRepository::class);
         $this->newsRepository = app(NewsRepository::class);
         $this->reviewRepository = app(ReviewRepository::class);
+        $this->visaRepository = app(VisaRepository::class);
     }
 
     public function index()
@@ -50,6 +57,8 @@ class SiteController extends BaseController
         $data['news'] = $this->newsRepository->getWithFirstImageForModule($limit = 3);
 
         $data['reviews'] = $this->reviewRepository->getRandomWithFirstImageForModule($limit = 3);
+
+        $data['popularVisas'] = $this->visaRepository->getPopularWithFirstImageForModule($limit = 3);
 
         return view('front.mainpage', compact('data'));
     }

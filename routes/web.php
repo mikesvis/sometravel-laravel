@@ -74,8 +74,14 @@ Route::group(['namespace' => 'Front'], function(){
     Route::get('/novosti', 'NewsController@index')->name('front.news.index');
     Route::get('/novosti/{news}', 'NewsController@show')->name('front.news.show');
 
+    // countries
+    Route::get('/napravlenija', 'VisaController@index')->name('front.visa.index');
+    Route::get('/napravlenija/{visa}', 'VisaController@show')->name('front.visa.show');
+    Route::get('/napravlenija/{category}', 'VisaController@showByCategory')->name('front.visa.filter');
+
     // pages
     Route::get('/{page}', 'PageController@show')->name('front.page.show');
+
 
 });
 

@@ -42,6 +42,7 @@ class VisaUpdateRequest extends FormRequest
             'categories' => ['array'],
             'documents' => ['array'],
 
+            'is_popular' => ['required', 'boolean'],
             'ordering' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
         ];

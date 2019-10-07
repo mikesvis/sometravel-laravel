@@ -21,6 +21,7 @@ class Visa extends BaseAdminModel
         'title_to',
         'menuname',
         'slug',
+        'excerpt',
         'content',
         'documents_text',
         'base_price',
@@ -31,6 +32,7 @@ class Visa extends BaseAdminModel
         'delivery_type',
         'delivery_price',
         'is_insurable',
+        'is_popular',
         'ordering',
         'status',
         'seo_name',
@@ -46,6 +48,7 @@ class Visa extends BaseAdminModel
     protected $casts = [
         'status' => 'boolean',
         'is_insurable' => 'boolean',
+        'is_popular' => 'boolean',
     ];
 
     public static function tabsErrors($errors = [])
@@ -72,7 +75,8 @@ class Visa extends BaseAdminModel
                 'categories',
                 'documents',
                 'ordering',
-                'status'
+                'status',
+                'is_popular',
             ]
         ));
 
@@ -165,6 +169,11 @@ class Visa extends BaseAdminModel
     public function parameters()
     {
         return $this->hasMany(Parameter::class)->orderBy('ordering', 'asc')->orderBy('id', 'asc');
+    }
+
+    public function getPrice()
+    {
+        return $this->base_price;
     }
 
 }

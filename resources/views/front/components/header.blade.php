@@ -115,11 +115,15 @@
                 <!-- top countries buttons -->
                 <div class="col-lg d-none d-lg-block">
                     <div class="countriesButtons header__buttonsWrapper row">
-                        <div class="col-12 col-xl-4 col-xxl-4"><a href="" class="countriesButtons__button btn btn-primary btn-block btn--rounded font-weight-bold">Все страны</a></div>
-                        <div class="col-12 d-lg-none col-xl-4 d-xl-block col-xxl-2"><a href="" class="countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold">ТОП 10</a></div>
-                        <div class="col-12 d-lg-none col-xl-4 d-xl-block col-xxl-2"><a href="" class="countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold">Шенген</a></div>
-                        <div class="col-xl-auto d-lg-none col-xxl-2 d-xxl-block"><a href="" class="countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold">Азия</a></div>
-                        <div class="col-xl-auto d-lg-none col-xxl-2 d-xxl-block"><a href="" class="countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold">Америка</a></div>
+                        @foreach ( app('App\Helpers\MenuHelper')->getCountriesItems() as $item)
+                            <div class="{{ $item['divClass'] }}">
+                                @if ($item['current'])
+                                    <span class="{{ $item['itemCurrentClass'] }}">{{ $item['name'] }}</span>
+                                @else
+                                    <a href="{{ $item['url'] }}" class="{{ $item['itemIdleClass'] }}">{{ $item['name'] }}</a>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- /top countries buttons -->

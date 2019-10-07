@@ -63,54 +63,84 @@ class VisaRepository extends CoreRepository
      * @param  int|mixed|null $perPage
      * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator
      */
-    // public function getWithFirstImageAndPagination($perPage = null)
-    // {
-    //     $columns = [
-    //         'title',
-    //         'slug',
-    //         'excerpt',
-    //         'date',
-    //     ];
+    public function getWithFirstImageAndPagination($perPage = null)
+    {
+        $columns = [
+            'id',
+            'title',
+            'menuname',
+            'slug',
+            'excerpt',
+        ];
 
-    //     $result = $this->startConditions()
-    //         ->select($columns)
-    //         ->where('status', 1)
-    //         ->with('firstEnabledImage')
-    //         ->orderBy('date', 'DESC')
-    //         ->paginate($perPage);
+        $result = $this->startConditions()
+            ->select($columns)
+            ->where('status', 1)
+            ->with('firstEnabledImage')
+            ->orderBy('ordering', 'ASC')
+            ->orderBy('id', 'ASC')
+            ->paginate($perPage);
 
-    //     return $result;
+        return $result;
 
-    // }
+    }
 
     /**
      * Get all models with paginator
      * @param  int $limit How many models to get
      * @return \Illuminate\Support\Collection
      */
-    // public function getWithFirstImageForModule($limit = 3, $exceptId = null)
-    // {
-    //     $columns = [
-    //         'id',
-    //         'country',
-    //         'title',
-    //         'slug',
-    //         'excerpt',
-    //         'date',
-    //     ];
+    public function getWithFirstImageForModule($limit = 4, $exceptIds = [])
+    {
+        $columns = [
+            'id',
+            'title',
+            'menuname',
+            'slug',
+            'excerpt',
+        ];
 
-    //     $result = $this->startConditions()
-    //         ->select($columns)
-    //         ->where('status', 1)
-    //         ->where('id', '<>', $exceptId)
-    //         ->with('firstEnabledImage')
-    //         ->orderBy('date', 'DESC')
-    //         ->take($limit)
-    //         ->get();
+        $result = $this->startConditions()
+            ->select($columns)
+            ->where('status', 1)
+            ->whereNotIn('id', $exceptIds)
+            ->with('firstEnabledImage')
+            ->orderByRaw('RAND()')
+            ->take($limit)
+            ->get();
 
-    //     return $result;
+        return $result;
 
-    // }
+    }
+
+    /**
+     * Get all models with paginator
+     * @param  int $limit How many models to get
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPopularWithFirstImageForModule($limit = 3)
+    {
+        $columns = [
+            'id',
+            'title',
+            'menuname',
+            'slug',
+            'excerpt',
+            'base_price',
+        ];
+
+        $result = $this->startConditions()
+            ->select($columns)
+            ->where('status', 1)
+            ->where('is_popular', 1)
+            ->with('firstEnabledImage')
+            ->orderBy('updated_at', 'DESC')
+            ->take($limit)
+            ->get();
+
+        return $result;
+
+    }
 
     /**
      * Get model for view by slug

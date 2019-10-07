@@ -52,7 +52,7 @@
                 ]
             )
 
-    @include('front.components.listings.directions')
+    @include('front.components.listings.directions', compact('otherVisas'))
 
     {{-- @include('front.components.listings.news') --}}
 

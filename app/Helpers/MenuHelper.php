@@ -45,4 +45,53 @@ class MenuHelper
 
         return $result;
     }
+
+    public function getCountriesItems()
+    {
+
+        $result = [
+            [
+                'name' => 'Все страны',
+                'url' => route('front.visa.index'),
+                'current' => Route::is('front.visa.index'),
+                'divClass' => 'col-12 col-xl-4 col-xxl-4',
+                'itemIdleClass' => 'countriesButtons__button btn btn-primary btn-block btn--rounded font-weight-bold',
+                'itemCurrentClass' => 'countriesButtons__button btn btn-primary btn-block btn--rounded font-weight-bold',
+            ],
+            [
+                'name' => 'Топ 10',
+                'url' => route('front.visa.filter', 'top-10'),
+                'current' => (Route::is('front.visa.filter') && request('category') == 'top-10'),
+                'divClass' => 'col-12 d-lg-none col-xl-4 d-xl-block col-xxl-2',
+                'itemIdleClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+                'itemCurrentClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+            ],
+            [
+                'name' => 'Шенген',
+                'url' => route('front.visa.filter', 'shengen'),
+                'current' => (Route::is('front.visa.filter') && request('category') == 'shengen'),
+                'divClass' => 'col-12 d-lg-none col-xl-4 d-xl-block col-xxl-2',
+                'itemIdleClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+                'itemCurrentClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+            ],
+            [
+                'name' => 'Азия',
+                'url' => route('front.visa.filter', 'aziya'),
+                'current' => (Route::is('front.visa.filter') && request('category') == 'aziya'),
+                'divClass' => 'col-xl-auto d-lg-none col-xxl-2 d-xxl-block',
+                'itemIdleClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+                'itemCurrentClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+            ],
+            [
+                'name' => 'Америка',
+                'url' => route('front.visa.filter', 'amerika'),
+                'current' => (Route::is('front.visa.filter') && request('category') == 'amerika'),
+                'divClass' => 'col-xl-auto d-lg-none col-xxl-2 d-xxl-block',
+                'itemIdleClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+                'itemCurrentClass' => 'countriesButtons__button btn btn-outline-primary btn-block btn--rounded font-weight-bold',
+            ],
+        ];
+
+        return $result;
+    }
 }
