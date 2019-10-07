@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin\Visa;
 
 use App\Helpers\Flash;
 use App\Models\Visa\Value;
-use Illuminate\Http\Request;
 use App\Models\Visa\Parameter;
 use App\Repositories\Visa\ValueRepository;
 use App\Http\Requests\Visa\ValueCreateRequest;
+use App\Http\Requests\Visa\ValueUpdateRequest;
 use App\Events\Visa\ValueModelUpdatedCreatedEvent;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
@@ -59,9 +59,9 @@ class ValueController extends AdminBaseController
     {
         $value = Value::create($request->all());
 
-        Flash::add('Значение добавлено');
-
         event(new ValueModelUpdatedCreatedEvent($value));
+
+        Flash::add('Значение добавлено');
 
         if($request->has('apply'))
             return redirect(route('admin.value.edit', $value->id));
@@ -97,13 +97,24 @@ class ValueController extends AdminBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Visa\Value  $value
+     * @param  \App\Http\Requests\Visa\ValueUpdateRequest  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Value $value)
+    public function update(ValueUpdateRequest $request, $id)
     {
-        //
+        $value = $this->valueRepository->getForEditById($id);
+
+        $value->update($request->all());
+
+        event(new ValueModelUpdatedCreatedEvent($value));
+
+        Flash::add('Значение обновлено');
+
+        if($request->has('apply'))
+            return redirect(route('admin.value.edit', $value->id))->withInput($request->only('tabToGo'));
+
+        return redirect(route('admin.visa.edit.tabToGo', [$value->parameter->visa->id, 'moreParams']));
     }
 
     /**

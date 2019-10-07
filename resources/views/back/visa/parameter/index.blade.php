@@ -29,7 +29,7 @@
     </thead>
     <tbody>
         @forelse ($visa->parameters as $item)
-        <tr>
+        <tr class="bg-gray-light">
             <td class="ellipsis"><a href="{{ route('admin.parameter.edit', $item) }}">{{ $item->title }}</a></td>
             <td class="ellipsis">{{ $item->calculator_title }}</td>
             <td class="text-center">
