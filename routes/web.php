@@ -77,7 +77,7 @@ Route::group(['namespace' => 'Front'], function(){
     // countries
     Route::get('/napravlenija', 'VisaController@index')->name('front.visa.index');
     Route::get('/napravlenija/{visa}', 'VisaController@show')->name('front.visa.show');
-    Route::get('/napravlenija/{category}', 'VisaController@showByCategory')->name('front.visa.filter');
+    Route::get('/napravlenija/kategorija/{category}', 'VisaController@showByCategory')->name('front.visa.filter');
 
     // pages
     Route::get('/{page}', 'PageController@show')->name('front.page.show');

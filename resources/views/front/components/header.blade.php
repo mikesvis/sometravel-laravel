@@ -37,7 +37,7 @@
 
                 <!-- sm logo -->
                 <div class="col-sm d-none d-sm-block d-md-none text-center">
-                    <a href="/" class="topLogo"><img src="/images/logo.svg"></a>
+                    <a href="/" class="topLogo"><img src="/images/logo.svg" alt="Виза интергал"></a>
                     {{-- <span class="topLogo"><img src="/images/logo.svg"></span> --}}
                 </div>
                 <!-- /sm logo -->
@@ -107,7 +107,7 @@
                 <!-- top logo -->
                 <div class="col-md-6 col-lg-auto d-none d-md-block">
                     <div class="header__logoWrapper">
-                        <a href="/" class="topLogo"><img src="/images/logo.svg"></a>
+                        <a href="/" class="topLogo"><img src="/images/logo.svg" alt="Виза интергал"></a>
                         {{-- <span class="topLogo"><img src="/images/logo.svg"></span> --}}
                     </div>
                 </div>

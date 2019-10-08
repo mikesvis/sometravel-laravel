@@ -1,14 +1,14 @@
 @extends('layouts.front.index')
 
-@section('title', 'Направления')
-@section('keywords', 'Направления')
-@section('description', 'Направления')
+@section('title', $category->siteSeoTitle)
+@section('keywords', $category->siteSeoKeywords)
+@section('description', $category->siteSeoDescription)
 
 @section('content')
 
 @include('front.components.breadcrumbs', compact('breadcrumbs'))
 
-@include('front.components.page-heading', ['heading' => 'Направления'])
+@include('front.components.page-heading', ['heading' => $category->title])
 
 <div class="container vpm__mb">
     <div class="row">

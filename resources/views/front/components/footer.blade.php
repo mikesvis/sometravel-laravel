@@ -4,7 +4,7 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-md-auto col-xxl-auto order-md-1 order-xxl-1 d-none d-md-block">
                 <div class="footer__logoWrapper">
-                    <a href="/" class="footerLogo"><img src="/images/logo.svg" class="footerLogo__image"></a>
+                    <a href="/" class="footerLogo"><img src="/images/logo.svg" class="footerLogo__image"  alt="Виза интергал"></a>
                     {{-- <span class="footerLogo"><img src="/images/logo.svg" class="footerLogo__image"></span> --}}
                 </div>
             </div>

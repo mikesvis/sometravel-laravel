@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\News;
 use App\Repositories\Visa\VisaRepository;
+use App\Repositories\Visa\CategoryRepository;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
 class VisaController extends FrontBaseController
@@ -19,12 +19,18 @@ class VisaController extends FrontBaseController
     private $visaRepository;
 
     /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
      * Class constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->visaRepository = app(VisaRepository::class);
+        $this->categoryRepository = app(CategoryRepository::class);
     }
 
     /**
@@ -43,6 +49,27 @@ class VisaController extends FrontBaseController
         return view('front.visa.index', compact('paginator', 'otherVisas', 'breadcrumbs'));
     }
 
+    public function showByCategory($slug)
+    {
+
+        $category = $this->categoryRepository->getForViewBySlug($slug);
+
+        if(empty($category))
+            abort(404);
+
+        $paginator = $category->enabledVisasWithFirstImage()->paginate(self::ITEMS_PER_PAGE);
+
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME, 'url' => route('front.visa.index')],
+            ['name' => $category->title, 'url' => null],
+        ])->breadcrumbs;
+
+        $otherVisas = $this->visaRepository->getWithFirstImageForModule(4, $paginator->modelKeys());
+
+        return view('front.visa.category', compact('category', 'paginator', 'otherVisas', 'breadcrumbs'));
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -57,14 +84,15 @@ class VisaController extends FrontBaseController
         if(empty($visa))
             abort(404);
 
-        // $otherNews = $this->visaRepository->getWithFirstImageForModule(4, $visa->id);
 
-        // $breadcrumbs = $this->setBreadcrumbs([
-        //     ['name' => self::NAME, 'url' => route('front.news.index')],
-        //     ['name' => $news->title, 'url' => null],
-        // ])->breadcrumbs;
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME, 'url' => route('front.visa.index')],
+            ['name' => $visa->title, 'url' => null],
+        ])->breadcrumbs;
 
-        // return view('front.news.show', compact('news', 'otherNews', 'breadcrumbs'));
+        $otherVisas = $this->visaRepository->getWithFirstImageForModule(4, [$visa->id]);
+
+        return view('front.visa.show', compact('visa', 'otherVisas', 'breadcrumbs'));
 
     }
 }

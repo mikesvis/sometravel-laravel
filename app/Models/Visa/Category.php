@@ -2,6 +2,7 @@
 
 namespace App\Models\Visa;
 
+use App\Models\Visa\Visa;
 use Illuminate\Support\Str;
 use App\Models\BaseAdminModel;
 
@@ -61,6 +62,21 @@ class Category extends BaseAdminModel
         $uniqueSlugsCount = Category::where('slug', $this->attributes['slug'])->where('id', '<>', $this->id)->count();
         if($uniqueSlugsCount != 0)
             $this->attributes['slug'] .= '-'.($uniqueSlugsCount+1);
+    }
+
+    public function visas()
+    {
+        return $this->belongsToMany(Visa::class);
+    }
+
+    public function enabledVisas()
+    {
+        return $this->visas()->where('status', 1);
+    }
+
+    public function enabledVisasWithFirstImage()
+    {
+        return $this->enabledVisas()->with('firstEnabledImage')->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
 }

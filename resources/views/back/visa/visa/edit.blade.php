@@ -182,7 +182,7 @@
                         <div class="col-lg-9 col-xl-10">
                             <textarea
                             name="documents_text"
-                            class="form-control @error('documents_text')is-invalid @enderror"
+                            class="form-control is-tiny @error('documents_text')is-invalid @enderror"
                             id="documents_text"
                             rows="4"
                             >{{ old('documents_text', $visa->documents_text) }}</textarea>
