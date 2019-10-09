@@ -171,9 +171,24 @@ class Visa extends BaseAdminModel
         return $this->hasMany(Parameter::class)->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
+    public function visaPageCalculatorParameters()
+    {
+        return $this->parameters()->where('is_on_calculator_page', 1);
+    }
+
     public function getPrice()
     {
-        return $this->base_price;
+        $price = $this->base_price;
+
+        foreach ($this->visaPageCalculatorParameters as $parameter) {
+            if($parameter->required && !empty($parameter->enabledValues)) {
+                $defaultValue = $parameter->enabledValues()->where('is_default', 1)->where('status', 1)->first();
+                if(!empty($defaultValue))
+                    $price += $defaultValue->price;
+            }
+        }
+
+        return $price;
     }
 
 }

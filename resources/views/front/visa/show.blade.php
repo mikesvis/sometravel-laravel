@@ -35,7 +35,10 @@
 
 <div class="visaCalcWrapper bg-light vpm__mt vpm__py">
 
-    <form action="">
+    <form action="{{ route('front.visa.show', $visa->slug) }}" method="post" id="calculatorForm">
+
+        @csrf
+        <input type="hidden" name="visa_id" value="{{ $visa->id }}">
 
         <!-- block heading -->
         <div class="container">
@@ -47,6 +50,7 @@
         </div>
         <!-- block heading -->
 
+        {{--
         <div class="visaCalcForm border-bottom vpm__pb">
             <div class="container">
                 <div class="row justify-content-center">
@@ -63,7 +67,7 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-minus"></em></button>
                                     </div>
-                                    <input type="text" class="textInput--quantity form-control border-primary text-center" value="0" placeholder="Кол-во">
+                                    <input type="text" class="textInput--quantity form-control border-primary text-center" value="1" placeholder="Кол-во" id="persons" name="persons">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-plus"></em></button>
                                     </div>
@@ -182,7 +186,7 @@
 
                         <div class="row align-items-center vpm__mt">
                             <div class="col-12 col-xl-4 col-xxl-5 col-xxxl-4 text-center text-lg-right">
-                                <div class="h1 mb-3 mb-lg-0 mt-3 mt-lg-0"><strong>0 ₽</strong></div>
+                                <div class="h1 mb-3 mb-lg-0 mt-3 mt-lg-0"><strong>от <span id="visaCalculatedPrice">{{ $visa->getPrice() }}</span> ₽</strong></div>
                             </div>
                             <div class="col-12 col-xl-8 col-xxl-7 col-xxxl">
                                 <div class="radioButtons row justify-content-center">
@@ -201,7 +205,9 @@
                 </div>
             </div>
         </div>
+        --}}
 
+        {!! $calculator !!}
 
     </form>
 </div>
@@ -213,10 +219,10 @@
             <div class="col-12 col-xl">
                 {!! $visa->documents_text !!}
             </div>
-            <div class="col-12 col-xl-3 col-xxl-7 col-xxxl-8 mt-4 mt-xl-0">
-                <div class="row justify-content-end">
+            <div class="col-12 col-xl-6 col-xxl-7 col-xxxl-8 mt-4 mt-xl-0">
+                <div class="row justify-content-center justify-content-xl-end">
                 @foreach ($visa->documents as $document)
-                    <div class="col-6 col-sm-4 col-md-3 col-xl-6 col-xxl-3 col-xxxl-3 mb-4">
+                    <div class="col-6 col-sm-4 col-md-3 col-xl-3 col-xxl-3 col-xxxl-3 mb-4">
                         <span class="d-block"><img src="{{ $document->path }}" class="w-100 panelRounded panelShadow" alt="{{ ($document->alt != '') ? $document->alt : $document->title }}"></span>
                     </div>
                 @endforeach

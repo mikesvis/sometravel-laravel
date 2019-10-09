@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Http\Request;
 use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Visa\CategoryRepository;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
@@ -84,6 +85,7 @@ class VisaController extends FrontBaseController
         if(empty($visa))
             abort(404);
 
+        $calculator = (new \App\Helpers\Calculator\VisaPageCalculator($visa))->generate();
 
         $breadcrumbs = $this->setBreadcrumbs([
             ['name' => self::NAME, 'url' => route('front.visa.index')],
@@ -92,7 +94,13 @@ class VisaController extends FrontBaseController
 
         $otherVisas = $this->visaRepository->getWithFirstImageForModule(4, [$visa->id]);
 
-        return view('front.visa.show', compact('visa', 'otherVisas', 'breadcrumbs'));
+        return view('front.visa.show', compact('visa', 'calculator', 'otherVisas', 'breadcrumbs'));
 
+    }
+
+    public function calculateVisaPage(Request $request, $id)
+    {
+        $this->categoryRepository->getForSelect();
+        return 0;
     }
 }

@@ -49,4 +49,17 @@ class Parameter extends BaseAdminModel
         return $this->hasMany(Value::class)->orderBy('ordering', 'asc')->orderBy('id', 'asc');
     }
 
+    public function enabledValues()
+    {
+        return $this->values()->where('status', 1);
+    }
+
+    public function getCalculatorLabelAttribute($value)
+    {
+        if(empty($this->calculator_title))
+            return $this->title;
+
+        return $this->calculator_title;
+    }
+
 }

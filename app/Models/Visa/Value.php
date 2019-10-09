@@ -40,4 +40,12 @@ class Value extends BaseAdminModel
         return $this->belongsTo(Parameter::class);
     }
 
+    public function getCalculatorLabelAttribute($value)
+    {
+        if(empty($this->calculator_title))
+            return $this->title;
+
+        return $this->calculator_title;
+    }
+
 }

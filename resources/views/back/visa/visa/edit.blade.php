@@ -359,8 +359,8 @@
                             <input
                             type="number"
                             name="acceptance_price"
-                            value="{{ old('acceptance_price') }}"
-                            class="form-control @error('acceptance_price', $visa->acceptance_price)is-invalid @enderror"
+                            value="{{ old('acceptance_price', $visa->acceptance_price) }}"
+                            class="form-control @error('acceptance_price')is-invalid @enderror"
                             id="acceptance_price"
                             min="0"
                             step="1"

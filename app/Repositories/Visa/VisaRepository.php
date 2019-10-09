@@ -134,6 +134,8 @@ class VisaRepository extends CoreRepository
             ->where('status', 1)
             ->where('is_popular', 1)
             ->with('firstEnabledImage')
+            ->with('visaPageCalculatorParameters')
+            ->with('visaPageCalculatorParameters.enabledValues')
             ->orderBy('updated_at', 'DESC')
             ->take($limit)
             ->get();
@@ -153,6 +155,8 @@ class VisaRepository extends CoreRepository
             ->where('status', 1)
             ->where('slug', $slug)
             ->with('firstEnabledImage')
+            ->with('visaPageCalculatorParameters')
+            ->with('visaPageCalculatorParameters.enabledValues')
             ->first();
 
         return $result;

@@ -1,8 +1,8 @@
-<a href="{{ route('admin.parameter.create', $visa) }}" class="btn btn-outline-success mb-4">
+<a href="{{ route('admin.parameter.create', $visa) }}" class="btn btn-outline-success">
     <em class="fas fa-plus mr-1"></em> Добавить параметр
 </a>
 
-<table class="table table-hover table-bordered layout-fixed">
+<table class="table table-hover table-bordered layout-fixed my-4">
     <thead>
         <tr>
             <th>Параметр</th>
@@ -49,9 +49,9 @@
             </td>
             <td class="text-center">
                 @if ((bool)$item->required)
-                <em class="far fa-check-circle text-success" title="Обязательный"></em>
+                <em class="fas fa-asterisk text-danger" title="Параметр: Обязательный"></em>
                 @else
-                <em class="far fa-question-circle text-warning" title="Опциональный"></em>
+                &nbsp;
                 @endif
             </td>
             <td class="text-center">-</td>
@@ -98,7 +98,7 @@
                 <td colspan="2" class="ellipsis"><a href="{{ route('admin.value.edit', $value) }}">{{ $value->title }}</a></td>
                 <td class="text-center">
                     @if ((bool)$value->is_default)
-                    <em class="far fa-check-circle text-success" title="Выбран по умолчанию"></em>
+                    <em class="fas fa-check text-success" title="Значение выбрано по умолчанию"></em>
                     @else
                     &nbsp;
                     @endif
@@ -106,9 +106,9 @@
                 <td class="text-right"><nobr>+ {{ $value->price }}</nobr></td>
                 <td class="text-center">
                     @if ((bool)$value->status)
-                    <em class="far fa-check-circle text-success" title="Выбрано по умолчанию"></em>
+                    <em class="far fa-check-circle text-success" title="Значение включено"></em>
                     @else
-                    &nbsp;
+                    <em class="far fa-times-circle text-danger" title="Значение выключена"></em>
                     @endif
                 </td>
                 <td class="text-center">{{ $value->ordering }}</td>
@@ -134,3 +134,7 @@
         @endforelse
     </tbody>
 </table>
+
+<a href="{{ route('admin.parameter.create', $visa) }}" class="btn btn-outline-success mb-4">
+    <em class="fas fa-plus mr-1"></em> Добавить параметр
+</a>
