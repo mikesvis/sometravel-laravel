@@ -203,4 +203,13 @@ class Visa extends BaseAdminModel
         return ($this->delivery_type == VisaHelper::DELIVERY_TYPE_ANY);
     }
 
+    public function canBeAccepted()
+    {
+        return ($this->acceptance_type == VisaHelper::ACCEPTANCE_TYPE_ANY);
+    }
+
+    public function canBeAppliedAsService()
+    {
+        return ($this->application_type == VisaHelper::APPLICATION_TYPE_ANY);
+    }
 }

@@ -115,8 +115,19 @@ class VisaController extends FrontBaseController
             }
         }
 
+        // подача "без присутствия"
+        if($visa->canBeAppliedAsService() && VisaHelper::requestedApplianceAsService($request)){
+            $price += $visa->application_absence_price;
+        }
+
         $price =  $price * (int)$request->input('persons');
 
+        // забор документов курьером
+        if($visa->canBeAccepted() && VisaHelper::requestedAcceptanceIsCourier($request)){
+            $price += $visa->delivery_price;
+        }
+
+        // доставка документов курьером
         if($visa->canBeDelivered() && VisaHelper::requestedDeliveryIsCourier($request)){
             $price += $visa->delivery_price;
         }

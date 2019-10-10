@@ -102,6 +102,11 @@ input
         background-color: $primary
         color: $white
 
+    input[type="radio"]:disabled + &__label
+        opacity: .5
+        cursor: not-allowed
+        pointer-events: all !important
+
     &__labelSmall
         width: 100%
         white-space: nowrap

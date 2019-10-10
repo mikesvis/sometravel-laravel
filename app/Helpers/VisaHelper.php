@@ -22,6 +22,10 @@ class VisaHelper
     const ACCEPTANCE_TYPE_ONLY_SELF = 0; // забор документов только самостоятельно
     const ACCEPTANCE_TYPE_ANY = 1; // забор курьером или самостоятельно
 
+    // варианты забора документов
+    const ACCEPTANCE_COURIER = 1; // Доставка курьером
+    const ACCEPTANCE_SELF = 0; // Самовывоз
+
     // Типы доставки документов
     const DELIVERY_TYPE_ONLY_SELF = 0; // доставка только самостоятельно
     const DELIVERY_TYPE_ANY = 1; // доставка самостоятельно или курьером
@@ -121,11 +125,35 @@ class VisaHelper
         if(empty($request->input('parameter_regular.delivery_type')))
             return false;
 
-        if((int)$request->input('parameter_regular.delivery_type') == VisaHelper::DELIVERY_COURIER)
+        if((int)$request->input('parameter_regular.delivery_type') == self::DELIVERY_COURIER)
             return true;
 
         return false;
 
+    }
+
+    public static function requestedAcceptanceIsCourier(Request $request)
+    {
+
+        if(empty($request->input('parameter_regular.acceptance_type')))
+            return false;
+
+        if((int)$request->input('parameter_regular.acceptance_type') == self::ACCEPTANCE_COURIER)
+            return true;
+
+        return false;
+
+    }
+
+    public static function requestedApplianceAsService(Request $request)
+    {
+        if(empty($request->input('parameter_regular.application_type')))
+            return false;
+
+        if((int)$request->input('parameter_regular.application_type') == self::APPLICATION_AS_SERVICE)
+            return true;
+
+        return false;
     }
 
 }
