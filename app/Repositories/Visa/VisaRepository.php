@@ -2,8 +2,10 @@
 
 namespace App\Repositories\Visa;
 
+use App\Models\Visa\Value;
 use App\Models\Visa\Visa as Model;
 use App\Repositories\CoreRepository;
+use Illuminate\Database\Eloquent\Builder;
 
 class VisaRepository extends CoreRepository
 {
@@ -160,6 +162,28 @@ class VisaRepository extends CoreRepository
             ->first();
 
         return $result;
+    }
+
+    /**
+     * Get model for calculation by id
+     * @param  int $id
+     * @return Model
+     */
+    public function getForCalculationWithParametersById($id, $parametersValues)
+    {
+        $result = $this->startConditions()
+            ->where('status', 1);
+
+        if(!empty($parametersValues)){
+            $result = $result->with(['values' => function($query) use ($parametersValues) {
+                $query->whereIn('values.id', $parametersValues);
+            }]);
+        }
+
+        $result = $result->find($id);
+
+        return $result;
+
     }
 
 }

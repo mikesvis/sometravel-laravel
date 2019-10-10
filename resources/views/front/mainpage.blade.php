@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-12 col-xxxl-12 mb-4">
                         <div class="stepsToGetVisa__imageHolder text-center">
-                            <img src="/images/plane.png" alt="" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
+                            <img src="/images/plane.png" alt="Самолёт" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
                         </div>
                     </div>
                     <div class="col-12 col-xxxl-12">
@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-12 col-xxxl-12 mb-4">
                         <div class="stepsToGetVisa__imageHolder text-center">
-                            <img src="/images/manager.png" alt="" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
+                            <img src="/images/manager.png" alt="Менеджер" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
                         </div>
                     </div>
                     <div class="col-12 col-xxxl-12">
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-12 col-xxxl-12 mb-4">
                         <div class="stepsToGetVisa__imageHolder text-center">
-                            <img src="/images/setting.png" alt="" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
+                            <img src="/images/setting.png" alt="Процесс" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
                         </div>
                     </div>
                     <div class="col-12 col-xxxl-12">
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-12 col-xxxl-12 mb-4">
                         <div class="stepsToGetVisa__imageHolder text-center">
-                            <img src="/images/good-mood-emoticon.png" alt="" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
+                            <img src="/images/good-mood-emoticon.png" alt="Получение виза" class="stepsToGetVisa__image stepsToGetVisa__image--rounded border border-primary p-4">
                         </div>
                     </div>
                     <div class="col-12 col-xxxl-12">
@@ -186,7 +186,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/calendar-with-a-clock-time-tools.png" class="listingVisual__image listingVisual__image--advantageIcon  d-block" alt="">
+                                <img src="/images/calendar-with-a-clock-time-tools.png" class="listingVisual__image listingVisual__image--advantageIcon  d-block" alt="Гарантированые сроки">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">
@@ -208,7 +208,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/quality.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="">
+                                <img src="/images/quality.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="Надёжность">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">
@@ -230,7 +230,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/shield.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="">
+                                <img src="/images/shield.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="Легальность">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">
@@ -252,7 +252,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/credit-card.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="">
+                                <img src="/images/credit-card.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="Удобная оплата">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">
@@ -274,7 +274,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/verification-of-delivery-list-clipboard-symbol.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="">
+                                <img src="/images/verification-of-delivery-list-clipboard-symbol.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="Договор">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">
@@ -296,7 +296,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-auto col-md-12 col-lg-auto align-self-center">
                             <div class="listingVisual listingCard__vusialHolder text-center">
-                                <img src="/images/locked-padlock.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="">
+                                <img src="/images/locked-padlock.png" class="listingVisual__image listingVisual__image--advantageIcon d-block" alt="Безопасность">
                             </div>
                         </div>
                         <div class="col-12 col-sm col-md-12 col-lg">

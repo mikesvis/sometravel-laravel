@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helpers\VisaHelper;
 use Illuminate\Http\Request;
 use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Visa\CategoryRepository;
@@ -100,7 +101,32 @@ class VisaController extends FrontBaseController
 
     public function calculateVisaPage(Request $request, $id)
     {
-        $this->categoryRepository->getForSelect();
-        return 0;
+
+        $visa = $this->visaRepository->getForCalculationWithParametersById($id, $request->input('parameter'));
+
+        if(empty($visa))
+            abort(404);
+
+        $price = $visa->base_price;
+
+        if(!empty($request->input('parameter'))){
+            foreach ($visa->values as $value) {
+                $price += $value->price;
+            }
+        }
+
+        $price =  $price * (int)$request->input('persons');
+
+        if($visa->canBeDelivered() && VisaHelper::requestedDeliveryIsCourier($request)){
+            $price += $visa->delivery_price;
+        }
+
+        $result = [
+            'price' => $price,
+            'test' => $visa,
+            'test2' => $request->input('parameter_regular.biometrics')
+        ];
+
+        return $result;
     }
 }

@@ -7,11 +7,11 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-minus"></em></button>
+                    <button class="btn btn-primary btn--rounded px-4 btn-number" disabled="disabled" data-type="minus" data-field="persons"><em class="fas fa-minus"></em></button>
                 </div>
-                <input type="text" class="textInput--quantity form-control border-primary text-center" value="1" placeholder="Кол-во" id="persons" name="persons">
+                <input class="textInput--quantity form-control border-primary text-center input-number" value="1" min="1" max="100" placeholder="Кол-во" id="persons" name="persons" step="1">
                 <div class="input-group-append">
-                    <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-plus"></em></button>
+                    <button class="btn btn-primary btn--rounded px-4 btn-number" data-type="plus" data-field="persons"><em class="fas fa-plus"></em></button>
                 </div>
             </div>
 

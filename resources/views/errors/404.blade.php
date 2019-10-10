@@ -15,7 +15,7 @@
                     <div class="col-auto text-right pr-0 pr-sm-4">
                         <span class="error-pages__digits text-primary">4</span>
                     </div>
-                    <div class="col-auto"><img src="/images/404.png" alt="" class="error-pages__zero-digit-image"></div>
+                    <div class="col-auto"><img src="/images/404.png" alt="404" class="error-pages__zero-digit-image"></div>
                     <div class="col-auto pl-0 pl-sm-4">
                         <span class="error-pages__digits text-primary">4</span>
                     </div>

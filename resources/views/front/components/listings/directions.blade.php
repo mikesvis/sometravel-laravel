@@ -1,3 +1,6 @@
+<h2>resources/views/front/visa/module/other.blade.php</h2>
+<h2>resources/views/front/visa/module/popular.blade.php</h2>
+
 <div class="travelDirections vpm__pt vpm__mb">
     <div class="container">
 

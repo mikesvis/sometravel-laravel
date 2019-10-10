@@ -2,7 +2,9 @@
 
 namespace App\Models\Visa;
 
+use App\Helpers\VisaHelper;
 use App\Models\Image;
+use App\Models\Visa\Value;
 use Illuminate\Support\Str;
 use App\Models\Visa\Category;
 use App\Models\BaseAdminModel;
@@ -176,6 +178,11 @@ class Visa extends BaseAdminModel
         return $this->parameters()->where('is_on_calculator_page', 1);
     }
 
+    public function values()
+    {
+        return $this->hasManyThrough(Value::class, Parameter::class)->where('status', 1);
+    }
+
     public function getPrice()
     {
         $price = $this->base_price;
@@ -189,6 +196,11 @@ class Visa extends BaseAdminModel
         }
 
         return $price;
+    }
+
+    public function canBeDelivered()
+    {
+        return ($this->delivery_type == VisaHelper::DELIVERY_TYPE_ANY);
     }
 
 }

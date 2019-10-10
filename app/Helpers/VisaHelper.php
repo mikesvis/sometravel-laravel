@@ -2,21 +2,33 @@
 namespace App\Helpers;
 
 use App\Models\Visa\Visa;
+use Illuminate\Http\Request;
 
 class VisaHelper
 {
-
     // Типы подачи
-    const APPLICATION_TYPE_ONLY_SELF = 0;
-    const APPLICATION_TYPE_ANY = 1;
+    const APPLICATION_TYPE_ONLY_SELF = 0; // только личная
+    const APPLICATION_TYPE_ANY = 1; // личная или без присутствия
+
+    // варианты биометрии
+    const BIOMETRICS_EXIST = 1; // биометрия сдана
+    const BIOMETRICS_ABSENT = 0; // биометрия не сдана
+
+    // варианты подачи документов на визу
+    const APPLICATION_AS_SERVICE = 1; // подача без присутствия
+    const APPLICATION_SELF = 0; // подача личная
 
     // Типы забора документов
-    const ACCEPTANCE_TYPE_ONLY_SELF = 0;
-    const ACCEPTANCE_TYPE_ANY = 1;
+    const ACCEPTANCE_TYPE_ONLY_SELF = 0; // забор документов только самостоятельно
+    const ACCEPTANCE_TYPE_ANY = 1; // забор курьером или самостоятельно
 
     // Типы доставки документов
-    const DELIVERY_TYPE_ONLY_SELF = 0;
-    const DELIVERY_TYPE_ANY = 1;
+    const DELIVERY_TYPE_ONLY_SELF = 0; // доставка только самостоятельно
+    const DELIVERY_TYPE_ANY = 1; // доставка самостоятельно или курьером
+
+    // варианты доставки
+    const DELIVERY_COURIER = 1; // Доставка курьером
+    const DELIVERY_SELF = 0; // Самовывоз
 
 
     // Типы подачи
@@ -73,8 +85,8 @@ class VisaHelper
             'type' => 'biometrics',
             'label' => 'Биометрия <span class="h6 font-weight-normal d-inline-block">(за последние 5 лет)</span>',
             'values' => [
-                ['id'=>'value_b_0', 'name' => 'Сдана', 'value' => 1],
-                ['id'=>'value_b_1', 'name' => 'Не сдана', 'value' => 0],
+                ['id'=>'value_b_0', 'name' => 'Сдана', 'value' => self::BIOMETRICS_EXIST],
+                ['id'=>'value_b_1', 'name' => 'Не сдана', 'value' => self::BIOMETRICS_ABSENT],
             ]
         ];
     }
@@ -85,8 +97,8 @@ class VisaHelper
             'type' => 'delivery_type',
             'label' => 'Доставка',
             'values' => [
-                ['id'=>'value_d_0', 'name' => 'С доставкой', 'value' => 1],
-                ['id'=>'value_d_1', 'name' => 'Самовывоз', 'value' => 0],
+                ['id'=>'value_d_0', 'name' => 'С доставкой', 'value' => self::DELIVERY_COURIER],
+                ['id'=>'value_d_1', 'name' => 'Самовывоз', 'value' => self::DELIVERY_SELF],
             ]
         ];
     }
@@ -97,10 +109,23 @@ class VisaHelper
             'type' => 'application_type',
             'label' => 'Тип подачи',
             'values' => [
-                ['id'=>'value_at_0', 'name' => 'Личная', 'value' => 0],
-                ['id'=>'value_at_1', 'name' => 'Без присутствия', 'value' => 1],
+                ['id'=>'value_at_0', 'name' => 'Личная', 'value' => self::APPLICATION_SELF],
+                ['id'=>'value_at_1', 'name' => 'Без присутствия', 'value' => self::APPLICATION_AS_SERVICE],
             ]
         ];
+    }
+
+    public static function requestedDeliveryIsCourier(Request $request)
+    {
+
+        if(empty($request->input('parameter_regular.delivery_type')))
+            return false;
+
+        if((int)$request->input('parameter_regular.delivery_type') == VisaHelper::DELIVERY_COURIER)
+            return true;
+
+        return false;
+
     }
 
 }
