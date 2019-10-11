@@ -20,6 +20,17 @@ $(function(){
                 return false;
             }
 
+            if(response.data.status == 'is_blocked'){
+                addValidationError($("input[name='phone']"), response.data.message);
+                Swal.fire({
+                    title: 'Хмм... ошибочка вышла',
+                    text: response.data.message,
+                    type: 'error',
+                    confirmButtonText: 'Хорошо'
+                });
+                return false;
+            }
+
             if(response.data.status == false) {
                 clearValidationView($("input[name='phone']"));
                 alert('Show verification modal');

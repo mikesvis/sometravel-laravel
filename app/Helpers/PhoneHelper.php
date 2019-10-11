@@ -8,6 +8,7 @@ class PhoneHelper
 {
 
     const SALT = 'th!$!$a^ery$a1ty$alt';
+    const ALLOWED_CODE_TRIES = 20;
 
     public static function isCorrectPhoneNumber($number)
     {
@@ -31,9 +32,21 @@ class PhoneHelper
         return null;
     }
 
-    public static function generateToken($phone)
+    public static function getToken($phone)
     {
-        return sha1($phone.self::SALT);
+        $smsCode = session('sms_code', 'dummyIncorrectCode');
+        return sha1($phone.self::SALT.$smsCode);
+    }
+
+    public static function generateToken($phone, $code)
+    {
+        return self::getToken($phone);
+    }
+
+    public static function generateCode()
+    {
+        $digits = 4;
+        return rand(pow(10, $digits-1), pow(10, $digits)-1);
     }
 
     public static function preCheckRequestedPhone($phone = null)
@@ -57,13 +70,52 @@ class PhoneHelper
     public static function phoneIsVerified($standartizedPhone)
     {
 
-        $phoneIsVerified = PhoneVerification::where('verified_at', $standartizedPhone)
-            ->where('verified', 1)
-            ->where('token', self::generateToken($standartizedPhone))
+        $phoneIsVerified = PhoneVerification::whereNotNull('verified_at')
+            ->where('token', self::getToken($standartizedPhone))
+            ->where('verified_at', '>=', self::whiteVerificationPeriod())
+            ->orderBy('verified_at', 'desc')
+            ->first();
+
+        if(empty($phoneIsVerified))
+            return false;
+
+        return true;
+
+    }
+
+    public static function whiteVerificationPeriod()
+    {
+        return \Carbon\Carbon::now()->subMinutes(30);
+    }
+
+    public static function isSmsSpender($phone)
+    {
+
+        $countByIps = PhoneVerification::where('created_at', '>=', self::smsExausterPeriod())
+            ->where('ip', $_SERVER['REMOTE_ADDR'])
             ->count();
 
-        return (bool)$phoneIsVerified;
+        if($countByIps > self::ALLOWED_CODE_TRIES)
+            return true;
 
+        $countByPhoneNumber = PhoneVerification::where('created_at', '>=', self::smsExausterPeriod())
+            ->where('phone', $phone)
+            ->count();
+
+        if($countByPhoneNumber > self::ALLOWED_CODE_TRIES)
+            return true;
+    }
+
+    public static function smsExausterPeriod()
+    {
+        return \Carbon\Carbon::now()->subMinutes(60);
+    }
+
+
+    public static function beautifyPhone($phone)
+    {
+        $phone = PhoneHelper::standartizeNumber($phone);
+        return '7 ('.mb_substr($phone, 1, 3).') '.mb_substr($phone, 4, 3).'-'.mb_substr($phone, 7, 2).'-'.mb_substr($phone, 9, 2);
     }
 
 }

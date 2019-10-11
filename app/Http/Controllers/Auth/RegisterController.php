@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\Client\ClientRegisterRequest;
 use App\Http\Requests\Client\PreCheckPhoneRequest;
+use App\Models\PhoneVerification;
+use Carbon\Carbon;
 
 class RegisterController extends BaseController
 {
@@ -95,7 +97,8 @@ class RegisterController extends BaseController
             ]
         ];
 
-        $phoneIsVerified = $this->phoneIsVerified(old('phone', null));
+        // $phoneIsVerified = $this->phoneIsVerified(old('phone', null));
+        $phoneIsVerified = null;
 
         return view('front.auth.register', compact('breadcrumbs', 'phoneIsVerified'));
     }
@@ -142,34 +145,47 @@ class RegisterController extends BaseController
         $data = ['status' => true];
         $phoneIsVerified = PhoneHelper::phoneIsVerified($phoneIsCorrect);
 
-        // номер подтвержден, всё норм, вываливаемся
+        // номер был подтвержден за последний PhoneHelper::whiteVerificationPeriod(), последний код смс из сессии корректный, всё норм, вываливаемся
         if($phoneIsVerified)
             return $data;
 
-        // дальше мы делаем следующее
+        /**
+         * Смотрим, не спамер ли это:
+         * Если не проходим проверку PhoneHelper::isSmsSpender(), то выводим сообщение об ошибке
+         * что с данного адреса или с этим номером телефона превышен лимит запросов кодов
+         */
+        $data = ['status' => 'is_blocked', 'message' => 'Превышен лимит запросов кодов. Попробуйте позже.'];
+        $guestIsSmsSpender = PhoneHelper::isSmsSpender($phoneIsCorrect);
 
+        // Это спамер, посылаем его лесом и вываливаемся с ошибкой
+        if($guestIsSmsSpender)
+            return $data;
+
+        /**
+         * Генерируем код, отправляем смс, записываем в базу с токеном, показываем модальку и ждем ввода кода
+         */
         $data = [
-            'status' => PhoneHelper::phoneIsVerified($phoneIsCorrect)
+            'status' => false,
+            'phone' => PhoneHelper::beautifyPhone($phoneIsCorrect),
         ];
+
+        $this->sendNewCode($phoneIsCorrect);
 
         return $data;
     }
 
-    public function phoneIsVerified($phone = null)
+    public function sendNewCode($phone)
     {
-
-        // phone is empty
-        if(empty($phone))
-            return false;
-
-        // phone is incorrect
-        if(PhoneHelper::isCorrectPhoneNumber($phone) == false)
-            return false;
-
-        $phone = PhoneHelper::standartizeNumber($phone);
-
-
-
-        return true;
+        $code = PhoneHelper::generateCode();
+        session(['sms_code' => $code]);
+        PhoneVerification::create([
+            'phone' => $phone,
+            'code' => $code,
+            'code_sent_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
+            // 'verified_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
+            'verified_at'=> null,
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'token' => PhoneHelper::generateToken($phone, $code)
+        ]);
     }
 }
