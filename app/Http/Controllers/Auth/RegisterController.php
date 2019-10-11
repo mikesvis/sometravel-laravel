@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\Client;
+use App\Helpers\PhoneHelper;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\Client\ClientRegisterRequest;
+use App\Http\Requests\Client\PreCheckPhoneRequest;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +65,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -70,7 +75,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ];
 
-        return (new Client)->create($attributes);
+        $user = (new Client)->create($attributes);
+
+        return $user;
     }
 
     /**
@@ -80,7 +87,37 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('front.auth.register');
+        $breadcrumbs = [
+            self::BREADCRUMBS_HOME,
+            [
+                'name' => 'Регистрация',
+                'url' => null
+            ]
+        ];
+
+        $phoneIsVerified = $this->phoneIsVerified(old('phone', null));
+
+        return view('front.auth.register', compact('breadcrumbs', 'phoneIsVerified'));
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(ClientRegisterRequest $request)
+    {
+        // $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 
     /**
@@ -89,5 +126,50 @@ class RegisterController extends Controller
     public function redirectTo()
     {
         return auth()->user()->userable->cabinet_link;
+    }
+
+    public function сheckPhone(PreCheckPhoneRequest $request)
+    {
+        // проверяем на корректность номера
+        $data = ['status' => 'incorrect', 'message' => 'Неправильно указан номер.'];
+        $phoneIsCorrect = PhoneHelper::preCheckRequestedPhone($request->input('phone'));
+
+        // номер не очень... вываливаемся
+        if($phoneIsCorrect == false)
+            return $data;
+
+        // проверяем подтвержден ли код
+        $data = ['status' => true];
+        $phoneIsVerified = PhoneHelper::phoneIsVerified($phoneIsCorrect);
+
+        // номер подтвержден, всё норм, вываливаемся
+        if($phoneIsVerified)
+            return $data;
+
+        // дальше мы делаем следующее
+
+        $data = [
+            'status' => PhoneHelper::phoneIsVerified($phoneIsCorrect)
+        ];
+
+        return $data;
+    }
+
+    public function phoneIsVerified($phone = null)
+    {
+
+        // phone is empty
+        if(empty($phone))
+            return false;
+
+        // phone is incorrect
+        if(PhoneHelper::isCorrectPhoneNumber($phone) == false)
+            return false;
+
+        $phone = PhoneHelper::standartizeNumber($phone);
+
+
+
+        return true;
     }
 }

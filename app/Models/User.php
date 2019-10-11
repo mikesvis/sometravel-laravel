@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+
+    public function setPhoneAttribute($value){
+        dd(1);
+        $this->attributes['phone'] = '';
+    }
 }

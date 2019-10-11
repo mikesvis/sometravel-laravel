@@ -13,6 +13,8 @@
 
 Route::get('/', 'SiteController@index')->name('front.index');
 
+Route::get('/register/check-phone', 'Auth\RegisterController@сheckPhone');
+
 Auth::routes();
 
 // back routes

@@ -24,7 +24,7 @@ $(function(){
 
         }).catch(error => {
 
-            console.log(error);
+            // console.log(error);
             modal = `
             <div class="modal fade" id="visaCalculatorModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -43,7 +43,7 @@ $(function(){
                     </div>
                 </div>
             </div>`;
-            // $(modal).modal();
+            $(modal).modal();
         });
     });
 });

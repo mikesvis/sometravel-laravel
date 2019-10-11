@@ -4,7 +4,11 @@
 
 @include('front.components.breadcrumbs', compact('breadcrumbs'))
 
-@include('front.components.page-heading', ['heading' => 'Новости'])
+@include('front.components.page-heading', ['heading' => 'Вход'])
+
+@section('title',  __('Login'))
+@section('keywords',  __('Login'))
+@section('description',  __('Login'))
 
 <div class="container">
     <div class="row">
