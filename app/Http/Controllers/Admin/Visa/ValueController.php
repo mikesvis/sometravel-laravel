@@ -59,6 +59,8 @@ class ValueController extends AdminBaseController
     {
         $value = Value::create($request->all());
 
+        $value->dealWithOrder();
+
         event(new ValueModelUpdatedCreatedEvent($value));
 
         Flash::add('Значение добавлено');
@@ -106,6 +108,8 @@ class ValueController extends AdminBaseController
         $value = $this->valueRepository->getForEditById($id);
 
         $value->update($request->all());
+
+        $value->dealWithOrder();
 
         event(new ValueModelUpdatedCreatedEvent($value));
 

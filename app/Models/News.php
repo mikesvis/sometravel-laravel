@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Helpers\Orderable;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Models\BaseAdminModel;
 
 class News extends BaseAdminModel
 {
+
+    use Orderable;
+
     protected $table = 'news';
 
     /**

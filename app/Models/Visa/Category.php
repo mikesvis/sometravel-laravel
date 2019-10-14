@@ -2,12 +2,15 @@
 
 namespace App\Models\Visa;
 
+use App\Helpers\Orderable;
 use App\Models\Visa\Visa;
 use Illuminate\Support\Str;
 use App\Models\BaseAdminModel;
 
 class Category extends BaseAdminModel
 {
+
+    use Orderable;
 
     /**
      * The attributes that are mass assignable.

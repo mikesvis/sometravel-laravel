@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use App\Helpers\Orderable;
 use App\Models\BaseAdminModel;
 
 class Image extends BaseAdminModel
 {
+
+    use Orderable;
+
+    protected $morphable = 'imagable_type';
+    protected $orderWithinAttribute = 'imagable_id';
 
     const IMAGE_MAX_UPLOAD_DIMENSIONS = [
         'width' => 4096,

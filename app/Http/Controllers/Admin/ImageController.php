@@ -60,10 +60,12 @@ class ImageController extends AdminBaseController
             return redirect(route('admin.'.strtolower(class_basename($polymorphModel)).'.edit.tabToGo', [$id, 'images']));
         }
 
-        $polymorphModel->images()->create([
+        $imageModel = $polymorphModel->images()->create([
             'path' => $imageUrl,
             'ordering' => 50
         ]);
+
+        $imageModel->dealWithOrder();
 
         Flash::add('Изображение добавлено');
 
@@ -119,6 +121,8 @@ class ImageController extends AdminBaseController
         $image = $this->imageRepository->getForEditById($id);
 
         $image->update($request->all());
+
+        $image->dealWithOrder();
 
         Flash::add('Изображение обновлено.');
 

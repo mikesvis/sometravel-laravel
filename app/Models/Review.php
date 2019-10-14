@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\Orderable;
 use Carbon\Carbon;
 use App\Models\BaseAdminModel;
 
 class Review extends BaseAdminModel
 {
+    use Orderable;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -2,6 +2,7 @@
 
 namespace App\Models\Visa;
 
+use App\Helpers\Orderable;
 use App\Helpers\VisaHelper;
 use App\Models\Image;
 use App\Models\Visa\Value;
@@ -12,6 +13,8 @@ use App\Models\Visa\Parameter;
 
 class Visa extends BaseAdminModel
 {
+
+    use Orderable;
 
     /**
      * The attributes that are mass assignable.

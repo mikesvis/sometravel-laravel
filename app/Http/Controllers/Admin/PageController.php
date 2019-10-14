@@ -73,6 +73,8 @@ class PageController extends AdminBaseController
     {
         $page = Page::create($request->all());
 
+        $page->dealWithOrder();
+
         Flash::add('Страница добавлена');
 
         if($request->has('apply'))
@@ -118,6 +120,8 @@ class PageController extends AdminBaseController
         $page = $this->pageRepository->getForEditById($id);
 
         $page->update($request->all());
+
+        $page->dealWithOrder();
 
         Flash::add('Страница обновлена');
 

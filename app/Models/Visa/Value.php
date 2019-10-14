@@ -2,11 +2,17 @@
 
 namespace App\Models\Visa;
 
+use App\Helpers\Orderable;
 use App\Models\BaseAdminModel;
 use App\Models\Visa\Parameter;
 
 class Value extends BaseAdminModel
 {
+
+    use Orderable;
+
+    protected $orderWithinAttribute = 'parameter_id';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -95,6 +95,8 @@ class VisaController extends AdminBaseController
     {
         $visa = Visa::create($request->all());
 
+        $visa->dealWithOrder();
+
         $visa->categories()->sync($request->input('categories'));
         $visa->documents()->sync($request->input('documents'));
 
@@ -147,6 +149,8 @@ class VisaController extends AdminBaseController
         $visa = $this->visaRepository->getForEditById($id);
 
         $visa->update($request->all());
+
+        $visa->dealWithOrder();
 
         $visa->categories()->sync($request->input('categories'));
         $visa->documents()->sync($request->input('documents'));

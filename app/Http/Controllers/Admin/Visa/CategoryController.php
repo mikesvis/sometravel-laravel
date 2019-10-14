@@ -76,6 +76,8 @@ class CategoryController extends AdminBaseController
     {
         $category = Category::create($request->all());
 
+        $category->dealWithOrder();
+
         Flash::add('Категория добавлена');
 
         if($request->has('apply'))
@@ -122,6 +124,8 @@ class CategoryController extends AdminBaseController
         $category = $this->categoryRepository->getForEditById($id);
 
         $category->update($request->all());
+
+        $category->dealWithOrder();
 
         Flash::add('Категория обновлена');
 

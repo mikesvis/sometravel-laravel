@@ -73,6 +73,8 @@ class NewsController extends AdminBaseController
     {
         $news = News::create($request->all());
 
+        $news->dealWithOrder();
+
         Flash::add('Новость добавлена');
 
         if($request->has('apply'))
@@ -118,6 +120,8 @@ class NewsController extends AdminBaseController
         $news = $this->newsRepository->getForEditById($id);
 
         $news->update($request->all());
+
+        $news->dealWithOrder();
 
         Flash::add('Новость обновлена');
 

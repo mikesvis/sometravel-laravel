@@ -57,6 +57,8 @@ class ParameterController extends AdminBaseController
     {
         $parameter = Parameter::create($request->all());
 
+        $parameter->dealWithOrder();
+
         Flash::add('Параметр добавлен');
 
         if($request->has('apply'))
@@ -101,6 +103,8 @@ class ParameterController extends AdminBaseController
         $parameter = $this->parameterRepository->getForEditById($id);
 
         $parameter->update($request->all());
+
+        $parameter->dealWithOrder();
 
         Flash::add('Параметр обновлен');
 

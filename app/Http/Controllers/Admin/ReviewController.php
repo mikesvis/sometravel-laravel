@@ -73,6 +73,8 @@ class ReviewController extends AdminBaseController
     {
         $review = Review::create($request->all());
 
+        $review->dealWithOrder();
+
         Flash::add('Отзыв добавлен');
 
         if($request->has('apply'))
@@ -118,6 +120,8 @@ class ReviewController extends AdminBaseController
         $review = $this->reviewRepository->getForEditById($id);
 
         $review->update($request->all());
+
+        $review->dealWithOrder();
 
         Flash::add('Отзыв обновлен');
 

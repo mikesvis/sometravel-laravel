@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\Orderable;
 use Illuminate\Support\Str;
 use App\Models\BaseAdminModel;
 
 class Page extends BaseAdminModel
 {
+
+    use Orderable;
 
     /**
      * The attributes that are mass assignable.
