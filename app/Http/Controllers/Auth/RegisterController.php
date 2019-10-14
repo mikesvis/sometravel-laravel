@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Client;
 use App\Helpers\PhoneHelper;
 use Illuminate\Http\Request;
+use App\Models\PhoneVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Client\CheckCodeRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Requests\Client\ClientRegisterRequest;
 use App\Http\Requests\Client\PreCheckPhoneRequest;
-use App\Models\PhoneVerification;
-use Carbon\Carbon;
+use App\Http\Requests\Client\ClientRegisterRequest;
 
 class RegisterController extends BaseController
 {
@@ -174,10 +175,33 @@ class RegisterController extends BaseController
         return $data;
     }
 
+    public function checkCode(CheckCodeRequest $request)
+    {
+
+        $verifyPhone = PhoneVerification::whereNull('verified_at')
+            ->where('token', PhoneHelper::generateToken($request->input('phone'), $request->input('smsCode')))
+            ->where('code_sent_at', '>=', PhoneHelper::whiteVerificationPeriod())
+            ->orderBy('code_sent_at', 'desc')
+            ->first();
+
+        $verifyPhone->verified_at = \Carbon\Carbon::now()->format("Y-m-d H:i:s");
+
+        $verifyPhone->save();
+
+        return ['status'=>$verifyPhone->save()];
+    }
+
     public function sendNewCode($phone)
     {
+
+        $codeHasBeenJustSent = PhoneHelper::codeHasBeenJustSent($phone);
+
+        if($codeHasBeenJustSent == true)
+            return 'code has been already sent';
+
         $code = PhoneHelper::generateCode();
         session(['sms_code' => $code]);
+
         PhoneVerification::create([
             'phone' => $phone,
             'code' => $code,
@@ -187,5 +211,6 @@ class RegisterController extends BaseController
             'ip' => $_SERVER['REMOTE_ADDR'],
             'token' => PhoneHelper::generateToken($phone, $code)
         ]);
+
     }
 }

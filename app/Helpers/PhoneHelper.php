@@ -32,15 +32,15 @@ class PhoneHelper
         return null;
     }
 
-    public static function getToken($phone)
+    public static function getToken($phone, $code = 'dummyIncorrectCode')
     {
-        $smsCode = session('sms_code', 'dummyIncorrectCode');
+        $smsCode = session('sms_code', $code);
         return sha1($phone.self::SALT.$smsCode);
     }
 
     public static function generateToken($phone, $code)
     {
-        return self::getToken($phone);
+        return sha1($phone.self::SALT.$code);
     }
 
     public static function generateCode()
@@ -111,6 +111,25 @@ class PhoneHelper
         return \Carbon\Carbon::now()->subMinutes(60);
     }
 
+    public static function codeHasBeenJustSent($phone)
+    {
+        $phone = self::preCheckRequestedPhone($phone);
+
+        if($phone == false)
+            return true;
+
+        $countJustSent = PhoneVerification::where('code_sent_at', '>=', self::smsCooldownPeriod())
+            ->where('phone', $phone)
+            ->count();
+
+        return (bool)$countJustSent;
+
+    }
+
+    public static function smsCooldownPeriod()
+    {
+        return \Carbon\Carbon::now()->subSeconds(30);
+    }
 
     public static function beautifyPhone($phone)
     {

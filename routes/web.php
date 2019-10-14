@@ -14,6 +14,7 @@
 Route::get('/', 'SiteController@index')->name('front.index');
 
 Route::get('/register/check-phone', 'Auth\RegisterController@сheckPhone');
+Route::get('/register/check-code', 'Auth\RegisterController@checkCode')->name('verify.code');
 
 Auth::routes();
 
