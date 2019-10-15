@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 use App\Models\PhoneVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Client\CheckCodeRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\Client\ResendCodeRequest;
 use App\Http\Requests\Client\PreCheckPhoneRequest;
+use App\Notifications\Client\VerificationCodeSent;
 use App\Http\Requests\Client\ClientRegisterRequest;
 
 class RegisterController extends BaseController
@@ -73,10 +75,15 @@ class RegisterController extends BaseController
      */
     protected function create(array $data)
     {
+
         $attributes = [
-            'name' => $data['name'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
+            'surname' => $data['surname'],
+            'name' => $data['name'],
+            'patronymic' => $data['patronymic'],
             'password' => Hash::make($data['password']),
+            'subscribe' => $data['patronymic'],
         ];
 
         $user = (new Client)->create($attributes);
@@ -232,7 +239,7 @@ class RegisterController extends BaseController
         $code = PhoneHelper::generateCode();
         session(['sms_code' => $code]);
 
-        PhoneVerification::create([
+        $phoneVerification = PhoneVerification::create([
             'phone' => $phone,
             'code' => $code,
             'code_sent_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
@@ -241,6 +248,9 @@ class RegisterController extends BaseController
             'ip' => $_SERVER['REMOTE_ADDR'],
             'token' => PhoneHelper::generateToken($phone, $code)
         ]);
+
+        // $phoneVerification->notify(new VerificationCodeSent($phoneVerification->code));
+        // $phoneVerification->notify(new VerificationCodeSent($phoneVerification));
 
         return true;
 
