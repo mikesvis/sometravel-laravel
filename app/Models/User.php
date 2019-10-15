@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\PhoneHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'surname',
+        'patronymic',
+        'phone',
+        'email',
+        'password',
     ];
 
     /**
@@ -48,7 +54,6 @@ class User extends Authenticatable
     }
 
     public function setPhoneAttribute($value){
-        dd(1);
-        $this->attributes['phone'] = '';
+        $this->attributes['phone'] = PhoneHelper::standartizeNumber($value);
     }
 }

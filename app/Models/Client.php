@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model implements UserInterface
 {
+
+    protected $fillable = [
+        'birthday',
+        'subscribe',
+    ];
+
     public $cabinet_link = '/profile';
     /**
      * Relation to user
