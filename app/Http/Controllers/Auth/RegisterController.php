@@ -14,6 +14,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Client\CheckCodeRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\Client\ResendCodeRequest;
 use App\Http\Requests\Client\PreCheckPhoneRequest;
 use App\Http\Requests\Client\ClientRegisterRequest;
 
@@ -191,13 +192,42 @@ class RegisterController extends BaseController
         return ['status'=>$verifyPhone->save()];
     }
 
+    public function resendCode(ResendCodeRequest $request)
+    {
+
+        $phone = PhoneHelper::standartizeNumber($request->input('phone'));
+
+        /**
+         * Смотрим, не спамер ли это:
+         * Если не проходим проверку PhoneHelper::isSmsSpender(), то выводим сообщение об ошибке
+         * что с данного адреса или с этим номером телефона превышен лимит запросов кодов
+         */
+        $data = ['status' => 'is_blocked', 'message' => 'Превышен лимит запросов кодов. Попробуйте позже.'];
+        $guestIsSmsSpender = PhoneHelper::isSmsSpender($phone);
+
+        // Это спамер, посылаем его лесом и вываливаемся с ошибкой
+        if($guestIsSmsSpender)
+            return $data;
+
+        $result = $this->sendNewCode($phone);
+
+        $data = ['status' => false, 'message' => 'Отправить новый код можно только по истечению таймера.'];
+        if($result == false)
+            return $data;
+
+        $data = ['status' => true, 'message' => 'Новый СМС код был отправлен на ваш номер телефона. Пожалуйста введите его в поле ниже.'];
+
+        return $data;
+
+    }
+
     public function sendNewCode($phone)
     {
 
         $codeHasBeenJustSent = PhoneHelper::codeHasBeenJustSent($phone);
 
         if($codeHasBeenJustSent == true)
-            return 'code has been already sent';
+            return false;
 
         $code = PhoneHelper::generateCode();
         session(['sms_code' => $code]);
@@ -211,6 +241,8 @@ class RegisterController extends BaseController
             'ip' => $_SERVER['REMOTE_ADDR'],
             'token' => PhoneHelper::generateToken($phone, $code)
         ]);
+
+        return true;
 
     }
 }

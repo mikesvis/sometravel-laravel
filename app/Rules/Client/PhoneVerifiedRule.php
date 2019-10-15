@@ -2,6 +2,7 @@
 
 namespace App\Rules\Client;
 
+use App\Helpers\PhoneHelper;
 use Illuminate\Contracts\Validation\Rule;
 
 class PhoneVerifiedRule implements Rule
@@ -25,7 +26,7 @@ class PhoneVerifiedRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        return PhoneHelper::phoneIsVerified(PhoneHelper::standartizeNumber($value));
     }
 
     /**

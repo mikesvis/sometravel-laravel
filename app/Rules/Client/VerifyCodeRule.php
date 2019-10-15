@@ -32,13 +32,12 @@ class VerifyCodeRule implements Rule
     {
 
         $codeIsVerified = PhoneVerification::whereNull('verified_at')
-            ->where('token', PhoneHelper::generateToken($this->phone, $value))
             ->where('code_sent_at', '>=', PhoneHelper::whiteVerificationPeriod())
             ->orderBy('code_sent_at', 'desc')
-            ->take(1)
-            ->count();
+            ->first();
 
-        return $codeIsVerified;
+        return $codeIsVerified->token == PhoneHelper::generateToken($this->phone, $value);
+
     }
 
     /**

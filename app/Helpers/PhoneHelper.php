@@ -40,6 +40,8 @@ class PhoneHelper
 
     public static function generateToken($phone, $code)
     {
+        $phone = PhoneHelper::standartizeNumber($phone);
+
         return sha1($phone.self::SALT.$code);
     }
 

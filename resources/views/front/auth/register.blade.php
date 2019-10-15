@@ -44,7 +44,7 @@
                                     <input
                                     type="text"
                                     name="phone"
-                                    value="{{ old('phone', '9052216581') }}"
+                                    value="{{ old('phone') }}"
                                     id="phone"
                                     {{-- placeholder="+7 (000) 000-00-00" --}}
                                     required
@@ -237,9 +237,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="h4 text-center font-weight-normal mt-4 mb-4" id="beautifulPhone">+7 (000) 000-00-00</div>
-                <p class="fs18 font-weight-light text-center mb-4">
-                    Мы выслали СМС код на ваш номер телефона. Пожалуйста введите его в поле ниже
-                </p>
+                <p class="fs18 font-weight-light text-center mb-4" id="codeTextLegend"></p>
                 <div class="form-group text-center mb-4">
                     <input type="hidden" name="phone" id="verificationPhone" value="" />
                     <input
@@ -253,7 +251,7 @@
                     >
                 </div>
                 <p class="text-muted text-center" id="countdownText"><small>Отправить код повторно можно будет через: <span id="countdownTimer">30</span> сек.</small></p>
-                <p class="text-muted text-center d-none" id="resendText"><small class="text-primary cursor-pointer" id="resendCode"><u>Отправить код повторно</u></small></p>
+                <p class="text-muted text-center d-none user-select-none" id="resendText"><small class="text-primary cursor-pointer user-select-none" id="resendCode"><u>Отправить код повторно</u></small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary rounded-pill py-2 px-4" data-dismiss="modal">Закрыть</button>
