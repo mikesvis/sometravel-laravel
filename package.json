@@ -42,6 +42,7 @@
         "momentjs": "^2.0.0",
         "select2": "^4.0.10",
         "slick-carousel": "^1.8.1",
+        "tempusdominus-bootstrap-4": "^5.1.2",
         "tinymce": "^5.0.15",
         "toastr": "^2.1.4"
     }

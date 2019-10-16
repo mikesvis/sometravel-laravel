@@ -43,4 +43,5 @@ class Client extends Model implements UserInterface
         }
         return $result;
     }
+
 }

@@ -94,4 +94,27 @@ class MenuHelper
 
         return $result;
     }
+
+    public function getProfileItems()
+    {
+        $result = [
+            [
+                'name' => 'Личный кабинет',
+                'url' => route('front.profile.index'),
+                'current' => Route::is('front.profile.index'),
+            ],
+            [
+                'name' => 'Мои заказы',
+                'url' => route('front.profile.order.index'),
+                'current' => (Route::is('front.profile.order.index') || Route::is('front.profile.order.show')),
+            ],
+            [
+                'name' => 'Персональные данные',
+                'url' => route('front.profile.edit'),
+                'current' => Route::is('front.profile.edit'),
+            ]
+        ];
+
+        return $result;
+    }
 }

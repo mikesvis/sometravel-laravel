@@ -75,7 +75,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 Route::group(['namespace' => 'Front'], function(){
 
     // profile
-    Route::get('/profile', 'ClientController@index')->name('front.profile')->middleware('auth');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/profile', 'ClientController@index')->name('front.profile.index');
+        Route::get('/profile/order', 'ClientController@orders')->name('front.profile.order.index');
+        Route::get('/profile/order/{order}', 'ClientController@order')->name('front.profile.order.show');
+        Route::get('/profile/edit', 'ClientController@edit')->name('front.profile.edit');
+        Route::patch('/profile', 'ClientController@update')->name('front.profile.update');
+    });
 
     // news
     Route::get('/novosti', 'NewsController@index')->name('front.news.index');

@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 require('./components/menu');
+require('./components/datepicker');
 require('./components/number-spinner');
 require('./components/page-calculator');
 require('./components/popovers');
