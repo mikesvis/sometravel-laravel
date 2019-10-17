@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administration extends Model implements UserInterface
 {
+
+    protected $fillable = [''];
+
     public $cabinet_link = '/admin/';
     /**
      * Relation to user
@@ -37,4 +40,5 @@ class Administration extends Model implements UserInterface
         }
         return $result;
     }
+
 }

@@ -44,4 +44,14 @@ class Client extends Model implements UserInterface
         return $result;
     }
 
+    public function setBirthdayAttribute($value)
+    {
+
+        $this->attributes['birthday'] = $value;
+
+        if(!empty($value))
+            $this->attributes['birthday'] = \Carbon\Carbon::createFromFormat('d.m.Y', $value)->format("Y-m-d");
+
+    }
+
 }

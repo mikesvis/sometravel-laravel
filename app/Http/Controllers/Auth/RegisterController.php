@@ -83,7 +83,7 @@ class RegisterController extends BaseController
             'name' => $data['name'],
             'patronymic' => $data['patronymic'],
             'password' => Hash::make($data['password']),
-            'subscribe' => $data['patronymic'],
+            'subscribe' => $data['subscribe'],
         ];
 
         $user = (new Client)->create($attributes);

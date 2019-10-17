@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Helpers\MenuHelper;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
 use App\Http\Requests\Client\ClientUpdateRequest;
@@ -40,15 +41,34 @@ class ClientController extends FrontBaseController
 
         $menuItems = (new MenuHelper)->getProfileItems();
 
-        return view('front.profile.edit', compact('user', 'breadcrumbs', 'menuItems'));
+        $viewFile = 'front.profile.edit-client';
+
+        if($user->isAdmin())
+            $viewFile = 'front.profile.edit-admin';
+
+        return view($viewFile, compact('user', 'breadcrumbs', 'menuItems'));
 
     }
 
     public function update(UserUpdateRequest $request)
     {
 
+        $user = \Auth::user();
 
-        dd(1);
+        $data = $request->all();
+
+        if($data['password'] != null){
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+        $user->userable->update($data);
+
+        // $user->userable->touch();
+
+        return redirect(route('front.profile.edit'))->with('success', 'Персональные данные обновлены');
 
     }
 }

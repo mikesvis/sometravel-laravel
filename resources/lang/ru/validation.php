@@ -221,5 +221,6 @@ return [
 
         'surname'               => 'Фамилия',
         'patronymic'            => 'Отчество',
+        'birthday'              => 'Дата рождения',
     ],
 ];

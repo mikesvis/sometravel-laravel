@@ -16,7 +16,7 @@
         <div class="container vpm__mt">
 
             <!-- block heading -->
-            <div class="heading row vpm__my">
+            <div class="heading row vpm__mt">
                 <div class="col-12 col-lg">
                     <div class="h2 font-weight-normal m-0 text-center text-lg-left">Персональные данные</div>
                 </div>
@@ -26,7 +26,13 @@
             <div class="row">
                 <div class="col-12">
 
-                    <form action="{{ route('front.profile.update') }}" method="POST">
+                    @if (session('success'))
+                        <div class="alert alert-success vpm__mt" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <form action="{{ route('front.profile.update') }}" method="POST" class="vpm__mt">
 
                         @csrf
                         @method('patch')
@@ -86,33 +92,6 @@
                                             <span class="invalid-feedback text-center" role="patronymic">{{ $message }}</span>
                                         @enderror
                                     </div>
-
-                                    @if ($user->isAdmin() == false)
-
-                                        <div class="form-group mb-4">
-                                            <label class="control-label" for="input-birthday">Дата рождения</label>
-                                            <div class="form-group">
-                                                <div class="input-group is-datepicker" id="datepicker_birthday" data-date-format="DD.MM.YYYY" data-target-input="nearest" data-date-defaultDate="false" data-date-use-current="false">
-                                                    <input
-                                                    type="text"
-                                                    name="birthday"
-                                                    value="{{ old('birthday', $user->birthday_human) }}"
-                                                    id="input-birthday"
-                                                    class="textInput textInput--borderPrimary textInput--rounded textInput--biggerText form-control text-center datetimepicker-input"
-                                                    data-target="#datepicker_birthday"
-                                                    />
-                                                    <div class="input-group-append" data-target="#datepicker_birthday" data-toggle="datetimepicker">
-                                                        <span class="btn btn-primary btn--rounded px-4"><em class="fas fa-calendar"></em></span>
-                                                    </div>
-                                                    @error('birthday')
-                                                        <span class="invalid-feedback text-center" role="message">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    @endif
 
                                 </div>
 
@@ -186,48 +165,9 @@
 
                                 </div>
 
-                                @if ($user->isAdmin() == false)
-
-                                    <div class="cabinet-form__panel panelRounded p-4 panelShadow">
-
-                                        <div class="cabinet-form__name mb-4"><strong>Согласие на рассылку</strong></div>
-
-                                        <p>Я согласен получать информацию по акциям и персональным предложениям.</p>
-
-                                        <div>
-                                            <div class="radioButtons__item mr-2 d-inline-block">
-                                                <input
-                                                type="radio"
-                                                name="subscribe"
-                                                id="subscribe_yes"
-                                                class="d-none"
-                                                value="1"
-                                                @if (old('subscribe', $user->userable->subscribe) == true) checked @endif
-                                                />
-                                                <label for="subscribe_yes" class="radioButtons__labelSmall btn btn-outline-primary btn--rounded border border-primary mb-0 py-2 px-4">Да</label>
-                                            </div>
-                                            <div class="radioButtons__item mr-2 d-inline-block">
-                                                <input
-                                                type="radio"
-                                                name="subscribe"
-                                                id="subscribe_no"
-                                                class="d-none"
-                                                value="0"
-                                                @if (old('subscribe', $user->userable->subscribe) == false) checked @endif
-                                                />
-                                                <label for="subscribe_no" class="radioButtons__labelSmall btn btn-outline-primary btn--rounded border border-primary mb-0 py-2 px-4">Нет</label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                @endif
-
                             </div>
                             {{-- /info panel item  --}}
-
-
+\
                         </div>
                         <!-- /form -->
 

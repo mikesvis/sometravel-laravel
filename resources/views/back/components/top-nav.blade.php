@@ -26,7 +26,7 @@
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item"><a href="#" class="nav-link pl-0"><em class="fa fa-cog mr-2"></em> <span class="d-none d-md-inline">Настройки</span></a></li>
+    <li class="nav-item"><a href="{{ route('front.profile.edit') }}" class="nav-link pl-0"><em class="fa fa-cog mr-2"></em> <span class="d-none d-md-inline">Настройки</span></a></li>
     <li class="nav-item">
         <a href="{{ route('logout') }}" class="nav-link pl-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><em class="fa fa-sign-out-alt mr-2"></em> <span class="d-none d-md-inline">Выход</span></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

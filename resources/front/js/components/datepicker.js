@@ -24,6 +24,7 @@ $(function(){
     $('.is-datepicker').datetimepicker({
         locale: 'ru',
         pickTime: false,
+        keepInvalid: true,
         allowInputToggle: true,
         buttons,
         icons

@@ -38,7 +38,12 @@ class UserUpdateRequest extends FormRequest
                 'patronymic' => ['nullable', 'string', 'min:2', 'max:255'],
             ]);
         } else {
-
+            $rules = array_merge($rules, [
+                'surname' => ['required', 'string', 'min:2', 'max:255'],
+                'patronymic' => ['required', 'string', 'min:2', 'max:255'],
+                'birthday' => ['nullable', 'date_format:"d.m.Y"'],
+                'subscribe'=>['required', 'boolean'],
+            ]);
         }
 
         return $rules;
