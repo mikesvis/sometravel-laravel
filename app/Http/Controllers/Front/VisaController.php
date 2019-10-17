@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Front;
 
 use App\Helpers\VisaHelper;
 use Illuminate\Http\Request;
+use App\Helpers\WizardHelper;
 use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Visa\CategoryRepository;
+use App\Http\Requests\Checkout\StartVisaRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
 class VisaController extends FrontBaseController
@@ -97,6 +99,20 @@ class VisaController extends FrontBaseController
 
         return view('front.visa.show', compact('visa', 'calculator', 'otherVisas', 'breadcrumbs'));
 
+    }
+
+    public function checkout(StartVisaRequest $request, $slug)
+    {
+
+        $wizard = new WizardHelper;
+
+        $wizard->flushPreviousData();
+
+        $wizard->storeVisa($request->input(['visa_id']));
+
+        $wizard->storeStepData(1, $request->except(['_token', 'proceed', 'visa_id']));
+
+        dump($wizard);
     }
 
     public function calculateVisaPage(Request $request, $id)

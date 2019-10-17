@@ -34,7 +34,7 @@
                     <div class="col-12 col-xl-12 col-xxl-7 col-xxxl">
                         <div class="radioButtons row justify-content-center">
                             <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6">
-                                <button type="submit" name="submit-1" class="btn btn-primary rounded-pill btn-block"><strong>Оформить онлайн</strong></button>
+                                <button type="submit" name="proceed" class="btn btn-primary rounded-pill btn-block"><strong>Оформить онлайн</strong></button>
                             </div>
                             <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-3 mt-sm-0">
                                 <span class="btn btn-outline-primary bg-white text-primary rounded-pill btn-block cursor-pointer"><strong>Оформить в офисе</strong></span>

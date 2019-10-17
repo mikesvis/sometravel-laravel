@@ -35,9 +35,10 @@
 
 <div class="visaCalcWrapper bg-light vpm__mt vpm__py">
 
-    <form action="{{ route('front.visa.show', $visa->slug) }}" method="post" id="calculatorForm">
+    <form action="{{ route('front.visa.checkout', $visa->slug) }}" method="POST" id="calculatorForm">
 
         @csrf
+
         <input type="hidden" name="visa_id" value="{{ $visa->id }}">
 
         <!-- block heading -->
@@ -49,163 +50,6 @@
             </div>
         </div>
         <!-- block heading -->
-
-        {{--
-        <div class="visaCalcForm border-bottom vpm__pb">
-            <div class="container">
-                <div class="row justify-content-center">
-
-                    <div class="col-10 col-sm-12 col-lg-6 col-xl-7 col-xxl-6 col-xxxl-6">
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xxl-7 col-xxxl-6">
-                                <label for="" class="h2 visaCalcForm__label mb-0">Количество персон</label>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-6 col-xl-5 col-xxl-5 col-xxxl-4 mt-2 mt-xl-3 mt-xxl-0">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-minus"></em></button>
-                                    </div>
-                                    <input type="text" class="textInput--quantity form-control border-primary text-center" value="1" placeholder="Кол-во" id="persons" name="persons">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary btn--rounded px-4" onclick="return false"><em class="fas fa-plus"></em></button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xxl-7 col-xxxl-6">
-                                <label for="" class="h4 mb-0 font-weight-normal">Биометрия за последние 5 лет</label>
-                            </div>
-                            <div class="col-12 col-xxl-5 col-xxxl-5 mt-2 mt-xl-3 mt-xxl-0">
-                                <div class="radioButtons row">
-                                    <div class="col-12 col-sm-6 col-xl-5 col-xxl-6 col-xxxl-6">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad1" id="r11" class="d-none" value="1" />
-                                            <label for="r11" class="radioButtons__label btn btn-outline-primary px-0 border border-primary mb-0">Сдана</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xl-5 col-xxl-6 col-xxxl-6 mt-2 mt-sm-0">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad1" id="r12" class="d-none" value="2" />
-                                            <label for="r12" class="radioButtons__label btn btn-outline-primary px-0 border border-primary mb-0">Не сдана</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-10 col-sm-12 col-lg-6 col-xl-5 col-xxl-6 col-xxxl-6">
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xxl-5 col-xxxl-4 text-xxl-right">
-                                <label for="" class="h4 mb-0 font-weight-normal">Срок оформления</label>
-                            </div>
-                            <div class="col-12 col-lg-12 col-xl-12 col-xxl-7 col-xxxl-8 mt-2 mt-xl-3 mt-xxl-0">
-                                <div class="radioButtons row">
-                                    <div class="col-12 col-sm-6 col-xl-6 col-xxl-6 col-xxxl-6">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad2" id="r21" class="d-none" value="1" />
-                                            <label for="r21" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">Срочно</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-2 mt-sm-0">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad2" id="r22" class="d-none" value="2" />
-                                            <label for="r22" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">Стандарт</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xxl-5 col-xxxl-4 text-xxl-right">
-                                <label for="" class="h4 mb-0 font-weight-normal">Доставка</label>
-                            </div>
-                            <div class="col-12 col-xxl-7 col-xxxl-8 mt-2 mt-xl-3 mt-xxl-0">
-                                <div class="radioButtons row">
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad3" id="r31" class="d-none" value="1" />
-                                            <label for="r31" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">С доставкой</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-2 mt-sm-0">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad3" id="r32" class="d-none" value="2" />
-                                            <label for="r32" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">Самовывоз</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="visaCalcForm vpm__mb">
-            <div class="container">
-                <div class="row align-items-end align-items-xxl-center justify-content-center">
-
-
-                    <div class="col-10 col-sm-12 col-lg-6 col-xl-5 col-xxl-6 col-xxxl-6">
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xxl-3 col-xxxl-3">
-                                <label for="" class="h4 mb-0 font-weight-normal">Тип подачи</label>
-                            </div>
-                            <div class="col-12 col-xxl-9 col-xxxl-8 mt-2 mt-xl-3 mt-xxl-0">
-                                <div class="radioButtons row">
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad4" id="r41" class="d-none" value="1" />
-                                            <label for="r41" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">Личная</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-2 mt-sm-0">
-                                        <div class="radioButtons__item">
-                                            <input type="radio" name="rad4" id="r42" class="d-none" value="2" />
-                                            <label for="r42" class="radioButtons__label btn btn-outline-primary border border-primary mb-0">Без присутствия</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-10 col-sm-12 col-lg-6 col-xl-7 col-xxl-6 col-xxxl-6">
-
-                        <div class="row align-items-center vpm__mt">
-                            <div class="col-12 col-xl-4 col-xxl-5 col-xxxl-4 text-center text-lg-right">
-                                <div class="h1 mb-3 mb-lg-0 mt-3 mt-lg-0"><strong>от <span id="visaCalculatedPrice">{{ $visa->getPrice() }}</span> ₽</strong></div>
-                            </div>
-                            <div class="col-12 col-xl-8 col-xxl-7 col-xxxl">
-                                <div class="radioButtons row justify-content-center">
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6">
-                                        <button type="submit" name="submit-1" class="btn btn-primary rounded-pill btn-block"><strong>Оформить онлайн</strong></button>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-3 mt-sm-0">
-                                        <span class="btn btn-outline-primary bg-white text-primary rounded-pill btn-block cursor-pointer"><strong>Оформить в офисе</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        --}}
 
         {!! $calculator !!}
 
