@@ -41,6 +41,7 @@ class ClientRegisterRequest extends FormRequest
             'patronymic' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'subscribe' => ['required', 'boolean'],
+            'proceed' => ['sometimes', 'string'],
         ];
     }
 

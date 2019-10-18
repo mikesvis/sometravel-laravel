@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Client;
 use App\Helpers\PhoneHelper;
-use Illuminate\Http\Request;
 use App\Models\PhoneVerification;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\BaseController;
@@ -106,10 +102,7 @@ class RegisterController extends BaseController
             ]
         ];
 
-        // $phoneIsVerified = $this->phoneIsVerified(old('phone', null));
-        $phoneIsVerified = null;
-
-        return view('front.auth.register', compact('breadcrumbs', 'phoneIsVerified'));
+        return view('front.auth.register', compact('breadcrumbs'));
     }
 
     /**
@@ -128,8 +121,10 @@ class RegisterController extends BaseController
 
         $this->guard()->login($user);
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        if($request->has('proceed'))
+            return redirect(route('front.order.step-2'));
+
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 
     /**
@@ -243,14 +238,12 @@ class RegisterController extends BaseController
             'phone' => $phone,
             'code' => $code,
             'code_sent_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
-            // 'verified_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
             'verified_at'=> null,
             'ip' => $_SERVER['REMOTE_ADDR'],
             'token' => PhoneHelper::generateToken($phone, $code)
         ]);
 
         // $phoneVerification->notify(new VerificationCodeSent($phoneVerification->code));
-        // $phoneVerification->notify(new VerificationCodeSent($phoneVerification));
 
         return true;
 

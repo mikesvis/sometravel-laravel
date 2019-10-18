@@ -74,6 +74,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 // front routes
 Route::group(['namespace' => 'Front'], function(){
 
+    // order
+    Route::get('/order/start', 'OrderController@start')->name('front.order.start');
+
     // profile
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', 'ClientController@index')->name('front.profile.index');

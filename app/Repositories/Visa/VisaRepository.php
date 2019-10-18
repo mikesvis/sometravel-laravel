@@ -186,5 +186,21 @@ class VisaRepository extends CoreRepository
 
     }
 
+    /**
+     * Get enabled model by id
+     * @param  int $id
+     * @return Model
+     */
+    public function getEnabledById($id)
+    {
+
+        $result = $this->startConditions()
+            ->where('status', 1)
+            ->find($id);
+
+        return $result;
+
+    }
+
 }
 ?>

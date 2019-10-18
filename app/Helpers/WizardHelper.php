@@ -7,7 +7,7 @@ class WizardHelper
     public $visa;
     public $steps;
 
-    public function __cunstruct(){
+    public function __construct(){
         $this->visa = session('wizard.visa', null);
         $this->steps = session('wizard.steps', null);
     }

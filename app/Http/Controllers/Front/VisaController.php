@@ -112,7 +112,8 @@ class VisaController extends FrontBaseController
 
         $wizard->storeStepData(1, $request->except(['_token', 'proceed', 'visa_id']));
 
-        dump($wizard);
+        return redirect(route('front.order.start'));
+
     }
 
     public function calculateVisaPage(Request $request, $id)
