@@ -112,7 +112,7 @@ class VisaController extends FrontBaseController
 
         $wizard->storeStepData(1, $request->except(['_token', 'proceed', 'visa_id']));
 
-        return redirect(route('front.order.start'));
+        return redirect(route('front.order.step-1'));
 
     }
 

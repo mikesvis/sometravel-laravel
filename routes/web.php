@@ -75,7 +75,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 Route::group(['namespace' => 'Front'], function(){
 
     // order
-    Route::get('/order/start', 'OrderController@start')->name('front.order.start');
+    Route::get('/order/step/1', 'OrderController@step1')->name('front.order.step-1');
+
+    Route::get('/order/step/2', 'OrderController@step2')->name('front.order.step-2');
+    Route::post('/order/step/2', 'OrderController@step2Store')->name('front.order.step-2-store');
+
+    Route::get('/order/step/3', 'OrderController@step3')->name('front.order.step-3');
 
     // profile
     Route::group(['middleware' => ['auth']], function () {

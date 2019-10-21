@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Repositories\Visa\VisaRepository;
+use App\Http\Requests\Checkout\Step2CreateRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
 class OrderController extends FrontBaseController
@@ -28,15 +29,16 @@ class OrderController extends FrontBaseController
         $this->visaRepository = app(VisaRepository::class);
     }
 
-    public function start()
+    public function step1()
     {
 
         $wizard = new WizardHelper;
 
-        $visa = $this->visaRepository->getEnabledById($wizard->visa);
-
-        if(empty($visa))
+        if($wizard->hasVisa() == false){
             return redirect(route('front.visa.index'));
+        }
+
+        $visa = $wizard->getVisa();
 
         $breadcrumbs = $this->setBreadcrumbs([
             ['name' => self::NAME,  'url' => null],
@@ -46,7 +48,71 @@ class OrderController extends FrontBaseController
 
         $heading = 'Оформление визы '.$visa->title_to;
 
-        return view('front.order.start', compact('visa', 'heading', 'isAuthed', 'breadcrumbs'));
+        return view('front.order.step-1', compact('visa', 'heading', 'isAuthed', 'breadcrumbs'));
+
+    }
+
+    public function step2()
+    {
+        $wizard = new WizardHelper;
+
+        if($wizard->hasVisa() == false){
+            return redirect(route('front.visa.index'));
+        }
+
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME,  'url' => null],
+        ])->breadcrumbs;
+
+        $visa = $wizard->getVisa();
+
+        if($wizard->hasOrder() == false)
+            $wizard->prepareOrder($visa);
+
+        $order = $wizard->getOrder();
+
+        $heading = 'Оформление визы '.$visa->title_to;
+
+        return view('front.order.step-2', compact('visa', 'order', 'heading', 'breadcrumbs'));
+
+    }
+
+    public function step2Store(Step2CreateRequest $request)
+    {
+
+        $step = 2;
+        $wizard = new WizardHelper;
+
+        if($wizard->hasVisa() == false || $wizard->hasOrder() == false){
+            return redirect(route('front.visa.index'));
+        }
+
+        $wizard->storeStepData($step, $request->except(['_token']));
+
+        $wizard->updateOrder($step);
+
+        return redirect(route('front.order.step-3'));
+    }
+
+    public function step3()
+    {
+        $wizard = new WizardHelper;
+
+        if($wizard->hasVisa() == false || $wizard->hasOrder() == false){
+            return redirect(route('front.visa.index'));
+        }
+
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME,  'url' => null],
+        ])->breadcrumbs;
+
+        $visa = $wizard->getVisa();
+
+        $order = $wizard->getOrder();
+
+        $heading = 'Оформление визы '.$visa->title_to;
+
+        return view('front.order.step-3', compact('visa', 'order', 'wizard', 'heading', 'breadcrumbs'));
 
     }
 

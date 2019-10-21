@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Client;
 use App\Helpers\PhoneHelper;
+use App\Helpers\WizardHelper;
 use App\Models\PhoneVerification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -121,8 +122,11 @@ class RegisterController extends BaseController
 
         $this->guard()->login($user);
 
-        if($request->has('proceed'))
+        if($request->has('proceed')){
+            $wizard = new WizardHelper;
+
             return redirect(route('front.order.step-2'));
+        }
 
         return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
