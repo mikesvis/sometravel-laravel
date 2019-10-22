@@ -77,18 +77,20 @@ Route::group(['namespace' => 'Front'], function(){
     // order
     Route::get('/order/step/1', 'OrderController@step1')->name('front.order.step-1');
 
-    Route::get('/order/step/2', 'OrderController@step2')->name('front.order.step-2');
-    Route::post('/order/step/2', 'OrderController@step2Store')->name('front.order.step-2-store');
-
-    Route::get('/order/step/3', 'OrderController@step3')->name('front.order.step-3');
-
-    // profile
     Route::group(['middleware' => ['auth']], function () {
+
+        // profile
         Route::get('/profile', 'ClientController@index')->name('front.profile.index');
         Route::get('/profile/order', 'ClientController@orders')->name('front.profile.order.index');
         Route::get('/profile/order/{order}', 'ClientController@order')->name('front.profile.order.show');
         Route::get('/profile/edit', 'ClientController@edit')->name('front.profile.edit');
         Route::patch('/profile', 'ClientController@update')->name('front.profile.update');
+
+        //order proceed
+        Route::get('/order/step/2', 'OrderController@step2')->name('front.order.step-2');
+        Route::post('/order/step/2', 'OrderController@step2Store')->name('front.order.step-2-store');
+        Route::get('/order/step/3', 'OrderController@step3')->name('front.order.step-3');
+
     });
 
     // news

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Repositories\Visa\VisaRepository;
+use App\Helpers\Calculator\VisaCalculator;
 use App\Http\Requests\Checkout\Step2CreateRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
@@ -106,13 +107,21 @@ class OrderController extends FrontBaseController
             ['name' => self::NAME,  'url' => null],
         ])->breadcrumbs;
 
-        $visa = $wizard->getVisa();
+        $visa = $wizard->getVisaWithParameters();
 
         $order = $wizard->getOrder();
 
         $heading = 'Оформление визы '.$visa->title_to;
 
-        return view('front.order.step-3', compact('visa', 'order', 'wizard', 'heading', 'breadcrumbs'));
+        $calculator = new VisaCalculator($visa);
+
+        $calculator->appendWizard($wizard);
+
+        $calculator->generateCheckoutParameters();
+
+        $calculator->generateCheckoutServices();
+
+        return view('front.order.step-3', compact('visa', 'order', 'calculator', 'heading', 'breadcrumbs'));
 
     }
 

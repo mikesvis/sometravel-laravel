@@ -68,4 +68,50 @@ class Parameter extends BaseAdminModel
         return $this->calculator_title;
     }
 
+    public function getCheckoutTitleAttribute()
+    {
+
+        if(empty($this->order_title)) {
+            return $this->title;
+        }
+
+        return $this->order_title;
+    }
+
+    public function valueIsChecked(Value $value, $data = [])
+    {
+
+        $result = false;
+
+        // если поле выбрано в админке "отмечено по умолчанию"
+        if((bool)$value->is_default)
+            $result = true;
+
+        // если поле было выбрано на каком-то другом шаге
+        if(isset($data['parameter'][$this->id])){
+
+            // сбрасываем что оно выбрано по умолчанию
+            $result = false;
+
+            // выбираем что было выбрано на другом шаге
+            if($data['parameter'][$this->id] == $value->id)
+                $result = true;
+
+        }
+
+        // если это поле есть в субмит запросе
+        if(old('parameter.'.$this->id) != null){
+
+            $result = false;
+
+            // выбираем что было выбрано в субмит запросе
+            if(old('parameter.'.$this->id) == $value->id)
+                $result = true;
+
+        }
+
+        return $result;
+
+    }
+
 }

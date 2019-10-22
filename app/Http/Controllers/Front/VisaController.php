@@ -6,6 +6,7 @@ use App\Helpers\VisaHelper;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Repositories\Visa\VisaRepository;
+use App\Helpers\Calculator\VisaCalculator;
 use App\Repositories\Visa\CategoryRepository;
 use App\Http\Requests\Checkout\StartVisaRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
@@ -88,7 +89,7 @@ class VisaController extends FrontBaseController
         if(empty($visa))
             abort(404);
 
-        $calculator = (new \App\Helpers\Calculator\VisaPageCalculator($visa))->generate();
+        $calculator = (new VisaCalculator($visa))->generate();
 
         $breadcrumbs = $this->setBreadcrumbs([
             ['name' => self::NAME, 'url' => route('front.visa.index')],
@@ -98,21 +99,6 @@ class VisaController extends FrontBaseController
         $otherVisas = $this->visaRepository->getWithFirstImageForModule(4, [$visa->id]);
 
         return view('front.visa.show', compact('visa', 'calculator', 'otherVisas', 'breadcrumbs'));
-
-    }
-
-    public function checkout(StartVisaRequest $request, $slug)
-    {
-
-        $wizard = new WizardHelper;
-
-        $wizard->flushPreviousData();
-
-        $wizard->storeVisa($request->input(['visa_id']));
-
-        $wizard->storeStepData(1, $request->except(['_token', 'proceed', 'visa_id']));
-
-        return redirect(route('front.order.step-1'));
 
     }
 
@@ -151,10 +137,23 @@ class VisaController extends FrontBaseController
 
         $result = [
             'price' => $price,
-            'test' => $visa,
-            'test2' => $request->input('parameter_regular.biometrics')
         ];
 
         return $result;
+    }
+
+    public function checkout(StartVisaRequest $request, $slug)
+    {
+
+        $wizard = new WizardHelper;
+
+        $wizard->flushPreviousData();
+
+        $wizard->storeVisa($request->input(['visa_id']));
+
+        $wizard->storeStepData(1, $request->except(['_token', 'proceed', 'visa_id']));
+
+        return redirect(route('front.order.step-1'));
+
     }
 }

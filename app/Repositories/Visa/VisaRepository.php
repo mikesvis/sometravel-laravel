@@ -202,5 +202,23 @@ class VisaRepository extends CoreRepository
 
     }
 
+    /**
+     * Get enabled model with parameters by id
+     * @param  int $id
+     * @return Model
+     */
+    public function getEnabledWithParametersById($id)
+    {
+
+        $result = $this->startConditions()
+            ->where('status', 1)
+            ->with('visaCheckoutCalculatorParameters')
+            ->with('visaCheckoutCalculatorParameters.enabledValues')
+            ->find($id);
+
+        return $result;
+
+    }
+
 }
 ?>

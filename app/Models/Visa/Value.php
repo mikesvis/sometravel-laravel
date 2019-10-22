@@ -54,4 +54,9 @@ class Value extends BaseAdminModel
         return $this->calculator_title;
     }
 
+    public function getCheckoutLabelAttribute()
+    {
+        return $this->title;
+    }
+
 }

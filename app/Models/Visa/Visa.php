@@ -181,6 +181,11 @@ class Visa extends BaseAdminModel
         return $this->parameters()->where('is_on_calculator_page', 1);
     }
 
+    public function visaCheckoutCalculatorParameters()
+    {
+        return $this->parameters()->where('is_on_order_page', 1);
+    }
+
     public function values()
     {
         return $this->hasManyThrough(Value::class, Parameter::class)->where('status', 1);

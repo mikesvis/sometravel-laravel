@@ -74,6 +74,18 @@ class WizardHelper
         return (session()->has("wizard.steps")) ? session()->get("wizard.steps") : null;
     }
 
+    public function getLastStep()
+    {
+        $steps = $this->getSteps();
+
+        if(!is_array($steps)){
+            return null;
+        }
+
+        return $steps[count($steps)-1];
+
+    }
+
     public function getAllData()
     {
         return session()->has('wizard') ? session('wizard') : null;
@@ -134,6 +146,19 @@ class WizardHelper
     public function getVisa()
     {
         return app(VisaRepository::class)->getEnabledById($this->visa);
+    }
+
+    public function getVisaWithParameters()
+    {
+        return app(VisaRepository::class)->getEnabledWithParametersById($this->visa);
+    }
+
+    public function getPersons()
+    {
+
+        $persons = (int) old('persons', $this->getStepData(2)['persons']);
+
+        return $persons;
     }
 
 }
