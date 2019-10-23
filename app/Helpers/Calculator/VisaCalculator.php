@@ -199,7 +199,11 @@ class VisaCalculator
 
         $data = $this->wizard->getLastStep();
 
-        $data['parameter'] = ($data['parameter'] ?? []) + $defaultCheckedParameters;
+        $data['persons'] = old('persons', $data['persons']);
+
+        $data['parameter'] = old('parameter', []) + ($data['parameter'] ?? []) + $defaultCheckedParameters;
+
+        $data['parameter_regular'] = old('parameter_regular', []) + ($data['parameter_regular'] ?? []);
 
         $calculator = new VisaCalculator((new VisaRepository)->getForCalculationWithParametersById($this->visa->id, $data['parameter']));
 

@@ -138,7 +138,17 @@ class OrderController extends FrontBaseController
 
         $wizard->updateOrder($step);
 
-        return redirect(route('front.order.step-3'));
+        $wizard->finishOrder();
+
+        dd();
+
+        // $payment = new PaymentHelper();
+
+        // $payment->create($wizard);
+
+        // $redirectLink = $payment->getRedirectLink();
+
+        // return redirect($redirectLink);
     }
 
     public function calculate(Request $request)

@@ -24,7 +24,7 @@
             <div class="input-group-prepend">
                 <button class="btn btn-primary btn--rounded px-3 px-xl-4 btn-number" disabled="disabled" data-type="minus" data-field="persons"><em class="fas fa-minus"></em></button>
             </div>
-            <input class="textInput--quantity form-control border-primary text-center input-number" value="{{ $persons }}" min="1" max="100" placeholder="Кол-во" id="persons" name="persons" step="1" required>
+            <input class="textInput--quantity form-control border-primary text-center input-number" value="{{ old('persons', $persons) }}" min="1" max="100" placeholder="Кол-во" id="persons" name="persons" step="1" required>
             <div class="input-group-append">
                 <button class="btn btn-primary btn--rounded px-3 px-xl-4 btn-number" data-type="plus" data-field="persons"><em class="fas fa-plus"></em></button>
             </div>

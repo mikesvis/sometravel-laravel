@@ -17,7 +17,7 @@ class Order extends BaseAdminModel
         'status',
         'sum',
         'total',
-        'payment_type',
+        'payment_method',
         'payment_params',
     ];
 

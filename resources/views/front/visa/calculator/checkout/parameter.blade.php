@@ -17,7 +17,6 @@
         </div>
     @endisset
 </div>
-
 <div class="row mb-5">
     <div class="col-12">
         <div class="radioButtons row mt-1">
@@ -39,6 +38,13 @@
                 </div>
             @endforeach
         </div>
+        @error('parameter.'.$parameter->id)
+        <div class="row mt-1">
+            <div class="col-12 col-md-4 col-lg-6 col-xxxl-4">
+                <span class="invalid-feedback text-center d-block" role="message">{{ $message }}</span>
+            </div>
+        </div>
+        @enderror
     </div>
 </div>
 

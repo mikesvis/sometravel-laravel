@@ -118,7 +118,7 @@ class WizardHelper
             'status' => 0,
             'sum' => 0,
             'total' => 0,
-            'payment_type' => 0,
+            'payment_method' => 0,
             'payment_params' => null,
         ];
 
