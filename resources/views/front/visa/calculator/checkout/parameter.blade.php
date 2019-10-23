@@ -34,7 +34,7 @@
                             checked
                         @endif
                         />
-                        <label for="value_{{ $value->id }}" class="radioButtons__label btn btn-outline-primary btn-block btn--rounded px-0 border-primary mb-0">{{ $value->checkout_label }}</label>
+                        <label for="value_{{ $value->id }}" class="radioButtons__label btn btn-outline-primary btn-block btn--rounded px-0 border-primary mb-0 user-select-none">{{ $value->checkout_label }}</label>
                     </div>
                 </div>
             @endforeach

@@ -2,14 +2,15 @@
 
 namespace App\Models\Visa;
 
-use App\Helpers\Orderable;
-use App\Helpers\VisaHelper;
 use App\Models\Image;
+use App\Helpers\Orderable;
 use App\Models\Visa\Value;
+use App\Helpers\VisaHelper;
 use Illuminate\Support\Str;
 use App\Models\Visa\Category;
 use App\Models\BaseAdminModel;
 use App\Models\Visa\Parameter;
+use App\Helpers\Calculator\VisaCalculator;
 
 class Visa extends BaseAdminModel
 {
@@ -193,17 +194,7 @@ class Visa extends BaseAdminModel
 
     public function getPrice()
     {
-        $price = $this->base_price;
-
-        foreach ($this->visaPageCalculatorParameters as $parameter) {
-            if($parameter->required && !empty($parameter->enabledValues)) {
-                $defaultValue = $parameter->enabledValues()->where('is_default', 1)->where('status', 1)->first();
-                if(!empty($defaultValue))
-                    $price += $defaultValue->price;
-            }
-        }
-
-        return $price;
+        return (new VisaCalculator($this))->getEasyPrice();
     }
 
     public function canBeDelivered()

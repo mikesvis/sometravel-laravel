@@ -105,41 +105,18 @@ class VisaController extends FrontBaseController
     public function calculateVisaPage(Request $request, $id)
     {
 
-        $visa = $this->visaRepository->getForCalculationWithParametersById($id, $request->input('parameter'));
+        $data = $request->all();
 
-        if(empty($visa))
-            abort(404);
+        $calculator = new VisaCalculator($this->visaRepository->getForCalculationWithParametersById($id, $data['parameter']));
 
-        $price = $visa->base_price;
-
-        if(!empty($request->input('parameter'))){
-            foreach ($visa->values as $value) {
-                $price += $value->price;
-            }
-        }
-
-        // подача "без присутствия"
-        if($visa->canBeAppliedAsService() && VisaHelper::requestedApplianceAsService($request)){
-            $price += $visa->application_absence_price;
-        }
-
-        $price =  $price * (int)$request->input('persons');
-
-        // забор документов курьером
-        if($visa->canBeAccepted() && VisaHelper::requestedAcceptanceIsCourier($request)){
-            $price += $visa->delivery_price;
-        }
-
-        // доставка документов курьером
-        if($visa->canBeDelivered() && VisaHelper::requestedDeliveryIsCourier($request)){
-            $price += $visa->delivery_price;
-        }
+        $price = $calculator->calculate($data);
 
         $result = [
             'price' => $price,
         ];
 
         return $result;
+
     }
 
     public function checkout(StartVisaRequest $request, $slug)

@@ -13,8 +13,7 @@ class Step2CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return redirect('front.visa.index');
-        return false;
+        return true;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Helpers;
 use App\Models\Order;
 use App\Models\Visa\Visa;
 use Illuminate\Support\Str;
+use App\Helpers\OrderHelper;
 use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Order\OrderRepository;
 
@@ -159,6 +160,16 @@ class WizardHelper
         $persons = (int) old('persons', $this->getStepData(2)['persons']);
 
         return $persons;
+    }
+
+    public function paymentMethodsView()
+    {
+
+        $default = OrderHelper::getDefaultPaymentMethod();
+        $methods = OrderHelper::getOtherPaymentMethods();
+        $description = OrderHelper::getViewDescription();
+
+        return view("front.order.payment.checkout-list", compact('default', 'methods', 'description'));
     }
 
 }

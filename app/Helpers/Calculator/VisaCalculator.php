@@ -4,6 +4,7 @@ namespace App\Helpers\Calculator;
 use App\Models\Visa\Visa;
 use App\Helpers\VisaHelper;
 use App\Helpers\WizardHelper;
+use App\Repositories\Visa\VisaRepository;
 
 class VisaCalculator
 {
@@ -174,6 +175,88 @@ class VisaCalculator
         }
 
         $this->checkoutServices = $result;
+    }
+
+    public function getEasyPrice()
+    {
+        $price = $this->visa->base_price;
+
+        foreach ($this->visa->visaPageCalculatorParameters as $parameter) {
+            if($parameter->required && !empty($parameter->enabledValues)) {
+                $defaultValue = $parameter->enabledValues()->where('is_default', 1)->where('status', 1)->first();
+                if(!empty($defaultValue))
+                    $price += $defaultValue->price;
+            }
+        }
+
+        return $price;
+    }
+
+    public function getComplexPrice()
+    {
+
+        $defaultCheckedParameters = $this->defaultCheckedParameters();
+
+        $data = $this->wizard->getLastStep();
+
+        $data['parameter'] = ($data['parameter'] ?? []) + $defaultCheckedParameters;
+
+        $calculator = new VisaCalculator((new VisaRepository)->getForCalculationWithParametersById($this->visa->id, $data['parameter']));
+
+        $price = $calculator->calculate($data);
+
+        return $price;
+
+    }
+
+    public function defaultCheckedParameters()
+    {
+        $result = [];
+
+        $fields = \App\Models\Visa\Parameter::where('visa_id', $this->visa->id)
+            ->where('is_on_order_page', 1)
+            ->with(['values' => function($query) {
+                $query->where('values.is_default', 1);
+            }])
+            ->get();
+
+        foreach ($fields as $field) {
+            if(count($field->values))
+                $result[$field->id] = (int)$field->values[0]->id;
+        }
+
+        return $result;
+    }
+
+    public function calculate($data = [])
+    {
+
+        $price = $this->visa->base_price;
+
+        if(!empty($data['parameter'])){
+            foreach ($this->visa->values as $value) {
+                $price += $value->price;
+            }
+        }
+
+        // подача "без присутствия"
+        if($this->visa->canBeAppliedAsService() && VisaHelper::requestedApplianceAsService($data)){
+            $price += $this->visa->application_absence_price;
+        }
+
+        $price =  $price * (int)$data['persons'];
+
+        // забор документов курьером
+        if($this->visa->canBeAccepted() && VisaHelper::requestedAcceptanceIsCourier($data)){
+            $price += $this->visa->delivery_price;
+        }
+
+        // доставка документов курьером
+        if($this->visa->canBeDelivered() && VisaHelper::requestedDeliveryIsCourier($data)){
+            $price += $this->visa->delivery_price;
+        }
+
+        return $price;
     }
 
 }

@@ -7,6 +7,7 @@ use App\Helpers\WizardHelper;
 use App\Repositories\Visa\VisaRepository;
 use App\Helpers\Calculator\VisaCalculator;
 use App\Http\Requests\Checkout\Step2CreateRequest;
+use App\Http\Requests\Checkout\Step3CreateRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
 
 class OrderController extends FrontBaseController
@@ -80,7 +81,6 @@ class OrderController extends FrontBaseController
 
     public function step2Store(Step2CreateRequest $request)
     {
-
         $step = 2;
         $wizard = new WizardHelper;
 
@@ -122,6 +122,44 @@ class OrderController extends FrontBaseController
         $calculator->generateCheckoutServices();
 
         return view('front.order.step-3', compact('visa', 'order', 'calculator', 'heading', 'breadcrumbs'));
+
+    }
+
+    public function step3Store(Step3CreateRequest $request)
+    {
+        $step = 3;
+        $wizard = new WizardHelper;
+
+        if($wizard->hasVisa() == false || $wizard->hasOrder() == false){
+            return redirect(route('front.visa.index'));
+        }
+
+        $wizard->storeStepData($step, $request->except(['_token']));
+
+        $wizard->updateOrder($step);
+
+        return redirect(route('front.order.step-3'));
+    }
+
+    public function calculate(Request $request)
+    {
+        $wizard = new WizardHelper;
+
+        if($wizard->hasVisa() == false || $wizard->hasOrder() == false){
+            abort(404);
+        }
+
+        $data = $request->all();
+
+        $calculator = new VisaCalculator($this->visaRepository->getForCalculationWithParametersById($wizard->visa, $data['parameter']));
+
+        $price = $calculator->calculate($data);
+
+        $result = [
+            'price' => number_format($price, 0, ".", " "),
+        ];
+
+        return $result;
 
     }
 

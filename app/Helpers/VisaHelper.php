@@ -162,38 +162,38 @@ class VisaHelper
         ];
     }
 
-    public static function requestedDeliveryIsCourier(Request $request)
+    public static function requestedDeliveryIsCourier($data = [])
     {
 
-        if(empty($request->input('parameter_regular.delivery_type')))
+        if(empty($data['parameter_regular']['delivery_type']))
             return false;
 
-        if((int)$request->input('parameter_regular.delivery_type') == self::DELIVERY_COURIER)
+        if((int)$data['parameter_regular']['delivery_type'] == self::DELIVERY_COURIER)
             return true;
 
         return false;
 
     }
 
-    public static function requestedAcceptanceIsCourier(Request $request)
+    public static function requestedAcceptanceIsCourier($data = [])
     {
 
-        if(empty($request->input('parameter_regular.acceptance_type')))
+        if(empty($data['parameter_regular']['acceptance_type']))
             return false;
 
-        if((int)$request->input('parameter_regular.acceptance_type') == self::ACCEPTANCE_COURIER)
+        if((int)$data['parameter_regular']['acceptance_type'] == self::ACCEPTANCE_COURIER)
             return true;
 
         return false;
 
     }
 
-    public static function requestedApplianceAsService(Request $request)
+    public static function requestedApplianceAsService($data = [])
     {
-        if(empty($request->input('parameter_regular.application_type')))
+        if(empty($data['parameter_regular']['application_type']))
             return false;
 
-        if((int)$request->input('parameter_regular.application_type') == self::APPLICATION_AS_SERVICE)
+        if((int)$data['parameter_regular']['application_type'] == self::APPLICATION_AS_SERVICE)
             return true;
 
         return false;
