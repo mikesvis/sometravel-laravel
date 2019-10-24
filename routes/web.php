@@ -91,6 +91,7 @@ Route::group(['namespace' => 'Front'], function(){
         Route::post('/order/step/2', 'OrderController@step2Store')->name('front.order.step-2-store');
         Route::get('/order/step/3', 'OrderController@step3')->name('front.order.step-3');
         Route::post('/order/step/3', 'OrderController@step3Store')->name('front.order.step-3-store');
+        Route::get('/order/finish/{order}', 'OrderController@finish')->name('front.order.finish');
 
         // order calculate
         Route::post('/order/calculate', 'OrderController@calculate')->name('front.order.calculate');

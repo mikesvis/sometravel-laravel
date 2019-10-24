@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
+use App\Helpers\PaymentHelper;
 use App\Repositories\Visa\VisaRepository;
 use App\Helpers\Calculator\VisaCalculator;
+use App\Repositories\Order\OrderRepository;
 use App\Http\Requests\Checkout\Step2CreateRequest;
 use App\Http\Requests\Checkout\Step3CreateRequest;
 use App\Http\Controllers\Front\BaseController as FrontBaseController;
@@ -18,6 +21,11 @@ class OrderController extends FrontBaseController
     const ITEMS_PER_PAGE = 12;
 
     /**
+     * @var OrderRepository
+     */
+    private $orderRepository;
+
+    /**
      * @var VisaRepository
      */
     private $visaRepository;
@@ -28,6 +36,7 @@ class OrderController extends FrontBaseController
     public function __construct()
     {
         parent::__construct();
+        $this->orderRepository = app(OrderRepository::class);
         $this->visaRepository = app(VisaRepository::class);
     }
 
@@ -71,6 +80,8 @@ class OrderController extends FrontBaseController
         if($wizard->hasOrder() == false)
             $wizard->prepareOrder($visa);
 
+        $wizard->updateOrderParams();
+
         $order = $wizard->getOrder();
 
         $heading = 'Оформление визы '.$visa->title_to;
@@ -91,6 +102,8 @@ class OrderController extends FrontBaseController
         $wizard->storeStepData($step, $request->except(['_token']));
 
         $wizard->updateOrder($step);
+
+        $wizard->updateOrderParams();
 
         return redirect(route('front.order.step-3'));
     }
@@ -138,17 +151,40 @@ class OrderController extends FrontBaseController
 
         $wizard->updateOrder($step);
 
+        $wizard->updateOrderParams();
+
         $wizard->finishOrder();
 
-        dd();
+        $order = $wizard->getOrder();
 
-        // $payment = new PaymentHelper();
+        $payment = new PaymentHelper($order);
 
-        // $payment->create($wizard);
+        $payment->create();
 
-        // $redirectLink = $payment->getRedirectLink();
+        $redirectLink = $payment->getRedirectLink();
 
-        // return redirect($redirectLink);
+        return redirect($redirectLink);
+    }
+
+    public function finish($orderUuid)
+    {
+
+        $order = $this->orderRepository->getByUuid($orderUuid);
+
+        if(empty($order))
+            abort(404);
+
+        if(empty($order->visa))
+            abort(404);
+
+        $breadcrumbs = $this->setBreadcrumbs([
+            ['name' => self::NAME,  'url' => null],
+        ])->breadcrumbs;
+
+        $heading = 'Оформление визы '.$order->visa->title_to;
+
+        return view('front.order.finish', compact('order', 'heading', 'breadcrumbs'));
+
     }
 
     public function calculate(Request $request)

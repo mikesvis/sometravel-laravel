@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Checkout;
 
-use App\Helpers\OrderHelper;
+use App\Helpers\PaymentHelper;
 use App\Helpers\WizardHelper;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -32,7 +32,7 @@ class Step3CreateRequest extends FormRequest
 
         $rules = [
             'persons' => ['required', 'integer', 'min:1', 'max:100'],
-            'payment_method' => ['required', 'integer', Rule::in(OrderHelper::PAYMENT_METHODS_WHITE_LIST)],
+            'payment_method' => ['required', 'integer', Rule::in(PaymentHelper::PAYMENT_METHODS_WHITE_LIST)],
         ];
 
         $this->wizard = new WizardHelper;

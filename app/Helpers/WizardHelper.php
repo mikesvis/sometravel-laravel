@@ -4,7 +4,7 @@ namespace App\Helpers;
 use App\Models\Order;
 use App\Models\Visa\Visa;
 use Illuminate\Support\Str;
-use App\Helpers\OrderHelper;
+use App\Helpers\PaymentHelper;
 use App\Repositories\Visa\VisaRepository;
 use App\Repositories\Order\OrderRepository;
 
@@ -54,7 +54,7 @@ class WizardHelper
         if($step > 1) {
             $previousStep = $step - 1;
             $previousData = $this->getStepData($previousStep) ?: [];
-            $data = array_merge($previousData, $data);
+            $data = array_replace_recursive($data, $previousData);
         }
 
         session([
@@ -83,7 +83,7 @@ class WizardHelper
             return null;
         }
 
-        return $steps[count($steps)-1];
+        return array_pop($steps);
 
     }
 
@@ -118,8 +118,10 @@ class WizardHelper
             'status' => 0,
             'sum' => 0,
             'total' => 0,
+            'order_params' => null,
             'payment_method' => 0,
             'payment_params' => null,
+            'email_sent_at' => null,
         ];
 
         $order = Order::create($attributes);
@@ -134,9 +136,38 @@ class WizardHelper
 
         $order->update([
             'steps_completed' => $step,
-            'steps' => json_encode($this->getSteps()),
+            'steps' => json_encode($this->getSteps())
         ]);
 
+    }
+
+    public function updateOrderParams()
+    {
+        $order = $this->getOrder();
+
+        $order->update([
+            'order_params' => json_encode($order->generateOrderParams($this->getLastStep()), JSON_UNESCAPED_UNICODE)
+        ]);
+    }
+
+    public function finishOrder()
+    {
+        $order = $this->getOrder();
+
+        $data = $this->getLastStep();
+
+        $calculator = (new \App\Helpers\Calculator\VisaCalculator($this->getVisa()));
+
+        $calculator->appendWizard($this);
+
+        $price = $calculator->getComplexPrice();
+
+        $order->update([
+            'status' => 1,
+            'sum' => $price,
+            'total' => $price,
+            'payment_method' => $data['payment_method']
+        ]);
     }
 
     public function getOrder()
@@ -165,9 +196,9 @@ class WizardHelper
     public function paymentMethodsView()
     {
 
-        $default = OrderHelper::getDefaultPaymentMethod();
-        $methods = OrderHelper::getOtherPaymentMethods();
-        $description = OrderHelper::getViewDescription();
+        $default = PaymentHelper::getDefaultPaymentMethod();
+        $methods = PaymentHelper::getOtherPaymentMethods();
+        $description = PaymentHelper::getViewDescription();
 
         return view("front.order.payment.checkout-list", compact('default', 'methods', 'description'));
     }

@@ -24,8 +24,6 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
 
-        // dd(\Auth::user()->email);
-
         $rules = [
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.\Auth::user()->id],

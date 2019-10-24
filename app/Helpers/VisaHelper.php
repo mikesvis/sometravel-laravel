@@ -86,6 +86,7 @@ class VisaHelper
     public static function calculatorBiometrics()
     {
         return [
+            'name' => 'Биометрия',
             'type' => 'biometrics',
             'label' => 'Биометрия <span class="h6 font-weight-normal d-inline-block">(за последние 5 лет)</span>',
             'label_checkout' => null,
@@ -103,6 +104,7 @@ class VisaHelper
     public static function calculatorAcceptance()
     {
         return [
+            'name' => 'Забор документов',
             'type' => 'acceptance_type',
             'label' => 'Забор документов',
             'label_checkout' => 'Забор документов курьером',
@@ -120,6 +122,7 @@ class VisaHelper
     public static function calculatorDelivery()
     {
         return [
+            'name' => 'Доставка',
             'type' => 'delivery_type',
             'label' => 'Доставка',
             'label_checkout' => 'Доставка документов курьером',
@@ -137,6 +140,7 @@ class VisaHelper
     public static function calculatorApplication()
     {
         return [
+            'name' => 'Тип подачи',
             'type' => 'application_type',
             'label' => 'Тип подачи',
             'label_checkout' => 'Подача документов без присутствия',
@@ -152,9 +156,32 @@ class VisaHelper
         ];
     }
 
+    public static function getNameByValue($regular, $value)
+    {
+        $result = null;
+
+        if(!empty($regular['value'])) {
+            return $value;
+        }
+
+        if(!empty($regular['values'])) {
+
+            foreach ($regular['values'] as $key => $regular_value) {
+                if($regular_value['value'] == $value) {
+                    return $regular_value['name'];
+                }
+            }
+
+        }
+
+        return $result;
+
+    }
+
     public static function calculatorInsurance()
     {
         return [
+            'name' => 'Страховка',
             'type' => 'insurance',
             'label' => 'Страховка',
             'label_checkout' => 'Страховка',
