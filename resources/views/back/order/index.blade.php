@@ -39,9 +39,9 @@
                 @forelse ($paginator as $item)
                 <tr>
                     <td>
-                            <a href="{{ route('admin.order.edit', $item) }}" title="Просмотр"><em class="fas fa-edit"></em></a>
-                            <strong>#{{ $item->order_number }}</strong>
-                            <span class="d-block">от {{ $item->created_at_date_simple }}</span>
+                        <a href="{{ route('admin.order.edit', $item) }}" title="Просмотр"><em class="fas fa-edit"></em></a>
+                        <strong>#{{ $item->order_number }}</strong>
+                        <span class="d-block">от {{ $item->created_at_date_simple }}</span>
                     </td>
                     <td class="text-center">
                         <strong class="{{ $item->status_color }}">{{ $item->status_name }}</strong>

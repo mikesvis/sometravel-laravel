@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Helpers\OrderHelper;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Repositories\Order\OrderRepository;
@@ -81,7 +82,7 @@ class OrderController extends AdminBaseController
      * @param  int  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $tabToGo = 'primary')
     {
         $breadcrumbs = $this->setBreadcrumbs(
             [
@@ -93,11 +94,13 @@ class OrderController extends AdminBaseController
         $order = $this->orderRepository->getForEditById($id);
 
         if(empty($order))
-            abort(404);
+        abort(404);
+
+        $statusesList = OrderHelper::getOrderStatusesNames();
 
         $timezone = Order::TIMEZONE;
 
-        return view('back.order.edit', compact('order', 'timezone', 'breadcrumbs', 'tabToGo'));
+        return view('back.order.edit', compact('order', 'statusesList', 'timezone', 'breadcrumbs', 'tabToGo'));
     }
 
     /**

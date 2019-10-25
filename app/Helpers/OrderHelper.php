@@ -13,7 +13,7 @@ class OrderHelper
     public static function getOrderStatusesNames()
     {
         return [
-            self::STATUS_STARTED => 'Начато оформление',
+            self::STATUS_STARTED => 'Не оформлен',
             self::STATUS_ACCEPTED => 'В очереди',
             self::STATUS_PROCESSING => 'Выполняется',
             self::STATUS_FINISHED => 'Выполнен',
