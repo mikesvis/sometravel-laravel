@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Helpers\MyHelper;
 use App\Models\Visa\Visa;
 use App\Models\Visa\Value;
 use App\Helpers\VisaHelper;
+use App\Helpers\OrderHelper;
 use App\Models\BaseAdminModel;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,14 +27,120 @@ class Order extends BaseAdminModel
         'order_params',
         'payment_method',
         'payment_params',
-        'email_sent_at'
+        'email_sent_at',
+        'appliance_date',
+        'delivery_date',
     ];
 
     public function getOrderNumberAttribute($value)
     {
-        $result = $this->id;
+        $result = str_pad($this->id, 8, '0', STR_PAD_LEFT);
 
         return $result;
+    }
+
+    public function getStatusColorAttribute()
+    {
+        $colors = OrderHelper::getOrderStatusesColors();
+
+        return $colors[$this->status];
+    }
+
+    public function getStatusNameAttribute()
+    {
+        $names = OrderHelper::getOrderStatusesNames();
+
+        return $names[$this->status];
+    }
+
+    public function getJsonParametersAttribute()
+    {
+        return json_decode($this->order_params, true);
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+
+        if(!empty($value))
+            return Carbon::parse($value)->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
+
+        return $value;
+
+    }
+
+    public function getApplianceDateAttribute($value)
+    {
+        if(!empty($value))
+            return Carbon::parse($value)->timezone(self::TIMEZONE);
+
+        return $value;
+    }
+
+    public function getApplianceDateHumanAttribute()
+    {
+        if(!empty($this->appliance_date))
+            return Carbon::parse($this->appliance_date)->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
+
+        return $this->appliance_date;
+    }
+
+    public function getApplianceDateSimpleAttribute()
+    {
+
+        $value = null;
+
+        if(!empty($this->attributes['appliance_date']))
+            return Carbon::parse($this->attributes['appliance_date'])->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT_DATE_SIMPLE);
+
+        return $value;
+
+    }
+
+    public function setApplianceDateAttribute($value)
+    {
+        $this->attributes['appliance_date'] = $value;
+
+        if(!empty($value))
+            $this->attributes['appliance_date'] = Carbon::createFromFormat("Y-m-d H:i:s", $value, self::TIMEZONE)->setTimezone(config('app.timezone'))->toDateTimeString();
+
+    }
+
+    public function getDeliveryDateAttribute($value)
+    {
+        if(!empty($value))
+            return Carbon::parse($value)->timezone(self::TIMEZONE);
+
+        return $value;
+    }
+
+    public function getDeliveryDateHumanAttribute()
+    {
+        if(!empty($this->delivery_date))
+            return Carbon::parse($this->delivery_date)->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT);
+
+        return $this->delivery_date;
+    }
+
+    public function getDeliveryDateSimpleAttribute()
+    {
+
+        $value = null;
+
+        if(!empty($this->attributes['delivery_date']))
+            return Carbon::parse($this->attributes['delivery_date'])->timezone(self::TIMEZONE)->isoFormat(self::DATE_FORMAT_DATE_SIMPLE);
+
+        return $value;
+
+    }
+
+    public function setDeliveryDateAttribute($value)
+    {
+
+        $this->attributes['delivery_date'] = $value;
+
+        if(!empty($value))
+            $this->attributes['delivery_date'] = Carbon::createFromFormat("Y-m-d H:i:s", $value, self::TIMEZONE)->setTimezone(config('app.timezone'))->toDateTimeString();
+
     }
 
     public function user()
@@ -43,6 +151,21 @@ class Order extends BaseAdminModel
     public function visa()
     {
         return $this->belongsTo(Visa::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where([
+            ['status', '>', 0],
+            ['status', '<', 3],
+        ]);
+    }
+
+    public function scopeArchive($query)
+    {
+        return $query->where([
+            ['status', '>=', 3],
+        ]);
     }
 
     public function generateOrderParams($data = [])

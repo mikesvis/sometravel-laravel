@@ -122,6 +122,8 @@ class WizardHelper
             'payment_method' => 0,
             'payment_params' => null,
             'email_sent_at' => null,
+            'appliance_date' => null,
+            'delivery_date' => null,
         ];
 
         $order = Order::create($attributes);

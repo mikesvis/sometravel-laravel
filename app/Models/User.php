@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Order;
 use App\Helpers\PhoneHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -71,5 +72,15 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return ($this->userable instanceof Administration);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function getLastOrders()
+    {
+        return $this->orders()->where('steps_completed', 3)->where('status', '>', 0)->orderBy('created_at', 'DESC');
     }
 }

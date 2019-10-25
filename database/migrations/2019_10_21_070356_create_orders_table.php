@@ -28,6 +28,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedTinyInteger('payment_method')->default(0);
             $table->text('payment_params')->nullable();
             $table->timestamp('email_sent_at')->nullable();
+            $table->timestamp('appliance_date')->nullable();
+            $table->timestamp('delivery_date')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
