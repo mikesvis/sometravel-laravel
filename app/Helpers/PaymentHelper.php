@@ -86,20 +86,32 @@ class PaymentHelper
         $methods = [
             self::PAYMENT_CARD => [
                 'value' => self::PAYMENT_CARD,
+                'name' => 'Картой онлайн',
+                'icon' => '<em class="far fa-credit-card text-warning" title="Картой онлайн"></em>',
                 'label' => 'Картой онлайн <em class="far fa-credit-card text-primary ml-2"></em>',
             ],
             self::PAYMENT_CASH => [
                 'value' => self::PAYMENT_CASH,
+                'name' => 'Наличными',
+                'icon' => '<em class="fas fa-wallet text-primary" title="Наличными"></em>',
                 'label' => 'Наличными <em class="fas fa-wallet text-primary ml-2"></em>',
             ],
             self::PAYMENT_OTHER => [
                 'value' => self::PAYMENT_OTHER,
+                'name' => 'Другим способом',
+                'icon' => '<em class="fas fa-university text-success" title="Другим способом"></em>',
                 'label' => 'Другим способом <em class="fas fa-university text-primary ml-2"></em>',
             ],
         ];
 
         return $methods;
 
+    }
+
+    public static function getIconByIndex($index)
+    {
+        $methods = self::paymentMethods();
+        return $methods[$index]['icon'];
     }
 
     /**

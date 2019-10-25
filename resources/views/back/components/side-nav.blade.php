@@ -23,6 +23,12 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
+                    <a href="{{ route('admin.order.index') }}" class="nav-link  @if (Route::is('admin.order.*')) active @endif">
+                        <i class="nav-icon fas fa-cash-register"></i>
+                        <p>Заказы</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.news.index') }}" class="nav-link  @if (Route::is('admin.news.*')) active @endif">
                         <i class="nav-icon far fa-newspaper"></i>
                         <p>Новости</p>

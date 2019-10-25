@@ -69,6 +69,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::get('value/create/{parameter}', 'ValueController@create', ['as'=>'admin'])->name('admin.value.create');
 
     });
+
+    // orders
+    Route::resource('order', 'OrderController', ['as'=>'admin']);
+    Route::get('order/{order}/edit/{tabToGo}', 'OrderController@edit', ['as'=>'admin'])->name('admin.order.edit.tabToGo');
+
+    // users
+    Route::resource('user', 'UserController', ['as'=>'admin']);
+    Route::get('user/{user}/edit/{tabToGo}', 'UserController@edit', ['as'=>'admin'])->name('admin.user.edit.tabToGo');
+
 });
 
 // front routes
@@ -111,6 +120,7 @@ Route::group(['namespace' => 'Front'], function(){
 
     // pages
     Route::get('/{page}', 'PageController@show')->name('front.page.show');
+
 
 });
 

@@ -107,7 +107,9 @@ class VisaController extends FrontBaseController
 
         $data = $request->all();
 
-        $calculator = new VisaCalculator($this->visaRepository->getForCalculationWithParametersById($id, $data['parameter']));
+        $parameter = $data['parameter'] ?? [];
+
+        $calculator = new VisaCalculator($this->visaRepository->getForCalculationWithParametersById($id, $parameter));
 
         $price = $calculator->calculate($data);
 

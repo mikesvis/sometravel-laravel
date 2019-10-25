@@ -11,6 +11,8 @@ use App\Repositories\Order\OrderRepository;
 class WizardHelper
 {
 
+    const STEPS_TOTAL = 3;
+
     public $visa;
     public $order;
     public $steps;
@@ -119,11 +121,12 @@ class WizardHelper
             'sum' => 0,
             'total' => 0,
             'order_params' => null,
-            'payment_method' => 0,
+            'payment_method' => null,
             'payment_params' => null,
             'email_sent_at' => null,
             'appliance_date' => null,
             'delivery_date' => null,
+            'management_notes' => null,
         ];
 
         $order = Order::create($attributes);

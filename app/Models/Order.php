@@ -9,6 +9,8 @@ use App\Models\Visa\Visa;
 use App\Models\Visa\Value;
 use App\Helpers\VisaHelper;
 use App\Helpers\OrderHelper;
+use App\Helpers\PhoneHelper;
+use App\Helpers\PaymentHelper;
 use App\Models\BaseAdminModel;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,11 +32,23 @@ class Order extends BaseAdminModel
         'email_sent_at',
         'appliance_date',
         'delivery_date',
+        'management_notes',
     ];
 
     public function getOrderNumberAttribute($value)
     {
         $result = str_pad($this->id, 8, '0', STR_PAD_LEFT);
+
+        return $result;
+    }
+
+    public function getPaymentIconAttribute()
+    {
+        $result = null;
+
+        if(!empty($this->payment_method)){
+            $result = PaymentHelper::getIconByIndex($this->payment_method);
+        }
 
         return $result;
     }
@@ -151,6 +165,78 @@ class Order extends BaseAdminModel
     public function visa()
     {
         return $this->belongsTo(Visa::class);
+    }
+
+    public function getHasVisaAttribute()
+    {
+        if(!empty($this->visa))
+            return true;
+
+        return false;
+    }
+
+    public function getVisaTitleAttribute()
+    {
+
+        if (isset($this->json_parameters['visa']['title'])) {
+            return $this->json_parameters['visa']['title'];
+        }
+
+        if($this->has_visa){
+            return $this->visa->title;
+        }
+
+        return 'Не найти заголовок';
+    }
+
+    public function getHasUserAttribute()
+    {
+        if(!empty($this->user))
+            return true;
+
+        return false;
+    }
+
+    public function getUserNameAttribute()
+    {
+
+        $result = [];
+
+        if (isset($this->json_parameters['user'])) {
+            $result[] = $this->json_parameters['user']['surname'] ?? null;
+            $result[] = $this->json_parameters['user']['name'] ?? null;
+            $result[] = $this->json_parameters['user']['patronymic'] ?? null;
+            return $result;
+        }
+
+        if($this->has_user){
+            $result[] = $this->user->surname;
+            $result[] = $this->user->name;
+            $result[] = $this->user->patronymic;
+            return $result;
+        }
+
+        return ['Не найти пользовтеля'];
+    }
+
+    public function getUserContactsAttribute()
+    {
+
+        $result = [];
+
+        if ($this->json_parameters['user']['phone']) {
+            $result['phone'] = 'Телефон: '.PhoneHelper::beautifyPhone($this->json_parameters['user']['phone']);
+        } elseif($this->has_user){
+            $result['phone'] = 'Телефон: '.PhoneHelper::beautifyPhone($this->user->phone);
+        }
+
+        if ($this->json_parameters['user']['email']) {
+            $result['email'] = 'E-mail: <a href="mailto:'.$this->json_parameters['user']['email'].'">'.$this->json_parameters['user']['email'].'</a>';
+        } elseif($this->has_user){
+            $result['email'] = 'E-mail: <a href="mailto:'.$this->user->email.'">'.$this->user->email.'</a>';
+        }
+
+        return $result;
     }
 
     public function scopeActive($query)

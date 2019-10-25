@@ -49,9 +49,6 @@
                         <div class="order-card__row-name mb-1">Данные о заказе</div>
                         <div class="order-card__detail-text">
                             <p>
-                                {{-- @isset($order->json_parameters['hotel'])
-                                    Наличие брони в гостинице: {{ ((bool)$order->json_parameters['hotel']) ? 'Да' : 'Нет' }}<br />
-                                @endisset  --}}
                                 @isset($order->json_parameters['persons'])
                                     Количество персон: {{ $order->json_parameters['persons'] }}<br />
                                 @endisset
@@ -104,6 +101,12 @@
                         <div class="order-card__row-name mb-1">Итог</div>
                         <div class="order-card__detail-text">
                             <p>
+                                @isset($order->appliance_date)
+                                    Дата подачи документов: {{ $order->appliance_date_simple }}<br />
+                                @endisset
+                                @isset($order->delivery_date)
+                                    Ожидаемая дата доставки: {{ $order->delivery_date_simple }}<br />
+                                @endisset
                                 Сумма заказа: {{ number_format($order->total, 0, ".", " ") }} руб.
                             </p>
                         </div>

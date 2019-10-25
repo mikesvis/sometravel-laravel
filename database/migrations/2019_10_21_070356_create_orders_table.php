@@ -25,11 +25,12 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('sum')->default(0);
             $table->unsignedBigInteger('total')->default(0);
             $table->text('order_params')->nullable();
-            $table->unsignedTinyInteger('payment_method')->default(0);
+            $table->unsignedTinyInteger('payment_method')->nullable();
             $table->text('payment_params')->nullable();
             $table->timestamp('email_sent_at')->nullable();
             $table->timestamp('appliance_date')->nullable();
             $table->timestamp('delivery_date')->nullable();
+            $table->text('management_notes')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

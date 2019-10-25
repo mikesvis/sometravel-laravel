@@ -8,7 +8,7 @@
                 {!! $calculator[$i] !!}
             @endfor
 
-            @if ($i % 2 != 0)
+            @if ($i % 2 != 0 && count($calculator) > 1)
                 {!! $calculator[count($calculator)-1] !!}
             @endif
 

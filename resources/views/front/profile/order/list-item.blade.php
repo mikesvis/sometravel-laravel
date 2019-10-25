@@ -27,7 +27,7 @@
             @isset($order->appliance_date_simple)
             <div class="row mb-1">
                 <div class="col-12 col-sm">
-                    <div class="order-item__props-label">Дата подача документов:</div>
+                    <div class="order-item__props-label">Дата подачи документов:</div>
                 </div>
                 <div class="col-12 col-sm-auto">
                     <div class="order-item__props-value">{{ $order->appliance_date_simple }}</div>
