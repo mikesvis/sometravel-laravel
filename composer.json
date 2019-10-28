@@ -12,6 +12,7 @@
         "alexusmai/laravel-file-manager": "^2.4",
         "caouecs/laravel-lang": "~4.0",
         "fideloper/proxy": "^4.0",
+        "kyslik/column-sortable": "^6.2",
         "laravel-notification-channels/smsc-ru": "^3.0",
         "laravel/framework": "^6.0",
         "laravel/helpers": "^1.1",

@@ -102,6 +102,9 @@
                                 <span class="input-group-append">
                                     <span class="input-group-text" data-toggle><i class="far fa-calendar"></i></span>
                                 </span>
+                                <span class="input-group-append">
+                                    <span class="input-group-text" title="clear" data-clear><i class="fas fa-times text-danger"></i></span>
+                                </span>
                                 @error('appliance_date')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
@@ -123,6 +126,9 @@
                                 >
                                 <span class="input-group-append">
                                     <span class="input-group-text" data-toggle><i class="far fa-calendar"></i></span>
+                                </span>
+                                <span class="input-group-append">
+                                    <span class="input-group-text" title="clear" data-clear><i class="fas fa-times text-danger"></i></span>
                                 </span>
                                 @error('delivery_date')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>

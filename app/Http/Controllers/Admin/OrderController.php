@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Helpers\Flash;
 use App\Helpers\OrderHelper;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Repositories\Order\OrderRepository;
+use App\Http\Requests\Order\OrderUpdateRequest;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
 class OrderController extends AdminBaseController
@@ -106,13 +108,22 @@ class OrderController extends AdminBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param  \App\Http\Requests\Order\OrderUpdateRequest  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(OrderUpdateRequest $request, $id)
     {
-        //
+        $order = $this->orderRepository->getForEditById($id);
+
+        $order->update($request->all());
+
+        Flash::add('Заказ обновлен');
+
+        if($request->has('apply'))
+            return redirect(route('admin.order.edit', $order->id))->withInput($request->only('tabToGo'));
+
+        return redirect(route('admin.order.index'));
     }
 
     /**
@@ -123,6 +134,9 @@ class OrderController extends AdminBaseController
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        Flash::add('Заказ удален.', 'error');
+        return redirect(route('admin.order.index'));
     }
 }

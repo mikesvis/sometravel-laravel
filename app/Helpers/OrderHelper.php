@@ -10,6 +10,17 @@ class OrderHelper
     const STATUS_FINISHED = 3;      // выполнен
     const STATUS_CANCELED = 10;     // отменен
 
+    public static function statusesWhiteList()
+    {
+        return [
+            self::STATUS_STARTED,
+            self::STATUS_ACCEPTED,
+            self::STATUS_PROCESSING,
+            self::STATUS_FINISHED,
+            self::STATUS_CANCELED,
+        ];
+    }
+
     public static function getOrderStatusesNames()
     {
         return [

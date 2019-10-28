@@ -167,7 +167,7 @@
 
                             </div>
                             {{-- /info panel item  --}}
-\
+
                         </div>
                         <!-- /form -->
 
