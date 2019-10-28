@@ -18,7 +18,7 @@
 
                 <div class="wizard__steps h4 font-weight-normal mb-4">Спасибо!</div>
 
-                <div class="wizard__steps h4 font-weight-normal vpm__mb"><strong>Заказ №{{ $order->order_number }}</strong> успешно оформлен, Наш менеджер скоро свяжется с вами.</div>
+                <div class="wizard__steps h4 font-weight-normal vpm__mb"><strong>Заказ #{{ $order->order_number }}</strong> успешно оформлен, Наш менеджер скоро свяжется с вами.</div>
 
                 <div class="row vpm__my vpm__py">
 

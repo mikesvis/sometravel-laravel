@@ -6,6 +6,8 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Helpers\WizardHelper;
 use App\Helpers\PaymentHelper;
+use App\Mail\Order\OrderCreate;
+use Illuminate\Support\Facades\Mail;
 use App\Repositories\Visa\VisaRepository;
 use App\Helpers\Calculator\VisaCalculator;
 use App\Repositories\Order\OrderRepository;
@@ -177,6 +179,14 @@ class OrderController extends FrontBaseController
         if(empty($order->visa))
             abort(404);
 
+        if(empty($order->email_sent_at)){
+            Mail::to($order->user)->send(new OrderCreate($order, false));
+            Mail::to(config('mail.from.address'))->send(new OrderCreate($order, true));
+            $order->update([
+                'email_sent_at' => \Carbon\Carbon::now()->setTimezone(config('app.timezone'))->toDateTimeString()
+            ]);
+        }
+
         $breadcrumbs = $this->setBreadcrumbs([
             ['name' => self::NAME,  'url' => null],
         ])->breadcrumbs;
@@ -185,6 +195,13 @@ class OrderController extends FrontBaseController
 
         return view('front.order.finish', compact('order', 'heading', 'breadcrumbs'));
 
+    }
+
+    public function testMailView($orderUuid)
+    {
+        $order = $this->orderRepository->getByUuid($orderUuid);
+
+        return (new OrderCreate($order, $is_for_admin = true))->render();
     }
 
     public function calculate(Request $request)

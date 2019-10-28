@@ -96,7 +96,6 @@
                     </div>
                     @endif
 
-                    @if (isset($order->json_parameters['parameter_regular']) && count($order->json_parameters['parameter_regular']))
                     <div class="order-card__row mb-4">
                         <div class="order-card__row-name mb-1">Итог</div>
                         <div class="order-card__detail-text">
@@ -111,7 +110,6 @@
                             </p>
                         </div>
                     </div>
-                    @endif
 
                 </div>
 
