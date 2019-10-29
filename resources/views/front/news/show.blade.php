@@ -32,11 +32,11 @@
 
     @include('front.news.module.inner', ['news' => $otherNews])
 
-    @include('front.components.forms.visa-question',
-                [
-                    'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
-                    'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит'
-                ]
-            )
+    @include('front.forms.inline.usual', [
+        'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
+        'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит',
+        'formId' => 'newsItemFeedbackForm',
+        'formTitle' => 'Форма обратной связи на новости'
+    ])
 
 @endsection

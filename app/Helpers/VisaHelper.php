@@ -2,6 +2,7 @@
 namespace App\Helpers;
 
 use App\Models\Visa\Visa;
+use App\Models\Visa\Value;
 use Illuminate\Http\Request;
 
 class VisaHelper
@@ -244,6 +245,94 @@ class VisaHelper
     public static function getDeliveryLegend()
     {
         return '<p><strong>Доставка документов курьером</strong>: Вашу визу и документы доставит наш курьер.</p>';
+    }
+
+    public static function composeParameters($data)
+    {
+        $result = [];
+
+        $values = Value::whereIn('values.id', $data)->with(['parameter' => function ($query){
+            $query->orderBy('ordering', 'asc');
+        }])->orderBy('values.ordering')->get();
+
+        foreach ($values as $value) {
+
+            $parameter = [
+                'name' => $value->parameter->title,
+                'value' => $value->title,
+                'price' => $value->price,
+            ];
+
+            $result[] = $parameter;
+        }
+
+        return $result;
+
+    }
+
+    public static function composeParametersRegular(Visa $visa, $data)
+    {
+        $result = [];
+
+        // подача "без присутствия"
+        if($visa->canBeAppliedAsService() && VisaHelper::requestedApplianceAsService($data)){
+
+            $regular = VisaHelper::calculatorApplication();
+            $value = VisaHelper::getNameByValue($regular, $data['parameter_regular']['application_type']);
+
+            $parameter = [
+                'name' => $regular['name'],
+                'value' => $value,
+                'price' => $visa->application_absence_price
+            ];
+
+            $result[] = $parameter;
+
+        }
+
+        // забор документов курьером
+        if($visa->canBeAccepted() && VisaHelper::requestedAcceptanceIsCourier($data)){
+
+            $regular = VisaHelper::calculatorAcceptance();
+            $value = VisaHelper::getNameByValue($regular, $data['parameter_regular']['acceptance_type']);
+
+            $parameter = [
+                'name' => $regular['name'],
+                'value' => $value,
+                'price' => $visa->acceptance_price
+            ];
+
+            $result[] = $parameter;
+        }
+
+        // доставка документов курьером
+        if($visa->canBeDelivered() && VisaHelper::requestedDeliveryIsCourier($data)){
+
+            $regular = VisaHelper::calculatorDelivery();
+            $value = VisaHelper::getNameByValue($regular, $data['parameter_regular']['delivery_type']);
+
+            $parameter = [
+                'name' => $regular['name'],
+                'value' => $value,
+                'price' => $visa->delivery_price
+            ];
+
+            $result[] = $parameter;
+        }
+
+        // страховка
+        if((bool)$visa->is_insurable && isset($data['parameter_regular']['insurance'])){
+
+            $parameter = [
+                'name' => 'Страховка',
+                'value' => $data['parameter_regular']['insurance'],
+                'price' => 0
+            ];
+
+            $result[] = $parameter;
+        }
+
+        return $result;
     }
 
 }

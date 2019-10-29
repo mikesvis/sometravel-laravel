@@ -1,6 +1,8 @@
 require('./bootstrap');
 
 require('./components/datepicker');
+require('./components/errors');
+require('./components/forms');
 require('./components/checkout-calculator');
 require('./components/menu');
 require('./components/number-spinner');

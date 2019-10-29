@@ -37,7 +37,7 @@
                                 <button type="submit" name="proceed" class="btn btn-primary rounded-pill btn-block"><strong>Оформить онлайн</strong></button>
                             </div>
                             <div class="col-12 col-sm-6 col-xxl-6 col-xxxl-6 mt-3 mt-sm-0">
-                                <span class="btn btn-outline-primary bg-white text-primary rounded-pill btn-block cursor-pointer"><strong>Оформить в офисе</strong></span>
+                                <span class="btn btn-outline-primary bg-white text-primary rounded-pill btn-block cursor-pointer" data-toggle="modal" data-target="#visaOfficeModal"><strong>Оформить в офисе</strong></span>
                             </div>
                         </div>
                     </div>

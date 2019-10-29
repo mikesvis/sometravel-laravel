@@ -121,6 +121,11 @@ Route::group(['namespace' => 'Front'], function(){
     Route::post('/napravlenija/calculate/{visaId}', 'VisaController@calculateVisaPage')->name('front.visa.calculate');
     Route::get('/napravlenija/kategorija/{category}', 'VisaController@showByCategory')->name('front.visa.filter');
 
+    // forms
+    Route::post('/forms/visa-office', 'FormsController@popupForm')->name('front.forms.visa-office');
+    Route::post('/forms/mainpage', 'FormsController@mainpageForm')->name('front.forms.mainpage');
+    Route::post('/forms/inline', 'FormsController@inlineForm')->name('front.forms.inline');
+
     // pages
     Route::get('/{page}', 'PageController@show')->name('front.page.show');
 

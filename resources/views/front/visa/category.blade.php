@@ -52,12 +52,12 @@
     </div>
 </div>
 
-@include('front.components.forms.visa-question',
-[
-'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
-'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит'
-]
-)
+@include('front.forms.inline.usual', [
+    'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
+    'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит',
+    'formId' => 'visaFilterFeedbackForm',
+    'formTitle' => 'Форма обратной связи на странице с фильтром визы'
+])
 
 @include('front.visa.module.other', ['items' => $otherVisas])
 

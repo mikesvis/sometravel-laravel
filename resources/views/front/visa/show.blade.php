@@ -56,6 +56,12 @@
     </form>
 </div>
 
+@include('front.forms.popup.usual', [
+    'modalId'=>'visaOfficeModal',
+    'modalTitle' => 'Оформить визу в офисе',
+    'formId' => 'visaOfficeForm',
+    'formDescription'=>'Укажите Ваши контактные данные и наш менеджер свяжется Вами'
+]);
 
 <div class="container vpm__mt vpm__pt">
     <div class="row">
@@ -139,12 +145,12 @@
 
 </div>
 
-@include('front.components.forms.visa-question',
-    [
-        'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
-        'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит'
-    ]
-)
+@include('front.forms.inline.usual', [
+    'heading' => '<span class="text-primary">У вас остались вопросы</span> по оформлению визы?',
+    'subHeading' => 'Оставьте номер телефона и наши специалист вам перезвонит',
+    'formId' => 'visaItemFeedbackForm',
+    'formTitle' => 'Форма обратной связи на странице визы'
+])
 
 @include('front.visa.module.other', ['items' => $otherVisas])
 
