@@ -58,6 +58,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.user.index') }}" class="nav-link  @if (Route::is('admin.user.*')) active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Пользователи</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.page.index') }}" class="nav-link  @if (Route::is('admin.page.*')) active @endif">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Страницы</p>

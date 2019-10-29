@@ -4,10 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Repositories\User\UserRepository;
+use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
-class UserController extends Controller
+class UserController extends AdminBaseController
 {
+
+    const NAME = 'Пользователи';
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * Class constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userRepository = app(UserRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +33,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $paginator = $this->userRepository->getAllWithPagination(self::ITEMS_PER_PAGE);
+
+        $breadcrumbs = $this->setBreadcrumbs([['name' => self::NAME, 'url' => null]])->breadcrumbs;
+
+        return view('back.user.index', compact('paginator', 'breadcrumbs'));
     }
 
     /**
