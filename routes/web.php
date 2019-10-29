@@ -126,6 +126,9 @@ Route::group(['namespace' => 'Front'], function(){
     Route::post('/forms/mainpage', 'FormsController@mainpageForm')->name('front.forms.mainpage');
     Route::post('/forms/inline', 'FormsController@inlineForm')->name('front.forms.inline');
 
+    // search
+    Route::get('/search', 'SearchController@results')->name('front.search.index');
+
     // pages
     Route::get('/{page}', 'PageController@show')->name('front.page.show');
 
