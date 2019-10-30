@@ -36,20 +36,19 @@ class UserRepository extends CoreRepository
     {
         $columns = [
             'id',
-            'surname',
+            \DB::raw('CONCAT(IFNULL(surname,""), " ", IFNULL(name,""), " ", IFNULL(patronymic, "")) as fio'),
             'name',
-            'patronymic',
             'email',
             'phone',
+            'userable_type',
             'updated_at',
             'created_at',
         ];
 
         $result = $this->startConditions()
             ->select($columns)
-            ->orderBy('surname', 'asc')
-            ->orderBy('name', 'asc')
-            ->orderBy('patronymic', 'asc')
+            ->withCount('orders')
+            ->sortable('fio')
             ->paginate($perPage);
 
         return $result;

@@ -63,6 +63,42 @@ class OrderRepository extends CoreRepository
     }
 
     /**
+     * Get all models with paginator
+     * @param  int|mixed|null $perPage
+     * @return \Illuminate\Contacts\Pagination\LengthAwarePaginator
+     */
+    public function getAllForUserWithPagination($userId, $perPage = null)
+    {
+        $columns = [
+            'id',
+            'uuid',
+            'visa_id',
+            'user_id',
+            'steps_completed',
+            'status',
+            'total',
+            'order_params',
+            'payment_method',
+            'payment_params',
+            'email_sent_at',
+            'appliance_date',
+            'delivery_date',
+            'created_at',
+            'updated_at',
+        ];
+
+        $result = $this->startConditions()
+            ->select($columns)
+            ->where('user_id', $userId)
+            ->with(['visa', 'user'])
+            ->orderBy('created_at', 'DESC')
+            ->paginate($perPage);
+
+        return $result;
+
+    }
+
+    /**
      * Get model for viewing by Id
      * @param  integer $id Id of record to be retrieved
      * @return Model

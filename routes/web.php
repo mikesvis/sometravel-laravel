@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // users
     Route::resource('user', 'UserController', ['as'=>'admin']);
     Route::get('user/{user}/edit/{tabToGo}', 'UserController@edit', ['as'=>'admin'])->name('admin.user.edit.tabToGo');
+    Route::get('user/{user}/show/{tabToGo}', 'UserController@show', ['as'=>'admin'])->name('admin.user.show.tabToGo');
 
 });
 

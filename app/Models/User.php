@@ -5,15 +5,18 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Helpers\PhoneHelper;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Sortable;
 
     const DATE_FORMAT = "d.m.Y";
+    const TIMEZONE = "Europe/Moscow";
+    const DATE_HUMAN_FORMAT = "DD MMM YYYY HH:mm";
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +31,16 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public $sortable = [
+        'id',
+        'fio',
+        'email',
+        'phone',
+        'updated_at',
+    ];
+
+    public $sortableAs = ['fio', 'orders_count'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -67,6 +80,45 @@ class User extends Authenticatable
             return Carbon::parse($this->userable->birthday)->format(self::DATE_FORMAT);
 
         return $value;
+    }
+
+    public function getCreatedAtHumanAttribute($value)
+    {
+        $value = $this->attributes['created_at'];
+        if(!empty($value))
+            return Carbon::parse($value)->timezone(self::TIMEZONE)->isoFormat(self::DATE_HUMAN_FORMAT);
+
+        return $value;
+
+    }
+
+    public function getUpdatedAtHumanAttribute($value)
+    {
+
+        $value = $this->attributes['updated_at'];
+
+        if(!empty($value))
+            return Carbon::parse($value)->timezone(self::TIMEZONE)->isoFormat(self::DATE_HUMAN_FORMAT);
+
+        return $value;
+
+    }
+
+    public function getTypeIconAttribute()
+    {
+        switch ($this->attributes['userable_type']) {
+            case 'App\Models\Administration':
+                return 'fa fa-user-shield text-danger';
+                break;
+            case 'App\Models\Client':
+                return 'fa fa-user text-success';
+                break;
+        }
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->surname.' '.$this->name.' '.$this->patronymic;
     }
 
     public function isAdmin()

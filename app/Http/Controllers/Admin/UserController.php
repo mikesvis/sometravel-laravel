@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Helpers\Flash;
 use Illuminate\Http\Request;
+use App\Helpers\WizardHelper;
 use App\Repositories\User\UserRepository;
+use App\Repositories\Order\OrderRepository;
 use App\Http\Controllers\Admin\BaseController as AdminBaseController;
 
 class UserController extends AdminBaseController
@@ -18,12 +21,18 @@ class UserController extends AdminBaseController
     private $userRepository;
 
     /**
+     * @var OrderRepository
+     */
+    private $orderRepository;
+
+    /**
      * Class constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->userRepository = app(UserRepository::class);
+        $this->orderRepository = app(OrderRepository::class);
     }
 
     /**
@@ -64,12 +73,32 @@ class UserController extends AdminBaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id, $tabToGo = 'primary')
     {
-        //
+
+        $breadcrumbs = $this->setBreadcrumbs(
+            [
+                ['name' => self::NAME, 'url' => route('admin.user.index')],
+                ['name' => 'Данные пользователя', 'url' => null]
+            ]
+        )->breadcrumbs;
+
+        $user = $this->userRepository->getForEditById($id);
+
+        if(empty($user))
+            abort(404);
+
+        $orders = $this->orderRepository->getAllForUserWithPagination($user->id, self::ITEMS_PER_PAGE);
+
+        $timezone = User::TIMEZONE;
+
+        $stepsTotal = WizardHelper::STEPS_TOTAL;
+
+        return view('back.user.show', compact('user', 'orders', 'timezone', 'stepsTotal', 'breadcrumbs', 'tabToGo'));
+
     }
 
     /**
@@ -103,6 +132,16 @@ class UserController extends AdminBaseController
      */
     public function destroy(User $user)
     {
-        //
+        if($user->isAdmin()){
+            Flash::add('Администратора нельзя удалить', 'error');
+            return redirect(route('admin.user.index'));
+        }
+
+        $user->userable()->delete();
+
+        $user->delete();
+
+        Flash::add('Пользователь удален.', 'error');
+        return redirect(route('admin.user.index'));
     }
 }
