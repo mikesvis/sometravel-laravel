@@ -242,12 +242,14 @@ class RegisterController extends BaseController
             'phone' => $phone,
             'code' => $code,
             'code_sent_at' => \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
-            'verified_at'=> null,
+            'verified_at'=> (config('app.env') == 'production') ? null : \Carbon\Carbon::now()->format("Y-m-d H:i:s"),
             'ip' => $_SERVER['REMOTE_ADDR'],
             'token' => PhoneHelper::generateToken($phone, $code)
         ]);
 
-        // $phoneVerification->notify(new VerificationCodeSent($phoneVerification->code));
+        if(config('app.env') == 'production'){
+            $phoneVerification->notify(new VerificationCodeSent($phoneVerification->code));
+        }
 
         return true;
 
