@@ -128,7 +128,7 @@
                 </div>
                 <!-- /top countries buttons -->
                 <!-- top search -->
-                @include('front.search.module', compact('searchWord'))
+                @include('front.search.module', ['searchWord' => $searchWord ?? null])
                 <!-- top search -->
             </div>
         </div>
