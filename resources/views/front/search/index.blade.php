@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @include('front.components.breadcrumbs', compact('breadcrumbs'))
+    @include('front.components.breadcrumbs', ['breadcrumbs' => $breadcrumbs ?? null])
 
     @include('front.components.page-heading', ['heading' => 'Результаты поиска'])
 

@@ -38,7 +38,7 @@
                         <div class="col">
                             <h1 class="m-0 text-dark">@yield('header')</h1>
                         </div><!-- /.col -->
-                        @include('back.components.breadcrumbs', compact('breadcrumbs'))
+                        @include('back.components.breadcrumbs', ['breadcrumbs' => $breadcrumbs ?? null])
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>

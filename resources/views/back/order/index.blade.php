@@ -20,7 +20,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
-        <table class="table table-hover table-bordered layout-fixed">
+        <table class="table table-hover table-bordered layout-fixed" style="min-width: 1500px">
             <thead>
                 <tr class="text-center">
                     <th style="width: 160px" class="text-center">№ и Дата</th>

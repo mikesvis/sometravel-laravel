@@ -1,10 +1,10 @@
 <a href="{{ route('admin.parameter.create', $visa) }}" class="btn btn-outline-success">
     <em class="fas fa-plus mr-1"></em> Добавить параметр
 </a>
-
-<table class="table table-hover table-bordered layout-fixed my-4">
+<div class="card-body table-responsive p-0">
+<table class="table table-hover table-bordered layout-fixed my-4" style="min-width: 1500px">
     <thead>
-        <tr>
+        <tr class="border-top">
             <th>Параметр</th>
             <th style="width: 20%">Название в калькуляторе</th>
             <th style="width: 80px" class="text-center"><em class="fas fa-calculator fa-lg" title="Присутствует в калькуляторе"></em></th>
@@ -134,7 +134,7 @@
         @endforelse
     </tbody>
 </table>
-
+</div>
 <a href="{{ route('admin.parameter.create', $visa) }}" class="btn btn-outline-success mb-4">
     <em class="fas fa-plus mr-1"></em> Добавить параметр
 </a>

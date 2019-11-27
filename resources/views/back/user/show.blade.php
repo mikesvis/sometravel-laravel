@@ -83,7 +83,7 @@ $tabToGo = (old('tabToGo') != null) ? old('tabToGo') : '#'.$tabToGo;
             {{-- seo --}}
             <div class="tab-pane {{ (($tabToGo == '#orders') ? "active show":"") }}" id="orders" role="tabpanel" aria-labelledby="orders">
 
-                <table class="table table-hover table-bordered layout-fixed">
+                <table class="table table-hover table-bordered layout-fixed" style="min-width: 1500px">
                     <thead>
                         <tr class="text-center">
                             <th style="width: 160px" class="text-center">№ и Дата</th>

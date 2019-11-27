@@ -20,7 +20,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
-        <table class="table table-hover layout-fixed">
+        <table class="table table-hover layout-fixed" style="min-width: 1500px">
             <thead>
                 <tr>
                     <th style="width: 200px">Страна</th>

@@ -23,12 +23,12 @@ class MenuHelper
                 'current' => Route::is('front.news.index'),
                 'active' => Route::is('front.news.*'),
             ],
-            [
+/*            [
                 'name' => 'Купить франшизу',
                 'url' => route('front.page.show', 'kupit-franshizu'),
                 'current' => (Route::is('front.page.show') && request('page') == 'kupit-franshizu'),
                 'active' => false,
-            ],
+            ],*/
             [
                 'name' => 'О нас',
                 'url' => route('front.page.show', 'o-nas'),
