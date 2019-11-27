@@ -28,13 +28,15 @@
                     <div class="footerAddress">
                         <div class="footerAddress__item">
                             <p>
-                                Главный офис: Санкт-Петербург,<br /> ул. Садовая д. 1, оф. 418
+                                {!! @env('ADDRESS_FOOTER', '') !!}
                             </p>
                         </div>
                         <div class="footerAddress__phone">
                             <p class="mb-md-0">
-                                <a href="tel:88000000000" class="footerAddress__phoneLink d-block d-md-none">8 (800) 000-00-00</a>
-                                <span class="footerAddress__phoneLink d-none d-md-block">8 (800) 000-00-00</span>
+                                    @include('front.components.main-phone', [
+                                        'aTemplate' => '<a href="tel:!PHONE_NUMBER!" class="footerAddress__phoneLink d-block d-md-none">!PHONE_NUMBER_HUMAN!</a>',
+                                        'spanTemplate'=> '<span class="footerAddress__phoneLink d-none d-md-block">!PHONE_NUMBER_HUMAN!</span>'
+                                    ])
                             </p>
                         </div>
                     </div>

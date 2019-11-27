@@ -70,8 +70,10 @@
         <div class="heading row vpm__mt mb-3">
             <div class="col-12">
                 <div class="heading__text text-center mb-1">
-                    <span class="text-primary d-none d-md-block">8-800-000-00-00</span>
-                    <a href="tel:88000000000" class="text-primary d-block d-md-none text-decoration-none">8-800-000-00-00</a>
+                    @include('front.components.main-phone', [
+                        'aTemplate' => '<a href="tel:!PHONE_NUMBER!" class="text-primary d-block d-md-none text-decoration-none">!PHONE_NUMBER_HUMAN!</a>',
+                        'spanTemplate'=> '<span class="text-primary d-none d-md-block">!PHONE_NUMBER_HUMAN!</span>'
+                    ])
                 </div>
                 <p class="text-center">Бесплатный звонок</p>
             </div>

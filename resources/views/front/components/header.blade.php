@@ -50,7 +50,8 @@
                         <!-- address -->
                         <div class="topAddress topPanel__addressWrapper d-none d-lg-block d-xl-none d-xxl-block">
                             <div class="topAddress__item">
-                                <span class="topAddress__text"><em class="topAddress__icon fas fa-map-marker-alt mr-2"><!-- icon --></em> ул. Садовая д1 оф 418</span>
+                                <span class="topAddress__text"><em class="topAddress__icon fas fa-map-marker-alt mr-2"><!-- icon --></em>
+                                {!! @env('ADDRESS_HEADER', '') !!}</span>
                             </div>
                         </div>
                         <!-- /address -->
@@ -60,10 +61,8 @@
                             <div class="topPhone__item">
                                     @include('front.components.main-phone', [
                                         'aTemplate' => '<a class="topPhone__text d-lg-none" href="tel:!PHONE_NUMBER!"><em class="topPhone__icon fas fa-mobile-alt mr-md-2"><!-- icon --></em><span class="d-none d-md-inline-block"> !PHONE_NUMBER_HUMAN!</span></a>',
-                                        'spanTemplate'=> '<span class="topPhone__text d-none d-lg-block"><em class="topPhone__icon fas fa-mobile-alt mr-2"><!-- icon --></em> !PHONE_NUMBER_HUMAN!1</span>'
+                                        'spanTemplate'=> '<span class="topPhone__text d-none d-lg-block"><em class="topPhone__icon fas fa-mobile-alt mr-2"><!-- icon --></em> !PHONE_NUMBER_HUMAN!</span>'
                                     ])
-
-
                             </div>
                         </div>
                         <!-- /phone -->

@@ -110,9 +110,9 @@
                 <!-- text -->
                 <div class="listingText listingCard__textHolder p-4 pb-5 d-flex flex-column flex-grow-1">
                     <div class="listingText__heading mb-3">В офисе визового центра</div>
-                    <div class="listingText__description flex-grow-1 mb-5">Вы можете оформить визу в нашщем офисе по адресу: Улица, город, дом 18</div>
+                    <div class="listingText__description flex-grow-1 mb-5">Вы можете оформить визу в нашем офисе по адресу: {!! @env('ADDRESS_VISA_PAGE', '') !!}</div>
                     <div class="listingText__buttonWrapper text-center">
-                        <span class="listingText__button btn btn-primary rounded-pill py-3 px-5 text-white cursor-pointer"><span class="px-5">Оформить</span></span>
+                        <span class="listingText__button btn btn-primary rounded-pill py-3 px-5 text-white cursor-pointer" data-toggle="modal" data-target="#visaOfficeModal"><span class="px-5">Оформить</span></span>
                     </div>
                 </div>
                 <!-- /text -->
